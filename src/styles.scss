@@ -1,1 +1,91 @@
-/* You can add global styles to this file, and also import other style files */
+@import "primeicons/primeicons.css";
+@import 'primeflex/primeflex.scss';
+
+@layer reset, primeng;
+
+@layer reset {
+  button {
+    &:focus {
+      box-shadow: none;
+    }
+  }
+}
+
+:root {
+  --primary-color: #236958;
+  --secondary-color: white;
+}
+
+body{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+
+  font-size: 1.1rem;
+  // font-weight: 400;
+
+  font-family: Poppins, sans-serif;
+  --font-family: Poppins, sans-serif;
+
+  // font-family: Inter var, sans-serif;
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  font-variation-settings: normal;
+  // --font-family: "Inter var", sans-serif;
+  --font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+}
+
+.card {
+  @media screen and (max-width: 1000px) {
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+}
+
+h3,h1,h2 {
+  margin: 0;
+  padding: auto;
+}
+
+.all-container{
+  margin: 5px;
+}
+
+.main-div{
+  z-index: 999;
+}
+
+.shadow-div{
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+
+  background: rgba(0, 0, 0, 0.7);
+
+  z-index: 99;
+}
+
+*{
+  &::-webkit-scrollbar {
+    width: 4px;
+    height: 8px;
+  }
+  &::-webkit-scrollbar-track {
+      background: transparent;
+  }
+  &::-webkit-scrollbar-thumb {
+      background: #AAA;
+  }
+}
+
+// Removendo os botões de inputs type number:
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number]{
+  -moz-appearance: textfield;
+}
