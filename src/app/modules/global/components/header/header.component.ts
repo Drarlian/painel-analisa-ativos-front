@@ -1,35 +1,131 @@
 import { Component, inject } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
-import { ToolbarModule } from 'primeng/toolbar';
-import { SplitButtonModule } from 'primeng/splitbutton';
 import { MenuItem } from 'primeng/api';
-import { SidebarComponent } from '../sidebar/sidebar.component';
-import {AvatarModule} from 'primeng/avatar';
-import {AvatarGroupModule} from 'primeng/avatargroup';
+// import { SidebarComponent } from '../sidebar/sidebar.component';
+import { AvatarModule } from 'primeng/avatar';
 import { CommonModule } from '@angular/common';
+import { MenubarModule } from 'primeng/menubar';
+import { BadgeModule } from 'primeng/badge';
+import { ThemeService } from '../../../../services/theme/theme.service';
+import { RippleModule } from 'primeng/ripple';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [ToolbarModule, ButtonModule, SplitButtonModule, InputTextModule, SidebarComponent, AvatarModule, AvatarGroupModule, CommonModule],
+  imports: [MenubarModule, BadgeModule, AvatarModule, InputTextModule, RippleModule, CommonModule, ButtonModule],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
 })
 export class HeaderComponent {
+  themeService = inject(ThemeService);
+
+  actualTheme!: string;
+
   items: MenuItem[] | undefined;
 
   ngOnInit() {
-      this.items = [
+    this.items = [
+      {
+        label: 'Home',
+        icon: 'pi pi-home'
+      },
+      // {
+      //   label: 'Features',
+      //   icon: 'pi pi-star'
+      // },
+      {
+        label: 'Ações',
+        icon: 'pi pi-chart-line',
+        items: [
           {
-              label: 'Update',
-              icon: 'pi pi-refresh'
+            label: 'Todas',
+            icon: 'pi pi-bolt',
+            shortcut: '⌘+S'
           },
           {
-              label: 'Delete',
-              icon: 'pi pi-times'
+            label: 'Setores',
+            icon: 'pi pi-server',
+            shortcut: '⌘+B'
+          },
+          {
+            label: 'Mais Vistas',
+            icon: 'pi pi-pencil',
+            shortcut: '⌘+U'
+          },
+          {
+            separator: true
+          },
+          {
+            label: 'Templates',
+            icon: 'pi pi-palette',
+            items: [
+                {
+                  label: 'Apollo',
+                  icon: 'pi pi-palette',
+                  badge: '2'
+                },
+                {
+                  label: 'Ultima',
+                  icon: 'pi pi-palette',
+                  badge: '3'
+                }
+            ]
           }
-      ];
+        ]
+      },
+      {
+        label: 'Fiis',
+        icon: 'pi pi-chart-bar',
+        items: [
+          {
+            label: 'Todos',
+            icon: 'pi pi-bolt',
+            shortcut: '⌘+S'
+          },
+          {
+            label: 'Setores',
+            icon: 'pi pi-server',
+            shortcut: '⌘+B'
+          },
+          {
+            label: 'Mais Vistos',
+            icon: 'pi pi-pencil',
+            shortcut: '⌘+U'
+          },
+        ]
+      },
+      {
+        label: 'Tesouro Direto',
+        icon: 'pi pi-chart-pie',
+        items: [
+          {
+            label: 'Pré Fixado',
+            icon: 'pi pi-bolt',
+            shortcut: '⌘+S'
+          },
+          {
+            label: 'Pós Fixado',
+            icon: 'pi pi-server',
+            shortcut: '⌘+B'
+          },
+        ]
+      }
+    ];
+
+    this.themeService.themeInformation.subscribe(data => this.actualTheme = data);
+  }
+
+  toggleTheme(){
+    this.themeService.toggleDarkMode();
+  }
+
+  checkTheme(){
+    if (this.actualTheme == 'dark'){
+      return 'pi pi-moon'
+    } else {
+      return 'pi pi-sun'
+    }
   }
 
   openNotification(){

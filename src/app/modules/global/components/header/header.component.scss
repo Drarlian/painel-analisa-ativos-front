@@ -1,48 +1,60 @@
-.header{
-  // position: sticky;
-  // top: 5px;
-  // z-index: 10000;
-}
-
-.p-toolbar {
-  position: sticky;
-  position: -webkit-sticky; // Needed for Safari browsers.
-  z-index: 10000; // This prevents elements to be seen through the toolbar.
-  top: 0; // Required for "position: sticky" to take effect.
-}
-
-.notification{
-  font-size: 1.3rem;
-  cursor: pointer;
-
+:host ::ng-deep .p-menubar {
   background-color: transparent;
-  border: none;
 
-  &::after {
-    content: '';
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background: rgb(231, 43, 43);
+  position: fixed;
+  height: 70px;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  width: 100%;
+  justify-content: space-between;
 
-    position: absolute;
+  padding-left: 50px;
+  padding-right: 50px;
+  user-select: none;
 
-    top: -4px;
-    right: -1px;
-    // border: 2px solid transparent;
+  font-size: 20px;
+
+  border-radius: 0;
+  border-top: 0;
+  border-left: 0;
+  border-right: 0;
+  border-bottom: solid 0.5px var(--main-color);
 }
 
-  animation: balancar 2.5s ease-in-out infinite;
+:host ::ng-deep .p-menubar-end{
+  margin-left: 0% !important;
+}
 
-  @keyframes balancar {
-    0% {
-      transform: rotate(12deg);
-    }
-    50% {
-      transform: rotate(-12deg);
-    }
-    100% {
-      transform: rotate(12deg);
-    }
+:host ::ng-deep .p-button {
+  background-color: transparent !important; /* Cor de fundo */
+  color: var(--main-color) !important;              /* Cor do texto */
+  border: none !important;             /* Sem borda */
+  padding: 12px 24px;       /* Espaçamento interno */
+  font-size: 20px !important;          /* Tamanho da fonte */
+  border-radius: 4px;       /* Bordas arredondadas */
+  // box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Sombra inicial */
+  transition: box-shadow 0.3s ease, transform 0.3s ease; /* Transição suave */
+  cursor: pointer;          /* Cursor pointer ao passar o mouse */
+
+  &:hover{
+    background-color: transparent !important;
+    color: var(--main-color) !important;
+    border: none !important;
+    // box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Sombra mais acentuada no hover */
+    box-shadow: 0 4px 8px var(--main-color); /* Sombra mais acentuada no hover */
+    transform: translateY(-2px);             /* Leve elevação no hover */
   }
+}
+
+.img-logo{
+  width: 15%;
+  height: 15%;
+  border-radius: 50%;
+}
+
+h3 {
+  text-transform: uppercase;
+  font-style: italic;
 }

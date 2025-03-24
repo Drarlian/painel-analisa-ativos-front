@@ -1,5 +1,7 @@
 @import "primeicons/primeicons.css";
-@import 'primeflex/primeflex.scss';
+// @import 'primeflex/primeflex.scss';
+@import '../src/theme-dark.scss';
+@import '../src/theme-light.scss';
 
 @layer reset, primeng;
 
@@ -14,6 +16,8 @@
 :root {
   --primary-color: #236958;
   --secondary-color: white;
+
+  --main-color: '';
 }
 
 body{
@@ -23,6 +27,8 @@ body{
 
   font-size: 1.1rem;
   // font-weight: 400;
+
+  // background: linear-gradient(135deg, #E8F8F5 0%, #FFFFFF 100%);
 
   font-family: Poppins, sans-serif;
   --font-family: Poppins, sans-serif;
