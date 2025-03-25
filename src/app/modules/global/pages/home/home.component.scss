@@ -1,24 +1,46 @@
 .home-page{
-  display: flex;
-  // justify-content: center;
-  // align-items: center;
-  margin-top: 72px;
-  height: 100vh;
   // background-color: pink;
-  box-sizing: border-box;
+
+  margin: 0;
+  padding: 0;
+
+  width: 100%;
+  margin-top: 2px;
+  // height: calc(100vh - 72px);
+  // height: 100%;
+
+  display: flex;
   flex-direction: column;
+  align-items: center;
+  // justify-content: center;
+  // margin-top: 72px;
+  // height: calc(100vh - 97px);
+  // box-sizing: border-box;
+  // flex-direction: column;
+
+  @media (max-width: 600px){
+    height: 100%;
+    margin-bottom: 15px;
+  }
 
   .main-area{
-    // background-color: red;
+    background-color: transparent;
 
     display: flex;
     flex-direction: column;
-    margin-top: 6%;
+    margin-top: 5%;
     gap: 1.5rem;
+    padding: 10px;
+
+    border-radius: 15px;
+    // box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 3px 8px var(--main-color);
+
+    width: 80%;
 
     h2 {
       text-align: center;
-      font-size: 2rem;
+      margin-top: 10px;
     }
 
     .input-area{
@@ -28,9 +50,8 @@
       justify-content: center;
       margin-top: 1%;
 
-      input{
-        height: 60px;
-        width: 60%
+      label{
+        color: var(--main-color);
       }
     }
 
@@ -42,8 +63,132 @@
       align-items: center;
       flex-direction: column;
 
+      text-align: center;
+
       padding-left: 15px;
       padding-right: 15px;
     }
+  }
+
+  .ativos-cards{
+    background-color: transparent;
+
+    display: flex;
+    flex-direction: row;
+    margin-top: 2%;
+    gap: 1.5rem;
+    padding: 10px;
+    width: 80%;
+
+    @media (max-width: 600px){
+      flex-direction: column;
+      margin-top: 5%;
+      padding: 0px;
+    }
+
+    // border-radius: 15px;
+    // box-shadow: 0 3px 8px var(--main-color);
+
+    .ativo{
+      // background-color: red;
+
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+
+      padding-bottom: 10px;
+
+      border-radius: 15px;
+      box-shadow: 0 3px 8px var(--main-color);
+
+      h2{
+        margin-top: 15px;
+        text-align: center;
+      }
+
+      .ativo-item{
+        ul {
+          display: flex;
+          flex-direction: column;
+          // gap: 10px;
+          // margin: 0;
+          padding: 0;
+
+          li{
+            // background-color: red;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 50px;
+            padding: 20px;
+            // border-radius: 5px;
+
+            list-style-type: none;
+
+            cursor: pointer;
+
+            transition: 0.4s all ease;
+
+            &:hover {
+              background-color: rgba(0, 0, 0, 0.2);
+            }
+          }
+        }
+
+        .button-area {
+          // background-color: red;
+
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+      }
+    }
+  }
+}
+
+:host ::ng-deep #input_ativo {
+  width: 600px;
+  height: 50px;
+
+  border-radius: 11px;
+  border: 2px solid var(--main-color);
+
+  // border-color: var(--main-color);
+  background-color: transparent;
+  box-shadow: 0 3px 8px var(--main-color);
+
+  color: var(--main-color);
+
+  align-items: center;
+
+  @media (max-width: 600px){
+    width: 100%;
+  }
+}
+
+:host ::ng-deep .p-inputicon {
+  color: var(--main-color);
+}
+
+:host ::ng-deep .p-button {
+  background-color: transparent !important; /* Cor de fundo */
+  color: var(--main-color) !important;              /* Cor do texto */
+  border: none !important;             /* Sem borda */
+  padding: 12px 24px;       /* Espaçamento interno */
+  font-size: 20px !important;          /* Tamanho da fonte */
+  border-radius: 4px;       /* Bordas arredondadas */
+  box-shadow: 0 2px 4px var(--main-color); /* Sombra inicial */
+  transition: box-shadow 0.3s ease, transform 0.3s ease; /* Transição suave */
+  cursor: pointer;          /* Cursor pointer ao passar o mouse */
+
+  &:hover{
+    background-color: transparent !important;
+    color: var(--main-color) !important;
+    border: none !important;
+    // box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Sombra mais acentuada no hover */
+    box-shadow: 0 4px 8px var(--main-color); /* Sombra mais acentuada no hover */
+    transform: translateY(-2px);             /* Leve elevação no hover */
   }
 }

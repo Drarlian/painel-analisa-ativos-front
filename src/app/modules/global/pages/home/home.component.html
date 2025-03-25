@@ -1,22 +1,99 @@
-<div class="all-container">
-  <app-header></app-header>
+<div class="home-page">
+  <div class="main-area">
+    <h2>Experimente a revolução na gestão de ativos e veja como é fácil investir com confiança!</h2>
+    <!-- <h2>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut vestibulum  mollis nisl, e!</h2> -->
 
-  <div class="home-page">
-    <div class="main-area">
-      <h2>Experimente a revolução na gestão de ativos e veja como é fácil investir com confiança!</h2>
-      <!-- <h2>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut vestibulum  mollis nisl, e!</h2> -->
+    <div class="input-area">
+      <!-- <input type="text" pInputText placeholder="Digite um ativo..." /> -->
 
-      <div class="input-area">
-        <input type="text" pInputText placeholder="Pesquisar..." />
-      </div>
+      <p-floatlabel>
+        <p-iconfield>
+          <input pInputText id="input_ativo" autocomplete="off" />
+          <p-inputicon class="pi pi-search" />
+        </p-iconfield>
+        <label for="input_ativo">Ativo desejado</label>
+    </p-floatlabel>
+    </div>
 
-      <div class="more-info">
-        <p>Descubra o caminho para investimentos inteligentes com análises fundamentalistas automatizadas e estruturadas.</p>
-        <p [style]="{marginTop: '-13px'}">Nossa plataforma transforma dados do mercado em insights claros e precisos.</p>
+    <div class="more-info">
+      <p>Descubra o caminho para investimentos inteligentes com análises fundamentalistas automatizadas e estruturadas.</p>
+      <p [style]="{marginTop: '-2px'}">Nossa plataforma transforma dados do mercado em insights claros e precisos.</p>
+    </div>
+  </div>
+  <div class="ativos-cards">
+    <div class="ativo">
+      <h2>Ações</h2>
+
+      <div class="ativo-item">
+        <ul>
+          <li>
+            <span>PETR3</span> <span>R$10</span>
+          </li>
+          <li>
+            <span>ITSA3</span> <span>R$10</span>
+          </li>
+          <li>
+            <span>VALE3</span> <span>R$10</span>
+          </li>
+          <li>
+            <span>WEGE3</span> <span>R$10</span>
+          </li>
+        </ul>
+
+        <div class="button-area">
+          <p-button label="Ver todas" icon="pi pi-arrow-right" iconPos="right"></p-button>
+        </div>
       </div>
     </div>
-    <div class="ativos-cards">
-      <!-- <p>blablablabla</p> -->
+
+    <div class="ativo">
+      <h2>Fiis</h2>
+
+      <div class="ativo-item">
+        <ul>
+          <li>
+            <span>KNRI11</span> <span>R$20</span>
+          </li>
+          <li>
+            <span>XPML11</span> <span>R$20</span>
+          </li>
+          <li>
+            <span>HGLG11</span> <span>R$20</span>
+          </li>
+          <li>
+            <span>NSLU11</span> <span>R$20</span>
+          </li>
+        </ul>
+
+        <div class="button-area">
+          <p-button label="Ver todos" icon="pi pi-arrow-right" iconPos="right"></p-button>
+        </div>
+      </div>
     </div>
-</div>
+
+    <div class="ativo">
+      <h2>Tesouro Direto</h2>
+
+      <div class="ativo-item">
+        <ul>
+          <li>
+            <span>SELIC</span> <span>R$30</span>
+          </li>
+          <li>
+            <span>IPCA</span> <span>R$30</span>
+          </li>
+          <li>
+            <span>PRÉ FIXADO</span> <span>R$30</span>
+          </li>
+          <li>
+            <span>ALGO AQUI</span> <span>R$30</span>
+          </li>
+        </ul>
+
+        <div class="button-area">
+          <p-button label="Ver todos" icon="pi pi-arrow-right" iconPos="right"></p-button>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

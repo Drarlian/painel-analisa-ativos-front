@@ -8,7 +8,7 @@ export const routes: Routes = [
   },
   {
     path: 'home',
-    loadComponent: () => import('../app/modules/global/pages/home/home.component').then((m) => m.HomeComponent)
+    loadComponent: () => import('../app/modules/global/components/basic-layout/basic-layout.component').then((m) => m.BasicLayoutComponent)
   },
   {
     path: '**',

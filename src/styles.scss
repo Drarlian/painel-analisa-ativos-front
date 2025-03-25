@@ -23,6 +23,9 @@
 body{
   margin: 0;
   padding: 0;
+  width: 100%;
+  height: 100%; /* Permite usar 100% de altura no body */
+  min-height: 100vh; /* Garante altura mínima de 100% da viewport */
   box-sizing: border-box;
 
   font-size: 1.1rem;
@@ -38,6 +41,10 @@ body{
   font-variation-settings: normal;
   // --font-family: "Inter var", sans-serif;
   --font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+
+  @media (max-width: 600px){
+    font-size: 1rem;
+  }
 }
 
 .card {
@@ -50,6 +57,14 @@ body{
 h3,h1,h2 {
   margin: 0;
   padding: auto;
+}
+
+h2{
+  font-size: 2rem;
+
+  @media (max-width: 600px){
+    font-size: 1.5rem;
+  }
 }
 
 .all-container{
