@@ -1,0 +1,142 @@
+.analitic-page{
+  // background-color: red;
+
+  margin: 0;
+  padding: 0;
+
+  width: 100%;
+  margin-top: 2px;
+  gap: 20px;
+  // height: calc(100vh - 72px);
+  // height: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  // justify-content: center;
+  // margin-top: 72px;
+  // height: calc(100vh - 97px);
+  // box-sizing: border-box;
+  // flex-direction: column;
+
+  @media (max-width: 600px){
+    height: 100%;
+    margin-bottom: 15px;
+  }
+
+  .title-card{
+    // background-color: pink;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+
+    border-radius: 15px;
+
+    margin-top: 25px;
+    // padding: 20px;
+
+    h2{
+      // color: var(--title-color);
+    }
+  }
+
+  .sub-title-card{
+    // background-color: red;
+
+    display: flex;
+    // align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+
+    width: 80%;
+
+    @media (max-width: 600px){
+      flex-direction: column;
+      width: 80%;
+    }
+  }
+
+  .avaliation-card{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+
+    border-radius: 15px;
+  }
+
+  .informations-card{
+    // background-color: red;
+
+    display: flex;
+    align-items: center;
+    // justify-content: center;
+    justify-content: space-between;
+    gap: 15px;
+
+    width: 80%;
+
+    .information-note {
+      // background-color: red;
+
+      display: flex;
+      justify-content: end;
+      width: 100%;
+
+      h3{
+        display: flex;
+        justify-content: center;
+        gap: 6px;
+      }
+    }
+
+    .cards-container{
+      // background-color: red;
+
+      display: flex;
+      align-items: center;
+      justify-content: start;
+      // max-width: 1450px;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin: 0 auto;
+
+      .card{
+        display: flex;
+        flex-grow: 1;
+
+        width: 350px;
+        flex-direction: column;
+        flex-basis: 200;
+
+        cursor: pointer;
+
+        .card-info{
+          font-size: 1.2rem;
+
+          white-space: nowrap;  // Não permite que o conteúdo quebre uma linha.
+          overflow: hidden;  // Esconde o conteúdo que passar do limite do max-width
+          text-overflow: ellipsis;  // Coloca os ... quando o espaço acabar.
+          max-width: 100%;  // Determinando o espaço máximo que esse texto pode ocupar.
+        }
+      }
+    }
+  }
+}
+
+
+:host ::ng-deep .p-card {
+  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16), 0px 3px 6px rgba(0, 0, 0, 0.23);
+}
+
+:host ::ng-deep .p-card .good {
+  border: 2px solid green;
+  border-radius: 12px;
+}
+
+:host ::ng-deep .p-card .bad {
+  border: 2px solid red;
+  border-radius: 12px;
+}

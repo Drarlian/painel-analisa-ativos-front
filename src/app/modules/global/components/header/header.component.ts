@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component, inject } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
@@ -19,6 +20,7 @@ import { RippleModule } from 'primeng/ripple';
 })
 export class HeaderComponent {
   themeService = inject(ThemeService);
+  private router = inject(Router);
 
   actualTheme!: string;
 
@@ -28,7 +30,8 @@ export class HeaderComponent {
     this.items = [
       {
         label: 'Home',
-        icon: 'pi pi-home'
+        icon: 'pi pi-home',
+        command: () => this.navigateTo('home')
       },
       // {
       //   label: 'Features',
@@ -130,5 +133,15 @@ export class HeaderComponent {
 
   openNotification(){
     // this.notificationsService.toggleVisibility();
+  }
+
+  navigateTo(route: string){
+    // this.sidebarVisible = false;
+    this.router.navigate([route]);
+  }
+
+  navigateToWithQuery(route: string, target: string){
+    // this.sidebarVisible = false;
+    this.router.navigate([route], { queryParams: { target } });
   }
 }

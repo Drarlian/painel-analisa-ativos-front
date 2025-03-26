@@ -11,6 +11,10 @@ export const routes: Routes = [
     loadComponent: () => import('../app/modules/global/components/basic-layout/basic-layout.component').then((m) => m.BasicLayoutComponent)
   },
   {
+    path: 'analitic',
+    loadComponent: () => import('../app/modules/global/components/analitic-layout/analitic-layout.component').then((m) => m.AnaliticLayoutComponent)
+  },
+  {
     path: '**',
     redirectTo: 'multimarcas',
   },
