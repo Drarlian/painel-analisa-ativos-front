@@ -36,7 +36,7 @@ export const MyPreset = definePreset(Aura, {
         primary: {
           50: '{rose.50}',
           100: '{rose.100}',
-          200: '{rose.200}',
+          200: '#00926b',
           300: '{rose.300}',
           400: '{rose.400}',
           500: '#00926b',

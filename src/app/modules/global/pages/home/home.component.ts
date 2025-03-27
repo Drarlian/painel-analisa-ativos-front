@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { InputTextModule } from 'primeng/inputtext';
 import { RippleModule } from 'primeng/ripple';
 import { CommonModule } from '@angular/common';
@@ -7,6 +7,7 @@ import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -15,5 +16,10 @@ import { CardModule } from 'primeng/card';
   styleUrl: './home.component.scss'
 })
 export class HomeComponent {
+  private router = inject(Router);
 
+  navigateTo(route: string){
+    // this.sidebarVisible = false;
+    this.router.navigate([route]);
+  }
 }

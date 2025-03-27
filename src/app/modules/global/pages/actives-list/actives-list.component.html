@@ -1,0 +1,130 @@
+<div class="actives-list-page">
+    <div class="main-area">
+      <p-card>
+        <h2>Aqui você pode ver todas as ações diponíveis</h2>
+        <!-- <h2>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut vestibulum  mollis nisl, e!</h2> -->
+  
+        <div class="table-container">
+            <p-table 
+                #dt1
+                [value]="actives"
+                [globalFilterFields]="['name', 'email', 'phone', 'region', 'register']"
+                selectionMode="single"
+                dataKey="id"
+                [tableStyle]="{ 'min-width': '50rem' }"
+                [rows]="10"
+                [paginator]="true"
+                [scrollable]="true"
+                scrollHeight="600px"
+                [responsive]="true"
+                [showCurrentPageReport]="true"
+                currentPageReportTemplate="Mostrando {first} a {last} de um total de {totalRecords} Representantes(s)."
+                [resizableColumns]="true" styleClass="p-datatable-gridlines" [tableStyle]="{'min-width': '50rem'}"
+            >
+                <ng-template #caption>
+                    <div class="flex">
+                        <p-button label="Limpar" [outlined]="true" icon="pi pi-filter-slash" (click)="clear(dt1)" />
+                        <p-iconfield iconPosition="left" class="ml-auto">
+                            <p-inputicon>
+                                <i class="pi pi-search"></i>
+                            </p-inputicon>
+                            <input pInputText type="text" (input)="filterGlobal($event, dt1)" placeholder="Procurar Ativo..." />
+                        </p-iconfield>
+                    </div>
+                </ng-template>
+                <ng-template #header>
+                    <tr>
+                        <th pSortableColumn="product.orderProduct" style="min-width: 12rem;">
+                            <div class="flex justify-content-center align-items-center">
+                                <span>
+                                  Título <p-sortIcon field="product.orderProduct" />
+                                </span>
+                                <p-columnFilter type="text" field="product.orderProduct" display="menu" matchMode="contains"
+                                  [showMatchModes]="false" [showOperator]="false" [showAddButton]="false"></p-columnFilter>
+                            </div>
+                        </th>
+                        <th pSortableColumn="product.orderProduct" style="min-width: 12rem;">
+                            <div class="flex justify-content-center align-items-center">
+                                <span>
+                                  P/VP <p-sortIcon field="product.orderProduct" />
+                                </span>
+                                <p-columnFilter type="text" field="product.orderProduct" display="menu" matchMode="contains"
+                                  [showMatchModes]="false" [showOperator]="false" [showAddButton]="false"></p-columnFilter>
+                            </div>
+                        </th>
+                        <th pSortableColumn="product.orderProduct" style="min-width: 12rem;">
+                            <div class="flex justify-content-center align-items-center">
+                                <span>
+                                  Cotação <p-sortIcon field="product.orderProduct" />
+                                </span>
+                                <p-columnFilter type="text" field="product.orderProduct" display="menu" matchMode="contains"
+                                  [showMatchModes]="false" [showOperator]="false" [showAddButton]="false"></p-columnFilter>
+                            </div>
+                        </th>
+                        <th pSortableColumn="product.orderProduct" style="min-width: 12rem;">
+                            <div class="flex justify-content-center align-items-center">
+                                <span>
+                                  Setor <p-sortIcon field="product.orderProduct" />
+                                </span>
+                                <p-columnFilter type="text" field="product.orderProduct" display="menu" matchMode="contains"
+                                  [showMatchModes]="false" [showOperator]="false" [showAddButton]="false"></p-columnFilter>
+                            </div>
+                        </th>
+                        <th pSortableColumn="product.orderProduct" style="min-width: 12rem;">
+                            <div class="flex justify-content-center align-items-center">
+                                <span>
+                                  Algo <p-sortIcon field="product.orderProduct" />
+                                </span>
+                                <p-columnFilter type="text" field="product.orderProduct" display="menu" matchMode="contains"
+                                  [showMatchModes]="false" [showOperator]="false" [showAddButton]="false"></p-columnFilter>
+                            </div>
+                        </th>
+                        <th pSortableColumn="product.orderProduct" style="min-width: 12rem;">
+                            <div class="flex justify-content-center align-items-center">
+                                <span>
+                                  Ações
+                                </span>
+                            </div>
+                        </th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-active>
+                    <tr>
+                        <td>
+                            {{ active.titulo }}
+                        </td>
+                        <td>
+                            {{ active.p_vp }}
+                        </td>
+                        <td>
+                            {{ active.cotacao }}
+                        </td>
+                        <td>
+                            <p-tag [value]="active.setor" [severity]="getSeverity(active.setor)" />
+                        </td>
+                        <td class="text-center">
+                            <i
+                                class="pi"
+                                [ngClass]="{
+                                    'text-green-500 pi-check-circle': active.verified,
+                                    'text-red-500 pi-times-circle': !active.verified
+                                }"
+                            ></i>
+                        </td>
+                        <td>
+                            <div class="flex justify-content-center align-items-center">
+                                <p-button rounded="true" icon="pi pi-arrow-right"></p-button>
+                            </div>
+                        </td>
+                    </tr>
+                </ng-template>
+                <ng-template #emptymessage>
+                    <tr>
+                        <td colspan="7">No customers found.</td>
+                    </tr>
+                </ng-template>
+            </p-table>        
+        </div>
+      </p-card>
+    </div>
+</div>

@@ -1,356 +1,520 @@
 <div class="analitic-page">
-  <div class="title-card">
-    <p-card [ngStyle]="{width: '80%'}">
-      <div class="flex justify-content-between">
-        <h2>WEGE3</h2>
-        <h2>R$10,00</h2>
+  @if (isLoading){
+    <div class="analitic-loading">
+      <app-loading />
+    </div>
+  } @else {
+    <div class="title-card">
+      <p-card [ngStyle]="{width: '80%'}">
+        <div class="flex justify-content-between">
+          <h2>WEGE3</h2>
+          <h2>R$10,00</h2>
+        </div>
+      </p-card>
+    </div>
+  
+    <div class="sub-title-card">
+      <p-card header="Cotação" [ngStyle]="{flex: '1'}">
+        <div class="flex justify-content-center align-content-center">
+          <h3>R$10,00</h3>
+        </div>
+      </p-card>
+  
+      <p-card header="P/VP" [ngStyle]="{flex: '1'}">
+        <div class="flex justify-content-center align-content-center">
+          <h3>10,00</h3>
+        </div>
+      </p-card>
+  
+      @if (typeActive == 'acoes') {
+        <p-card header="P/L" [ngStyle]="{flex: '1'}">
+          <div class="flex justify-content-center align-content-center">
+            <h3>10,00</h3>
+          </div>
+        </p-card>
+      }
+  
+      @if (typeActive == 'fiis') {
+        <p-card header="Liquidez Diária" [ngStyle]="{flex: '1'}">
+          <div class="flex justify-content-center align-content-center">
+            <h3>10,00</h3>
+          </div>
+        </p-card>
+      }
+  
+      <p-card header="DY" [ngStyle]="{flex: '1'}">
+        <div class="flex justify-content-center align-content-center">
+          <h3>10,00%</h3>
+        </div>
+      </p-card>
+    </div>
+  
+    @if (typeActive == 'acoes') {
+      <div class="avaliation-card">
+        <p-card header="Cálculo Fundamentalista" [ngStyle]="{width: '80%'}">
+          <div class="flex justify-content-between flex-column">
+            <p>Fórmula de Graham: &radic;(22,5 • LPA • VPA) = <p-tag severity="success" value="Valor Justo" /></p>
+            <p>Aplicando a fórmula: &radic;(22,5 • 1,00 • 2,00) = <p-tag severity="danger" value="15,00" /></p>
+            <p>De acordo com a fórmula de Benjamin Graham a <p-tag severity="info" value="WEGE3" /> esta: <p-tag severity="danger" value="CARA" /></p>
+          </div>
+        </p-card>
       </div>
-    </p-card>
-  </div>
-
-  <div class="sub-title-card">
-    <p-card header="Cotação" [ngStyle]="{flex: '1'}">
-      <div class="flex justify-content-center align-content-center">
-        <h3>R$10,00</h3>
+    }
+  
+    @if (typeActive == 'acoes') {
+      <div class="informations-card">
+        <p-card header="Analisando os Indicadores" [ngStyle]="{width: '100%'}">
+          <div class="information-note mb-4">
+            <h3>Nota do Ativo: 8<i class="pi pi-verified" style="color: green"></i></h3>
+            <!-- <h3>Nota do Ativo: 5<i class="pi pi-times-circle" style="color: red"></i></h3> -->
+          </div>
+  
+          <div class="cards-container mt-2">
+            <p-card [className]="'card good'" header="Título">
+              <div class="flex justify-content-center align-content-center mt-1">
+                <span class="card-info">WEGE3</span>
+              </div>
+            </p-card>
+  
+            <p-card [className]="'card bad'" header="Cotação">
+              <div class="flex justify-content-center align-content-center mt-1">
+                <span class="card-info">R$ 46,26</span>
+              </div>
+            </p-card>
+  
+            <p-card [className]="'card good'" header="Variação 12M">
+              <div class="flex justify-content-center align-content-center mt-1">
+                <span class="card-info">20,96%</span>
+              </div>
+            </p-card>
+  
+            <p-card [className]="'card good'" header="P/L">
+              <div class="flex justify-content-center align-content-center mt-1">
+                <span class="card-info">32,13</span>
+              </div>
+            </p-card>
+  
+            <p-card [className]="'card good'" header="P/VP">
+              <div class="flex justify-content-center align-content-center mt-1">
+                <span class="card-info">8,74</span>
+              </div>
+            </p-card>
+  
+            <p-card [className]="'card bad'" header="DY 12M">
+              <div class="flex justify-content-center align-content-center mt-1">
+                <span class="card-info">1,67%</span>
+              </div>
+            </p-card>
+  
+            <p-card [className]="'card bad'" header="P/Receita PSR">
+              <div class="flex justify-content-center align-content-center mt-1">
+                <span class="card-info">5,11</span>
+              </div>
+            </p-card>
+  
+            <p-card [className]="'card good'" header="Payout">
+              <div class="flex justify-content-center align-content-center mt-1">
+                <span class="card-info">52,83%</span>
+              </div>
+            </p-card>
+  
+            <p-card [className]="'card good'" header="Margem Líquida">
+              <div class="flex justify-content-center align-content-center mt-1">
+                <span class="card-info">15,91%</span>
+              </div>
+            </p-card>
+  
+            <p-card [className]="'card good'" header="Margem Bruta">
+              <div class="flex justify-content-center align-content-center mt-1">
+                <span class="card-info">33,73%</span>
+              </div>
+            </p-card>
+  
+            <p-card [className]="'card good'" header="Margem EBIT">
+              <div class="flex justify-content-center align-content-center mt-1">
+                <span class="card-info">20,25%</span>
+              </div>
+            </p-card>
+  
+            <p-card [className]="'card good'" header="Margem EBITDA">
+              <div class="flex justify-content-center align-content-center mt-1">
+                <span class="card-info">22,38%</span>
+              </div>
+            </p-card>
+  
+            <p-card [className]="'card bad'" header="EV/EBITDA">
+              <div class="flex justify-content-center align-content-center mt-1">
+                <span class="card-info">22,32</span>
+              </div>
+            </p-card>
+  
+            <p-card [className]="'card bad'" header="EV/EBIT">
+              <div class="flex justify-content-center align-content-center mt-1">
+                <span class="card-info">24,68</span>
+              </div>
+            </p-card>
+  
+            <p-card [className]="'card bad'" header="P/EBITDA">
+              <div class="flex justify-content-center align-content-center mt-1">
+                <span class="card-info">22,84</span>
+              </div>
+            </p-card>
+  
+            <p-card [className]="'card good'" header="P/EBIT">
+              <div class="flex justify-content-center align-content-center mt-1">
+                <span class="card-info">25,25</span>
+              </div>
+            </p-card>
+  
+            <p-card [className]="'card good'" header="P/Ativo">
+              <div class="flex justify-content-center align-content-center mt-1">
+                <span class="card-info">4,68</span>
+              </div>
+            </p-card>
+  
+            <p-card [className]="'card good'" header="P/Capgiro">
+              <div class="flex justify-content-center align-content-center mt-1">
+                <span class="card-info">16,50</span>
+              </div>
+            </p-card>
+  
+            <p-card [className]="'card good'" header="P/Ativo Circ Liq">
+              <div class="flex justify-content-center align-content-center mt-1">
+                <span class="card-info">-13,61</span>
+              </div>
+            </p-card>
+  
+            <p-card [className]="'card good'" header="VPA">
+              <div class="flex justify-content-center align-content-center mt-1">
+                <span class="card-info">5,29</span>
+              </div>
+            </p-card>
+  
+            <p-card [className]="'card good'" header="LPA">
+              <div class="flex justify-content-center align-content-center mt-1">
+                <span class="card-info">1,44</span>
+              </div>
+            </p-card>
+  
+            <p-card [className]="'card bad'" header="Giro Ativos">
+              <div class="flex justify-content-center align-content-center mt-1">
+                <span class="card-info">0,92</span>
+              </div>
+            </p-card>
+  
+            <p-card [className]="'card bad'" header="ROE">
+              <div class="flex justify-content-center align-content-center mt-1">
+                <span class="card-info">27,21%</span>
+              </div>
+            </p-card>
+  
+            <p-card [className]="'card bad'" header="ROIC">
+              <div class="flex justify-content-center align-content-center mt-1">
+                <span class="card-info">23,65%</span>
+              </div>
+            </p-card>
+  
+            <p-card [className]="'card bad'" header="ROA">
+              <div class="flex justify-content-center align-content-center mt-1">
+                <span class="card-info">15,23%</span>
+              </div>
+            </p-card>
+  
+            <p-card [className]="'card bad'" header="Dívida Líquida / Patrimônio">
+              <div class="flex justify-content-center align-content-center mt-1">
+                <span class="card-info">-0,20</span>
+              </div>
+            </p-card>
+  
+            <p-card [className]="'card bad'" header="Dívida Líquida / EBITDA">
+              <div class="flex justify-content-center align-content-center mt-1">
+                <span class="card-info">-0,52</span>
+              </div>
+            </p-card>
+  
+            <p-card [className]="'card bad'" header="Dívida Líquida / EBIT">
+              <div class="flex justify-content-center align-content-center mt-1">
+                <span class="card-info">-0,57</span>
+              </div>
+            </p-card>
+  
+            <p-card [className]="'card bad'" header="Dívida Bruta / Patrimônio">
+              <div class="flex justify-content-center align-content-center mt-1">
+                <span class="card-info">0,16</span>
+              </div>
+            </p-card>
+  
+            <p-card [className]="'card bad'" header="Patrimônio / Ativos">
+              <div class="flex justify-content-center align-content-center mt-1">
+                <span class="card-info">0,54</span>
+              </div>
+            </p-card>
+  
+            <p-card [className]="'card bad'" header="Passivos / Ativos">
+              <div class="flex justify-content-center align-content-center mt-1">
+                <span class="card-info">0,44</span>
+              </div>
+            </p-card>
+  
+            <p-card [className]="'card bad'" header="Liquidez Corrente">
+              <div class="flex justify-content-center align-content-center mt-1">
+                <span class="card-info">1,76</span>
+              </div>
+            </p-card>
+  
+            <p-card [className]="'card bad'" header="CAGR Receitas 5 Anos">
+              <div class="flex justify-content-center align-content-center mt-1">
+                <span class="card-info">16,81%</span>
+              </div>
+            </p-card>
+  
+            <p-card [className]="'card good'" header="CAGR Lucros 5 Anos">
+              <div class="flex justify-content-center align-content-center mt-1">
+                <span class="card-info">21,40%</span>
+              </div>
+            </p-card>
+  
+            <p-card [className]="'card good'" header="Valor de Mercado">
+              <div class="flex justify-content-center align-content-center mt-1">
+                <span class="card-info">R$ 194.167.930.000</span>
+              </div>
+            </p-card>
+  
+            <p-card [className]="'card good'" header="Valor de Firma">
+              <div class="flex justify-content-center align-content-center mt-1">
+                <span class="card-info">R$ 189.767.091.000</span>
+              </div>
+            </p-card>
+  
+            <p-card [className]="'card good'" header="Patrimônio Líquido">
+              <div class="flex justify-content-center align-content-center mt-1">
+                <span class="card-info">R$ 22.204.221.000</span>
+              </div>
+            </p-card>
+  
+            <p-card [className]="'card good'" header="Nº Total de Papéis">
+              <div class="flex justify-content-center align-content-center mt-1">
+                <span class="card-info">4.197.317.000</span>
+              </div>
+            </p-card>
+  
+            <p-card [className]="'card good'" header="Ativos">
+              <div class="flex justify-content-center align-content-center mt-1">
+                <span class="card-info">R$ 41.489.701.000</span>
+              </div>
+            </p-card>
+  
+            <p-card [className]="'card good'" header="Ativo Circulante">
+              <div class="flex justify-content-center align-content-center mt-1">
+                <span class="card-info">R$ 27.221.359.000</span>
+              </div>
+            </p-card>
+  
+            <p-card [className]="'card bad'" header="Dívida Bruta">
+              <div class="flex justify-content-center align-content-center mt-1">
+                <span class="card-info">R$ 3.595.237.000</span>
+              </div>
+            </p-card>
+  
+            <p-card [className]="'card bad'" header="Dívida Líquida">
+              <div class="flex justify-content-center align-content-center mt-1">
+                <span class="card-info">R$ -4.400.839.000</span>
+              </div>
+            </p-card>
+  
+            <p-card [className]="'card bad'" header="Disponibilidade">
+              <div class="flex justify-content-center align-content-center mt-1">
+                <span class="card-info">R$ 7.996.076.000</span>
+              </div>
+            </p-card>
+  
+            <p-card [className]="'card good'" header="Segmento de Listagem">
+              <div class="flex justify-content-center align-content-center mt-1">
+                <span class="card-info">Novo Mercado</span>
+              </div>
+            </p-card>
+  
+            <p-card [className]="'card bad'" header="Free Float">
+              <div class="flex justify-content-center align-content-center mt-1">
+                <span class="card-info">35,30%</span>
+              </div>
+            </p-card>
+  
+            <p-card [className]="'card bad'" header="Tag Along">
+              <div class="flex justify-content-center align-content-center mt-1">
+                <span class="card-info">100,00%</span>
+              </div>
+            </p-card>
+  
+            <p-card [className]="'card bad'" header="Liquidez Média Diária">
+              <div class="flex justify-content-center align-content-center mt-1">
+                <span class="card-info">R$ 403.236.000</span>
+              </div>
+            </p-card>
+  
+            <p-card [className]="'card bad'" header="Setor">
+              <div class="flex justify-content-center align-content-center mt-1">
+                <span class="card-info">Bens Industriais</span>
+              </div>
+            </p-card>
+  
+            <p-card [className]="'card bad'" header="Segmento">
+              <div class="flex justify-content-center align-content-center mt-1">
+                <span class="card-info">Motores, Compressores e Outros</span>
+              </div>
+            </p-card>
+  
+            <div class="card"></div>
+            <div class="card"></div>
+            <div class="card"></div>
+          </div>
+        </p-card>
       </div>
-    </p-card>
-
-    <p-card header="P/VP" [ngStyle]="{flex: '1'}">
-      <div class="flex justify-content-center align-content-center">
-        <h3>10,00</h3>
+    }
+  
+    @if (typeActive == 'fiis'){
+      <div class="informations-card">
+        <p-card header="Analisando os Indicadores" [ngStyle]="{width: '100%'}">
+          <div class="information-note mb-4">
+            <h3>Nota do Ativo: 8<i class="pi pi-verified" style="color: green"></i></h3>
+            <!-- <h3>Nota do Ativo: 5<i class="pi pi-times-circle" style="color: red"></i></h3> -->
+          </div>
+  
+          <div class="cards-container mt-2">
+            <p-card [className]="'card bad'" header="Título">
+              <div class="flex justify-content-center align-content-center mt-1">
+                <span class="card-info">XPLG11</span>
+              </div>
+            </p-card>
+            
+            <p-card [className]="'card bad'" header="Cotação">
+              <div class="flex justify-content-center align-content-center mt-1">
+                <span class="card-info">R$ 95,26</span>
+              </div>
+            </p-card>
+            
+            <p-card [className]="'card bad'" header="DY 12M">
+              <div class="flex justify-content-center align-content-center mt-1">
+                <span class="card-info">9,87%</span>
+              </div>
+            </p-card>
+            
+            <p-card [className]="'card bad'" header="P/VP">
+              <div class="flex justify-content-center align-content-center mt-1">
+                <span class="card-info">0,89</span>
+              </div>
+            </p-card>
+            
+            <p-card [className]="'card bad'" header="Liquidez Diária">
+              <div class="flex justify-content-center align-content-center mt-1">
+                <span class="card-info">R$ 4,00 M</span>
+              </div>
+            </p-card>
+            
+            <p-card [className]="'card bad'" header="Variação 12M">
+              <div class="flex justify-content-center align-content-center mt-1">
+                <span class="card-info">-4,27%</span>
+              </div>
+            </p-card>
+            
+            <p-card [className]="'card bad'" header="Razão Social">
+              <div class="flex justify-content-center align-content-center mt-1">
+                <span class="card-info">XP LOG FUNDO DE INVESTIMENTO IMOBILIÁRIO</span>
+              </div>
+            </p-card>
+            
+            <p-card [className]="'card bad'" header="CNPJ">
+              <div class="flex justify-content-center align-content-center mt-1">
+                <span class="card-info">26.502.794/0001-85</span>
+              </div>
+            </p-card>
+            
+            <p-card [className]="'card bad'" header="Público Alvo">
+              <div class="flex justify-content-center align-content-center mt-1">
+                <span class="card-info">Geral</span>
+              </div>
+            </p-card>
+            
+            <p-card [className]="'card bad'" header="Mandato">
+              <div class="flex justify-content-center align-content-center mt-1">
+                <span class="card-info">Renda</span>
+              </div>
+            </p-card>
+            
+            <p-card [className]="'card bad'" header="Segmento">
+              <div class="flex justify-content-center align-content-center mt-1">
+                <span class="card-info">Logístico / Indústria / Galpões</span>
+              </div>
+            </p-card>
+            
+            <p-card [className]="'card bad'" header="Tipo de Fundo">
+              <div class="flex justify-content-center align-content-center mt-1">
+                <span class="card-info">Fundo de Tijolo</span>
+              </div>
+            </p-card>
+            
+            <p-card [className]="'card bad'" header="Prazo de Duração">
+              <div class="flex justify-content-center align-content-center mt-1">
+                <span class="card-info">Indeterminado</span>
+              </div>
+            </p-card>
+            
+            <p-card [className]="'card bad'" header="Tipo de Gestão">
+              <div class="flex justify-content-center align-content-center mt-1">
+                <span class="card-info">Ativa</span>
+              </div>
+            </p-card>
+            
+            <p-card [className]="'card bad'" header="Taxa de Administração">
+              <div class="flex justify-content-center align-content-center mt-1">
+                <span class="card-info">0,95% a.a sobre patrimônio liquido (mínimo R$25.000,00 mensais)</span>
+              </div>
+            </p-card>
+            
+            <p-card [className]="'card bad'" header="Vacância">
+              <div class="flex justify-content-center align-content-center mt-1">
+                <span class="card-info">3,70%</span>
+              </div>
+            </p-card>
+            
+            <p-card [className]="'card bad'" header="Número de Cotistas">
+              <div class="flex justify-content-center align-content-center mt-1">
+                <span class="card-info">342.046</span>
+              </div>
+            </p-card>
+            
+            <p-card [className]="'card bad'" header="Cotas Emitidas">
+              <div class="flex justify-content-center align-content-center mt-1">
+                <span class="card-info">31.175.920</span>
+              </div>
+            </p-card>
+            
+            <p-card [className]="'card bad'" header="Valor Patrimonial/Cota">
+              <div class="flex justify-content-center align-content-center mt-1">
+                <span class="card-info">R$ 106,92</span>
+              </div>
+            </p-card>
+            
+            <p-card [className]="'card bad'" header="Valor Patrimonial">
+              <div class="flex justify-content-center align-content-center mt-1">
+                <span class="card-info">R$ 3,33 Bilhões</span>
+              </div>
+            </p-card>
+            
+            <p-card [className]="'card bad'" header="Último Rendimento">
+              <div class="flex justify-content-center align-content-center mt-1">
+                <span class="card-info">R$ 0,82</span>
+              </div>
+            </p-card>
+            
+  
+            <div class="card"></div>
+            <div class="card"></div>
+            <div class="card"></div>
+          </div>
+        </p-card>
       </div>
-    </p-card>
-
-    <p-card header="P/L" [ngStyle]="{flex: '1'}">
-      <div class="flex justify-content-center align-content-center">
-        <h3>10,00</h3>
-      </div>
-    </p-card>
-
-    <p-card header="DY" [ngStyle]="{flex: '1'}">
-      <div class="flex justify-content-center align-content-center">
-        <h3>10,00%</h3>
-      </div>
-    </p-card>
-  </div>
-
-  <div class="avaliation-card">
-    <p-card header="Cálculo Fundamentalista" [ngStyle]="{width: '80%'}">
-      <div class="flex justify-content-between flex-column">
-        <p>Fórmula de Graham: &radic;(22,5 • LPA • VPA) = <p-tag severity="success" value="Valor Justo" /></p>
-        <p>Aplicando a fórmula: &radic;(22,5 • 1,00 • 2,00) = <p-tag severity="danger" value="15,00" /></p>
-        <p>De acordo com a fórmula de Benjamin Graham a <p-tag severity="info" value="WEGE3" /> esta: <p-tag severity="danger" value="CARA" /></p>
-      </div>
-    </p-card>
-  </div>
-
-  <div class="informations-card">
-    <p-card header="Analisando os Indicadores" [ngStyle]="{width: '100%'}">
-      <div class="information-note mb-4">
-        <h3>Nota do Ativo: 8<i class="pi pi-verified" style="color: green"></i></h3>
-        <!-- <h3>Nota do Ativo: 5<i class="pi pi-times-circle" style="color: red"></i></h3> -->
-      </div>
-
-      <div class="cards-container mt-2">
-        <p-card [className]="'card'" header="Título">
-          <div class="flex justify-content-center align-content-center mt-1">
-            <span class="card-info">Motores, Compressores e Outros</span>
-          </div>
-        </p-card>
-
-        <p-card [className]="'card'" header="Cotação">
-          <div class="flex justify-content-center align-content-center mt-1">
-            <span class="card-info">R$ 46,26</span>
-          </div>
-        </p-card>
-
-        <p-card [className]="'card good'" header="Variação 12M">
-          <div class="flex justify-content-center align-content-center mt-1">
-            <span class="card-info">20,96%</span>
-          </div>
-        </p-card>
-
-        <p-card [className]="'card good'" header="P/L">
-          <div class="flex justify-content-center align-content-center mt-1">
-            <span class="card-info">32,13</span>
-          </div>
-        </p-card>
-
-        <p-card [className]="'card good'" header="P/VP">
-          <div class="flex justify-content-center align-content-center mt-1">
-            <span class="card-info">8,74</span>
-          </div>
-        </p-card>
-
-        <p-card [className]="'card bad'" header="DY 12M">
-          <div class="flex justify-content-center align-content-center mt-1">
-            <span class="card-info">1,67%</span>
-          </div>
-        </p-card>
-
-        <p-card [className]="'card bad'" header="P/Receita PSR">
-          <div class="flex justify-content-center align-content-center mt-1">
-            <span class="card-info">5,11</span>
-          </div>
-        </p-card>
-
-        <p-card [className]="'card good'" header="Payout">
-          <div class="flex justify-content-center align-content-center mt-1">
-            <span class="card-info">52,83%</span>
-          </div>
-        </p-card>
-
-        <p-card [className]="'card good'" header="Margem Líquida">
-          <div class="flex justify-content-center align-content-center mt-1">
-            <span class="card-info">15,91%</span>
-          </div>
-        </p-card>
-
-        <p-card [className]="'card good'" header="Margem Bruta">
-          <div class="flex justify-content-center align-content-center mt-1">
-            <span class="card-info">33,73%</span>
-          </div>
-        </p-card>
-
-        <p-card [className]="'card good'" header="Margem EBIT">
-          <div class="flex justify-content-center align-content-center mt-1">
-            <span class="card-info">20,25%</span>
-          </div>
-        </p-card>
-
-        <p-card [className]="'card good'" header="Margem EBITDA">
-          <div class="flex justify-content-center align-content-center mt-1">
-            <span class="card-info">22,38%</span>
-          </div>
-        </p-card>
-
-        <p-card [className]="'card bad'" header="EV/EBITDA">
-          <div class="flex justify-content-center align-content-center mt-1">
-            <span class="card-info">22,32</span>
-          </div>
-        </p-card>
-
-        <p-card [className]="'card bad'" header="EV/EBIT">
-          <div class="flex justify-content-center align-content-center mt-1">
-            <span class="card-info">24,68</span>
-          </div>
-        </p-card>
-
-        <p-card [className]="'card bad'" header="P/EBITDA">
-          <div class="flex justify-content-center align-content-center mt-1">
-            <span class="card-info">22,84</span>
-          </div>
-        </p-card>
-
-        <p-card [className]="'card good'" header="P/EBIT">
-          <div class="flex justify-content-center align-content-center mt-1">
-            <span class="card-info">25,25</span>
-          </div>
-        </p-card>
-
-        <p-card [className]="'card good'" header="P/Ativo">
-          <div class="flex justify-content-center align-content-center mt-1">
-            <span class="card-info">4,68</span>
-          </div>
-        </p-card>
-
-        <p-card [className]="'card good'" header="P/Capgiro">
-          <div class="flex justify-content-center align-content-center mt-1">
-            <span class="card-info">16,50</span>
-          </div>
-        </p-card>
-
-        <p-card [className]="'card good'" header="P/Ativo Circ Liq">
-          <div class="flex justify-content-center align-content-center mt-1">
-            <span class="card-info">-13,61</span>
-          </div>
-        </p-card>
-
-        <p-card [className]="'card good'" header="VPA">
-          <div class="flex justify-content-center align-content-center mt-1">
-            <span class="card-info">5,29</span>
-          </div>
-        </p-card>
-
-        <p-card [className]="'card good'" header="LPA">
-          <div class="flex justify-content-center align-content-center mt-1">
-            <span class="card-info">1,44</span>
-          </div>
-        </p-card>
-
-        <p-card [className]="'card bad'" header="Giro Ativos">
-          <div class="flex justify-content-center align-content-center mt-1">
-            <span class="card-info">0,92</span>
-          </div>
-        </p-card>
-
-        <p-card [className]="'card bad'" header="ROE">
-          <div class="flex justify-content-center align-content-center mt-1">
-            <span class="card-info">27,21%</span>
-          </div>
-        </p-card>
-
-        <p-card [className]="'card bad'" header="ROIC">
-          <div class="flex justify-content-center align-content-center mt-1">
-            <span class="card-info">23,65%</span>
-          </div>
-        </p-card>
-
-        <p-card [className]="'card bad'" header="ROA">
-          <div class="flex justify-content-center align-content-center mt-1">
-            <span class="card-info">15,23%</span>
-          </div>
-        </p-card>
-
-        <p-card [className]="'card bad'" header="Dívida Líquida / Patrimônio">
-          <div class="flex justify-content-center align-content-center mt-1">
-            <span class="card-info">-0,20</span>
-          </div>
-        </p-card>
-
-        <p-card [className]="'card bad'" header="Dívida Líquida / EBITDA">
-          <div class="flex justify-content-center align-content-center mt-1">
-            <span class="card-info">-0,52</span>
-          </div>
-        </p-card>
-
-        <p-card [className]="'card bad'" header="Dívida Líquida / EBIT">
-          <div class="flex justify-content-center align-content-center mt-1">
-            <span class="card-info">-0,57</span>
-          </div>
-        </p-card>
-
-        <p-card [className]="'card bad'" header="Dívida Bruta / Patrimônio">
-          <div class="flex justify-content-center align-content-center mt-1">
-            <span class="card-info">0,16</span>
-          </div>
-        </p-card>
-
-        <p-card [className]="'card bad'" header="Patrimônio / Ativos">
-          <div class="flex justify-content-center align-content-center mt-1">
-            <span class="card-info">0,54</span>
-          </div>
-        </p-card>
-
-        <p-card [className]="'card bad'" header="Passivos / Ativos">
-          <div class="flex justify-content-center align-content-center mt-1">
-            <span class="card-info">0,44</span>
-          </div>
-        </p-card>
-
-        <p-card [className]="'card bad'" header="Liquidez Corrente">
-          <div class="flex justify-content-center align-content-center mt-1">
-            <span class="card-info">1,76</span>
-          </div>
-        </p-card>
-
-        <p-card [className]="'card bad'" header="CAGR Receitas 5 Anos">
-          <div class="flex justify-content-center align-content-center mt-1">
-            <span class="card-info">16,81%</span>
-          </div>
-        </p-card>
-
-        <p-card [className]="'card good'" header="CAGR Lucros 5 Anos">
-          <div class="flex justify-content-center align-content-center mt-1">
-            <span class="card-info">21,40%</span>
-          </div>
-        </p-card>
-
-        <p-card [className]="'card good'" header="Valor de Mercado">
-          <div class="flex justify-content-center align-content-center mt-1">
-            <span class="card-info">R$ 194.167.930.000</span>
-          </div>
-        </p-card>
-
-        <p-card [className]="'card good'" header="Valor de Firma">
-          <div class="flex justify-content-center align-content-center mt-1">
-            <span class="card-info">R$ 189.767.091.000</span>
-          </div>
-        </p-card>
-
-        <p-card [className]="'card good'" header="Patrimônio Líquido">
-          <div class="flex justify-content-center align-content-center mt-1">
-            <span class="card-info">R$ 22.204.221.000</span>
-          </div>
-        </p-card>
-
-        <p-card [className]="'card good'" header="Nº Total de Papéis">
-          <div class="flex justify-content-center align-content-center mt-1">
-            <span class="card-info">4.197.317.000</span>
-          </div>
-        </p-card>
-
-        <p-card [className]="'card good'" header="Ativos">
-          <div class="flex justify-content-center align-content-center mt-1">
-            <span class="card-info">R$ 41.489.701.000</span>
-          </div>
-        </p-card>
-
-        <p-card [className]="'card good'" header="Ativo Circulante">
-          <div class="flex justify-content-center align-content-center mt-1">
-            <span class="card-info">R$ 27.221.359.000</span>
-          </div>
-        </p-card>
-
-        <p-card [className]="'card bad'" header="Dívida Bruta">
-          <div class="flex justify-content-center align-content-center mt-1">
-            <span class="card-info">R$ 3.595.237.000</span>
-          </div>
-        </p-card>
-
-        <p-card [className]="'card bad'" header="Dívida Líquida">
-          <div class="flex justify-content-center align-content-center mt-1">
-            <span class="card-info">R$ -4.400.839.000</span>
-          </div>
-        </p-card>
-
-        <p-card [className]="'card bad'" header="Disponibilidade">
-          <div class="flex justify-content-center align-content-center mt-1">
-            <span class="card-info">R$ 7.996.076.000</span>
-          </div>
-        </p-card>
-
-        <p-card [className]="'card good'" header="Segmento de Listagem">
-          <div class="flex justify-content-center align-content-center mt-1">
-            <span class="card-info">Novo Mercado</span>
-          </div>
-        </p-card>
-
-        <p-card [className]="'card bad'" header="Free Float">
-          <div class="flex justify-content-center align-content-center mt-1">
-            <span class="card-info">35,30%</span>
-          </div>
-        </p-card>
-
-        <p-card [className]="'card bad'" header="Tag Along">
-          <div class="flex justify-content-center align-content-center mt-1">
-            <span class="card-info">100,00%</span>
-          </div>
-        </p-card>
-
-        <p-card [className]="'card bad'" header="Liquidez Média Diária">
-          <div class="flex justify-content-center align-content-center mt-1">
-            <span class="card-info">R$ 403.236.000</span>
-          </div>
-        </p-card>
-
-        <p-card [className]="'card bad'" header="Setor">
-          <div class="flex justify-content-center align-content-center mt-1">
-            <span class="card-info">Bens Industriais</span>
-          </div>
-        </p-card>
-
-        <p-card [className]="'card bad'" header="Segmento">
-          <div class="flex justify-content-center align-content-center mt-1">
-            <span class="card-info">Motores, Compressores e Outros</span>
-          </div>
-        </p-card>
-
-        <div class="card"></div>
-        <div class="card"></div>
-        <div class="card"></div>
-      </div>
-    </p-card>
-  </div>
+    }
+  }
 </div>
 

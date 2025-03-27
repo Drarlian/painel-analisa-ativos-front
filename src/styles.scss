@@ -2,6 +2,7 @@
 // @import 'primeflex/primeflex.scss';
 @import '../src/theme-dark.scss';
 @import '../src/theme-light.scss';
+@import 'fonts/fonts.css';
 
 @layer reset, primeng;
 
@@ -35,8 +36,9 @@ body{
 
   // background: linear-gradient(135deg, #E8F8F5 0%, #FFFFFF 100%);
 
-  font-family: Poppins, sans-serif;
-  --font-family: Poppins, sans-serif;
+  font-family: 'Poppins', sans-serif;
+  // font-family: Poppins, sans-serif;
+  // --font-family: Poppins, sans-serif;
 
   // font-family: Inter var, sans-serif;
   font-feature-settings: "cv02", "cv03", "cv04", "cv11";
