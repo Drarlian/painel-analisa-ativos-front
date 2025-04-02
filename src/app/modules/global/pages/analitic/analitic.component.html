@@ -7,8 +7,8 @@
     <div class="title-card">
       <p-card [ngStyle]="{width: '80%'}">
         <div class="flex justify-content-between">
-          <h2>WEGE3</h2>
-          <h2>R$10,00</h2>
+          <h2>{{activeInfos.titulo}}</h2>
+          <h2>{{activeInfos.cotacao}}</h2>
         </div>
       </p-card>
     </div>
@@ -16,20 +16,26 @@
     <div class="sub-title-card">
       <p-card header="Cotação" [ngStyle]="{flex: '1'}">
         <div class="flex justify-content-center align-content-center">
-          <h3>R$10,00</h3>
+          <h3>{{activeInfos.cotacao}}</h3>
         </div>
       </p-card>
   
       <p-card header="P/VP" [ngStyle]="{flex: '1'}">
         <div class="flex justify-content-center align-content-center">
-          <h3>10,00</h3>
+          <h3>{{activeInfos['p/vp']}}</h3>
         </div>
       </p-card>
   
       @if (typeActive == 'acoes') {
         <p-card header="P/L" [ngStyle]="{flex: '1'}">
           <div class="flex justify-content-center align-content-center">
-            <h3>10,00</h3>
+            <h3>{{activeInfos['p/l']}}</h3>
+          </div>
+        </p-card>
+
+        <p-card header="DY" [ngStyle]="{flex: '1'}">
+          <div class="flex justify-content-center align-content-center">
+            <h3>{{activeInfos.dy_12m}}</h3>
           </div>
         </p-card>
       }
@@ -37,16 +43,16 @@
       @if (typeActive == 'fiis') {
         <p-card header="Liquidez Diária" [ngStyle]="{flex: '1'}">
           <div class="flex justify-content-center align-content-center">
-            <h3>10,00</h3>
+            <h3>{{activeInfos.liquidez_diaria}}</h3>
+          </div>
+        </p-card>
+
+        <p-card header="DY" [ngStyle]="{flex: '1'}">
+          <div class="flex justify-content-center align-content-center">
+            <h3>{{activeInfos.dy_12M}}</h3>
           </div>
         </p-card>
       }
-  
-      <p-card header="DY" [ngStyle]="{flex: '1'}">
-        <div class="flex justify-content-center align-content-center">
-          <h3>10,00%</h3>
-        </div>
-      </p-card>
     </div>
   
     @if (typeActive == 'acoes') {
@@ -54,8 +60,8 @@
         <p-card header="Cálculo Fundamentalista" [ngStyle]="{width: '80%'}">
           <div class="flex justify-content-between flex-column">
             <p>Fórmula de Graham: &radic;(22,5 • LPA • VPA) = <p-tag severity="success" value="Valor Justo" /></p>
-            <p>Aplicando a fórmula: &radic;(22,5 • 1,00 • 2,00) = <p-tag severity="danger" value="15,00" /></p>
-            <p>De acordo com a fórmula de Benjamin Graham a <p-tag severity="info" value="WEGE3" /> esta: <p-tag severity="danger" value="CARA" /></p>
+            <p>Aplicando a fórmula: &radic;(22,5 • {{activeInfos.lpa}} • {{activeInfos.vpa}}) = <p-tag severity="danger" value="15,00" /></p>
+            <p>De acordo com a fórmula de Benjamin Graham a <p-tag severity="info" [value]="activeInfos.titulo" /> esta: <p-tag severity="danger" value="CARA" /></p>
           </div>
         </p-card>
       </div>

@@ -1,5 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { IconFieldModule } from 'primeng/iconfield';
@@ -10,6 +12,7 @@ import { ProgressBar } from 'primeng/progressbar';
 import { SelectModule } from 'primeng/select';
 import { Table, TableModule } from 'primeng/table';
 import { TagModule } from 'primeng/tag';
+import { ActivesService } from '../../services/actives/actives.service';
 
 const mockData: any[] = [
   {
@@ -120,19 +123,47 @@ const mockData: any[] = [
 
 @Component({
   selector: 'app-actives-list',
-  imports: [CommonModule, CardModule, TableModule, InputTextModule, TagModule, SelectModule, MultiSelectModule, ProgressBar, ButtonModule, IconFieldModule, InputIconModule],
+  imports: [CommonModule, CardModule, TableModule, InputTextModule, TagModule, SelectModule, MultiSelectModule, ProgressBar, ButtonModule, IconFieldModule, InputIconModule, FormsModule],
   templateUrl: './actives-list.component.html',
   styleUrl: './actives-list.component.scss'
 })
 export class ActivesListComponent implements OnInit{
+  private route = inject(ActivatedRoute);
+  private router = inject(Router);
+  private activesService = inject(ActivesService);
+
   actives!: any[];
 
   isLoading: boolean = true;
 
+  typeActive!: any;
+
   searchValue: string | undefined;
 
-  ngOnInit(): void {
-    this.actives = mockData;
+  async ngOnInit() {
+    this.isLoading = true;
+
+    this.route.paramMap.subscribe(params => {
+      this.typeActive = params.get('tipo');
+    });
+
+    if (this.typeActive == 'acoes') {
+      const response = await this.activesService.getAllAcoes();
+
+      if (typeof(response) == 'object') {
+        this.actives = [...response];
+
+        this.isLoading = false;
+      }
+    } else if (this.typeActive == 'fiis') {
+      const response = await this.activesService.getAllFiis();
+
+      if (typeof(response) == 'object') {
+        this.actives = [...response];
+
+        this.isLoading = false;
+      }
+    }
   }
 
   clear(table: Table) {
@@ -149,7 +180,13 @@ export class ActivesListComponent implements OnInit{
     table.filterGlobal(value, 'contains');
   }
 
+  navigateToAnalitic(activeTitle: string){
+    // this.sidebarVisible = false;
+    this.router.navigate([`analitic/${this.typeActive}/${activeTitle}`]);
+  }
+
   getSeverity(status: string) {
+    status = '';
     switch (status.toLowerCase()) {
       case 'unqualified':
         return 'danger';

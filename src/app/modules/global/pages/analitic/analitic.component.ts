@@ -36,22 +36,24 @@ export class AnaliticComponent implements OnInit{
     if (this.typeActive == 'acoes' && this.nameActive){
       const response = await this.activesService.getAcoes([this.nameActive]);
 
-      if (response){
-        this.activeInfos = response;
+      if (typeof(response) == 'object'){
+        this.activeInfos = response[0];
       } else {
         // this.router.navigate(['home']);
       }
     } else if (this.typeActive == 'fiis' && this.nameActive){
       const response = await this.activesService.getFiis([this.nameActive]);
 
-      if (response){
-        this.activeInfos = response;
+      if (typeof(response) == 'object'){
+        this.activeInfos = response[0];
       } else {
         // this.router.navigate(['home']);
       }
     } else {
       this.router.navigate(['home']);
     }
+
+    console.log(this.activeInfos);
 
     // Deu tudo certo eu paro o loading.
     this.isLoading = false;

@@ -8,7 +8,7 @@
             <p-table 
                 #dt1
                 [value]="actives"
-                [globalFilterFields]="['name', 'email', 'phone', 'region', 'register']"
+                [globalFilterFields]="['titulo', 'cotacao']"
                 selectionMode="single"
                 dataKey="id"
                 [tableStyle]="{ 'min-width': '50rem' }"
@@ -18,7 +18,7 @@
                 scrollHeight="600px"
                 [responsive]="true"
                 [showCurrentPageReport]="true"
-                currentPageReportTemplate="Mostrando {first} a {last} de um total de {totalRecords} Representantes(s)."
+                currentPageReportTemplate="Mostrando {first} a {last} de um total de {totalRecords} Ativos(s)."
                 [resizableColumns]="true" styleClass="p-datatable-gridlines" [tableStyle]="{'min-width': '50rem'}"
             >
                 <ng-template #caption>
@@ -28,45 +28,45 @@
                             <p-inputicon>
                                 <i class="pi pi-search"></i>
                             </p-inputicon>
-                            <input pInputText type="text" (input)="filterGlobal($event, dt1)" placeholder="Procurar Ativo..." />
+                            <input pInputText [(ngModel)]="searchValue" type="text" (input)="filterGlobal($event, dt1)" placeholder="Procurar Ativo..." />
                         </p-iconfield>
                     </div>
                 </ng-template>
                 <ng-template #header>
                     <tr>
-                        <th pSortableColumn="product.orderProduct" style="min-width: 12rem;">
+                        <th pSortableColumn="titulo" style="min-width: 12rem;">
                             <div class="flex justify-content-center align-items-center">
                                 <span>
-                                  Título <p-sortIcon field="product.orderProduct" />
+                                  Título <p-sortIcon field="titulo" />
                                 </span>
-                                <p-columnFilter type="text" field="product.orderProduct" display="menu" matchMode="contains"
+                                <p-columnFilter type="text" field="titulo" display="menu" matchMode="contains"
                                   [showMatchModes]="false" [showOperator]="false" [showAddButton]="false"></p-columnFilter>
                             </div>
                         </th>
-                        <th pSortableColumn="product.orderProduct" style="min-width: 12rem;">
+                        <th pSortableColumn="cotacao" style="min-width: 12rem;">
                             <div class="flex justify-content-center align-items-center">
                                 <span>
-                                  P/VP <p-sortIcon field="product.orderProduct" />
+                                  Cotação <p-sortIcon field="cotacao" />
                                 </span>
-                                <p-columnFilter type="text" field="product.orderProduct" display="menu" matchMode="contains"
+                                <p-columnFilter type="text" field="cotacao" display="menu" matchMode="contains"
                                   [showMatchModes]="false" [showOperator]="false" [showAddButton]="false"></p-columnFilter>
                             </div>
                         </th>
-                        <th pSortableColumn="product.orderProduct" style="min-width: 12rem;">
+                        <th pSortableColumn="p_vp" style="min-width: 12rem;">
                             <div class="flex justify-content-center align-items-center">
                                 <span>
-                                  Cotação <p-sortIcon field="product.orderProduct" />
+                                  P/VP <p-sortIcon field="p_vp" />
                                 </span>
-                                <p-columnFilter type="text" field="product.orderProduct" display="menu" matchMode="contains"
+                                <p-columnFilter type="text" field="p_vp" display="menu" matchMode="contains"
                                   [showMatchModes]="false" [showOperator]="false" [showAddButton]="false"></p-columnFilter>
                             </div>
                         </th>
-                        <th pSortableColumn="product.orderProduct" style="min-width: 12rem;">
+                        <th pSortableColumn="setor" style="min-width: 12rem;">
                             <div class="flex justify-content-center align-items-center">
                                 <span>
-                                  Setor <p-sortIcon field="product.orderProduct" />
+                                  Setor <p-sortIcon field="setor" />
                                 </span>
-                                <p-columnFilter type="text" field="product.orderProduct" display="menu" matchMode="contains"
+                                <p-columnFilter type="text" field="setor" display="menu" matchMode="contains"
                                   [showMatchModes]="false" [showOperator]="false" [showAddButton]="false"></p-columnFilter>
                             </div>
                         </th>
@@ -94,10 +94,10 @@
                             {{ active.titulo }}
                         </td>
                         <td>
-                            {{ active.p_vp }}
+                            {{ active.cotacao }}
                         </td>
                         <td>
-                            {{ active.cotacao }}
+                            {{ active['p/vp'] }}
                         </td>
                         <td>
                             <p-tag [value]="active.setor" [severity]="getSeverity(active.setor)" />
@@ -113,7 +113,7 @@
                         </td>
                         <td>
                             <div class="flex justify-content-center align-items-center">
-                                <p-button rounded="true" icon="pi pi-arrow-right"></p-button>
+                                <p-button (click)="navigateToAnalitic(active.titulo)" rounded="true" icon="pi pi-arrow-right"></p-button>
                             </div>
                         </td>
                     </tr>
