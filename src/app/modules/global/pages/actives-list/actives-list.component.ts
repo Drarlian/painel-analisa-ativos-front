@@ -8,11 +8,11 @@ import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
 import { InputTextModule } from 'primeng/inputtext';
 import { MultiSelectModule } from 'primeng/multiselect';
-import { ProgressBar } from 'primeng/progressbar';
 import { SelectModule } from 'primeng/select';
 import { Table, TableModule } from 'primeng/table';
 import { TagModule } from 'primeng/tag';
 import { ActivesService } from '../../services/actives/actives.service';
+import { LoadingComponent } from '../../components/loading/loading.component';
 
 const mockData: any[] = [
   {
@@ -123,7 +123,7 @@ const mockData: any[] = [
 
 @Component({
   selector: 'app-actives-list',
-  imports: [CommonModule, CardModule, TableModule, InputTextModule, TagModule, SelectModule, MultiSelectModule, ProgressBar, ButtonModule, IconFieldModule, InputIconModule, FormsModule],
+  imports: [CommonModule, CardModule, TableModule, InputTextModule, TagModule, SelectModule, MultiSelectModule, ButtonModule, IconFieldModule, InputIconModule, FormsModule, LoadingComponent],
   templateUrl: './actives-list.component.html',
   styleUrl: './actives-list.component.scss'
 })
@@ -144,6 +144,11 @@ export class ActivesListComponent implements OnInit{
     this.isLoading = true;
 
     this.route.paramMap.subscribe(params => {
+      // location.reload();
+      if (this.typeActive && this.typeActive != params.get('tipo')){
+        location.reload();
+      }
+
       this.typeActive = params.get('tipo');
     });
 

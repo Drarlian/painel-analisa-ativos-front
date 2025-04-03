@@ -44,7 +44,8 @@ export class HeaderComponent {
           {
             label: 'Todas',
             icon: 'pi pi-bolt',
-            shortcut: '⌘+S'
+            shortcut: '⌘+S',
+            command: () => this.navigateTo('all/acoes')
           },
           {
             label: 'Setores',
@@ -84,7 +85,8 @@ export class HeaderComponent {
           {
             label: 'Todos',
             icon: 'pi pi-bolt',
-            shortcut: '⌘+S'
+            shortcut: '⌘+S',
+            command: () => this.navigateTo('all/fiis')
           },
           {
             label: 'Setores',

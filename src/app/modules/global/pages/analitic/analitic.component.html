@@ -60,8 +60,8 @@
         <p-card header="Cálculo Fundamentalista" [ngStyle]="{width: '80%'}">
           <div class="flex justify-content-between flex-column">
             <p>Fórmula de Graham: &radic;(22,5 • LPA • VPA) = <p-tag severity="success" value="Valor Justo" /></p>
-            <p>Aplicando a fórmula: &radic;(22,5 • {{activeInfos.lpa}} • {{activeInfos.vpa}}) = <p-tag severity="danger" value="15,00" /></p>
-            <p>De acordo com a fórmula de Benjamin Graham a <p-tag severity="info" [value]="activeInfos.titulo" /> esta: <p-tag severity="danger" value="CARA" /></p>
+            <p>Aplicando a fórmula: &radic;(22,5 • {{activeInfos.lpa}} • {{activeInfos.vpa}}) = <p-tag [severity]="getSeverity()" [value]="'R$ ' + grahamValue" /></p>
+            <p>De acordo com a fórmula de Benjamin Graham a <p-tag severity="info" [value]="activeInfos.titulo" /> esta: <p-tag [severity]="getSeverity()" [value]="grahamStatus" /></p>
           </div>
         </p-card>
       </div>
@@ -76,297 +76,297 @@
           </div>
   
           <div class="cards-container mt-2">
-            <p-card [className]="'card good'" header="Título">
+            <p-card [className]="'card'" header="Título">
               <div class="flex justify-content-center align-content-center mt-1">
-                <span class="card-info">WEGE3</span>
+                <span class="card-info">{{activeInfos.titulo}}</span>
               </div>
             </p-card>
   
-            <p-card [className]="'card bad'" header="Cotação">
+            <p-card [className]="'card'" header="Cotação">
               <div class="flex justify-content-center align-content-center mt-1">
-                <span class="card-info">R$ 46,26</span>
+                <span class="card-info">{{activeInfos.cotacao}}</span>
               </div>
             </p-card>
   
             <p-card [className]="'card good'" header="Variação 12M">
               <div class="flex justify-content-center align-content-center mt-1">
-                <span class="card-info">20,96%</span>
+                <span class="card-info">{{activeInfos.variacao_12m}}</span>
               </div>
             </p-card>
   
             <p-card [className]="'card good'" header="P/L">
               <div class="flex justify-content-center align-content-center mt-1">
-                <span class="card-info">32,13</span>
+                <span class="card-info">{{activeInfos['p/l']}}</span>
               </div>
             </p-card>
   
             <p-card [className]="'card good'" header="P/VP">
               <div class="flex justify-content-center align-content-center mt-1">
-                <span class="card-info">8,74</span>
+                <span class="card-info">{{activeInfos['p/vp']}}</span>
               </div>
             </p-card>
   
             <p-card [className]="'card bad'" header="DY 12M">
               <div class="flex justify-content-center align-content-center mt-1">
-                <span class="card-info">1,67%</span>
+                <span class="card-info">{{activeInfos.dy_12m}}</span>
               </div>
             </p-card>
   
             <p-card [className]="'card bad'" header="P/Receita PSR">
               <div class="flex justify-content-center align-content-center mt-1">
-                <span class="card-info">5,11</span>
+                <span class="card-info">{{activeInfos['p/receita_psr']}}</span>
               </div>
             </p-card>
   
             <p-card [className]="'card good'" header="Payout">
               <div class="flex justify-content-center align-content-center mt-1">
-                <span class="card-info">52,83%</span>
+                <span class="card-info">{{activeInfos.payout}}</span>
               </div>
             </p-card>
   
             <p-card [className]="'card good'" header="Margem Líquida">
               <div class="flex justify-content-center align-content-center mt-1">
-                <span class="card-info">15,91%</span>
+                <span class="card-info">{{activeInfos.margem_liquida}}</span>
               </div>
             </p-card>
   
             <p-card [className]="'card good'" header="Margem Bruta">
               <div class="flex justify-content-center align-content-center mt-1">
-                <span class="card-info">33,73%</span>
+                <span class="card-info">{{activeInfos.margem_bruta}}</span>
               </div>
             </p-card>
   
             <p-card [className]="'card good'" header="Margem EBIT">
               <div class="flex justify-content-center align-content-center mt-1">
-                <span class="card-info">20,25%</span>
+                <span class="card-info">{{activeInfos.margem_ebit}}</span>
               </div>
             </p-card>
   
             <p-card [className]="'card good'" header="Margem EBITDA">
               <div class="flex justify-content-center align-content-center mt-1">
-                <span class="card-info">22,38%</span>
+                <span class="card-info">{{activeInfos.margem_ebitda}}</span>
               </div>
             </p-card>
   
             <p-card [className]="'card bad'" header="EV/EBITDA">
               <div class="flex justify-content-center align-content-center mt-1">
-                <span class="card-info">22,32</span>
+                <span class="card-info">{{activeInfos['ev/ebitda']}}</span>
               </div>
             </p-card>
   
             <p-card [className]="'card bad'" header="EV/EBIT">
               <div class="flex justify-content-center align-content-center mt-1">
-                <span class="card-info">24,68</span>
+                <span class="card-info">{{activeInfos['ev/ebit']}}</span>
               </div>
             </p-card>
   
             <p-card [className]="'card bad'" header="P/EBITDA">
               <div class="flex justify-content-center align-content-center mt-1">
-                <span class="card-info">22,84</span>
+                <span class="card-info">{{activeInfos['p/ebitda']}}</span>
               </div>
             </p-card>
   
             <p-card [className]="'card good'" header="P/EBIT">
               <div class="flex justify-content-center align-content-center mt-1">
-                <span class="card-info">25,25</span>
+                <span class="card-info">{{activeInfos['p/ebitda']}}</span>
               </div>
             </p-card>
   
             <p-card [className]="'card good'" header="P/Ativo">
               <div class="flex justify-content-center align-content-center mt-1">
-                <span class="card-info">4,68</span>
+                <span class="card-info">{{activeInfos['p/ativo']}}</span>
               </div>
             </p-card>
   
             <p-card [className]="'card good'" header="P/Capgiro">
               <div class="flex justify-content-center align-content-center mt-1">
-                <span class="card-info">16,50</span>
+                <span class="card-info">{{activeInfos['p/capgiro']}}</span>
               </div>
             </p-card>
   
             <p-card [className]="'card good'" header="P/Ativo Circ Liq">
               <div class="flex justify-content-center align-content-center mt-1">
-                <span class="card-info">-13,61</span>
+                <span class="card-info">{{activeInfos['p/ativo_circ_liq']}}</span>
               </div>
             </p-card>
   
             <p-card [className]="'card good'" header="VPA">
               <div class="flex justify-content-center align-content-center mt-1">
-                <span class="card-info">5,29</span>
+                <span class="card-info">{{activeInfos.vpa}}</span>
               </div>
             </p-card>
   
             <p-card [className]="'card good'" header="LPA">
               <div class="flex justify-content-center align-content-center mt-1">
-                <span class="card-info">1,44</span>
+                <span class="card-info">{{activeInfos.lpa}}</span>
               </div>
             </p-card>
   
             <p-card [className]="'card bad'" header="Giro Ativos">
               <div class="flex justify-content-center align-content-center mt-1">
-                <span class="card-info">0,92</span>
+                <span class="card-info">{{activeInfos.giro_ativos}}</span>
               </div>
             </p-card>
   
             <p-card [className]="'card bad'" header="ROE">
               <div class="flex justify-content-center align-content-center mt-1">
-                <span class="card-info">27,21%</span>
+                <span class="card-info">{{activeInfos.roe}}</span>
               </div>
             </p-card>
   
             <p-card [className]="'card bad'" header="ROIC">
               <div class="flex justify-content-center align-content-center mt-1">
-                <span class="card-info">23,65%</span>
+                <span class="card-info">{{activeInfos.roic}}</span>
               </div>
             </p-card>
   
             <p-card [className]="'card bad'" header="ROA">
               <div class="flex justify-content-center align-content-center mt-1">
-                <span class="card-info">15,23%</span>
+                <span class="card-info">{{activeInfos.roa}}</span>
               </div>
             </p-card>
   
             <p-card [className]="'card bad'" header="Dívida Líquida / Patrimônio">
               <div class="flex justify-content-center align-content-center mt-1">
-                <span class="card-info">-0,20</span>
+                <span class="card-info">{{activeInfos['divida_liquida/patrimonio']}}</span>
               </div>
             </p-card>
   
             <p-card [className]="'card bad'" header="Dívida Líquida / EBITDA">
               <div class="flex justify-content-center align-content-center mt-1">
-                <span class="card-info">-0,52</span>
+                <span class="card-info">{{activeInfos['divida_liquida/ebitda']}}</span>
               </div>
             </p-card>
   
             <p-card [className]="'card bad'" header="Dívida Líquida / EBIT">
               <div class="flex justify-content-center align-content-center mt-1">
-                <span class="card-info">-0,57</span>
+                <span class="card-info">{{activeInfos['divida_liquida/ebit']}}</span>
               </div>
             </p-card>
   
             <p-card [className]="'card bad'" header="Dívida Bruta / Patrimônio">
               <div class="flex justify-content-center align-content-center mt-1">
-                <span class="card-info">0,16</span>
+                <span class="card-info">{{activeInfos['divida_bruta/patrimonio']}}</span>
               </div>
             </p-card>
   
             <p-card [className]="'card bad'" header="Patrimônio / Ativos">
               <div class="flex justify-content-center align-content-center mt-1">
-                <span class="card-info">0,54</span>
+                <span class="card-info">{{activeInfos['patrimonio/ativos']}}</span>
               </div>
             </p-card>
   
             <p-card [className]="'card bad'" header="Passivos / Ativos">
               <div class="flex justify-content-center align-content-center mt-1">
-                <span class="card-info">0,44</span>
+                <span class="card-info">{{activeInfos['passivos/ativos']}}</span>
               </div>
             </p-card>
   
             <p-card [className]="'card bad'" header="Liquidez Corrente">
               <div class="flex justify-content-center align-content-center mt-1">
-                <span class="card-info">1,76</span>
+                <span class="card-info">{{activeInfos.liquidez_corrente}}</span>
               </div>
             </p-card>
   
             <p-card [className]="'card bad'" header="CAGR Receitas 5 Anos">
               <div class="flex justify-content-center align-content-center mt-1">
-                <span class="card-info">16,81%</span>
+                <span class="card-info">{{activeInfos.cagr_receitas_5_anos}}</span>
               </div>
             </p-card>
   
             <p-card [className]="'card good'" header="CAGR Lucros 5 Anos">
               <div class="flex justify-content-center align-content-center mt-1">
-                <span class="card-info">21,40%</span>
+                <span class="card-info">{{activeInfos.cagr_lucros_5_anos}}</span>
               </div>
             </p-card>
   
             <p-card [className]="'card good'" header="Valor de Mercado">
               <div class="flex justify-content-center align-content-center mt-1">
-                <span class="card-info">R$ 194.167.930.000</span>
+                <span class="card-info">{{activeInfos.valor_de_mercado}}</span>
               </div>
             </p-card>
   
             <p-card [className]="'card good'" header="Valor de Firma">
               <div class="flex justify-content-center align-content-center mt-1">
-                <span class="card-info">R$ 189.767.091.000</span>
+                <span class="card-info">{{activeInfos.valor_de_firma}}</span>
               </div>
             </p-card>
   
             <p-card [className]="'card good'" header="Patrimônio Líquido">
               <div class="flex justify-content-center align-content-center mt-1">
-                <span class="card-info">R$ 22.204.221.000</span>
+                <span class="card-info">{{activeInfos.patrimonio_liquido}}</span>
               </div>
             </p-card>
   
             <p-card [className]="'card good'" header="Nº Total de Papéis">
               <div class="flex justify-content-center align-content-center mt-1">
-                <span class="card-info">4.197.317.000</span>
+                <span class="card-info">{{activeInfos.n_total_de_papeis}}</span>
               </div>
             </p-card>
   
             <p-card [className]="'card good'" header="Ativos">
               <div class="flex justify-content-center align-content-center mt-1">
-                <span class="card-info">R$ 41.489.701.000</span>
+                <span class="card-info">{{activeInfos.ativos}}</span>
               </div>
             </p-card>
   
             <p-card [className]="'card good'" header="Ativo Circulante">
               <div class="flex justify-content-center align-content-center mt-1">
-                <span class="card-info">R$ 27.221.359.000</span>
+                <span class="card-info">{{activeInfos.ativo_circulante}}</span>
               </div>
             </p-card>
   
             <p-card [className]="'card bad'" header="Dívida Bruta">
               <div class="flex justify-content-center align-content-center mt-1">
-                <span class="card-info">R$ 3.595.237.000</span>
+                <span class="card-info">{{activeInfos.divida_bruta}}</span>
               </div>
             </p-card>
   
             <p-card [className]="'card bad'" header="Dívida Líquida">
               <div class="flex justify-content-center align-content-center mt-1">
-                <span class="card-info">R$ -4.400.839.000</span>
+                <span class="card-info">{{activeInfos.divida_liquida}}</span>
               </div>
             </p-card>
   
             <p-card [className]="'card bad'" header="Disponibilidade">
               <div class="flex justify-content-center align-content-center mt-1">
-                <span class="card-info">R$ 7.996.076.000</span>
+                <span class="card-info">{{activeInfos.disponibilidade}}</span>
               </div>
             </p-card>
   
             <p-card [className]="'card good'" header="Segmento de Listagem">
               <div class="flex justify-content-center align-content-center mt-1">
-                <span class="card-info">Novo Mercado</span>
+                <span class="card-info">{{activeInfos.segmento_de_listagem}}</span>
               </div>
             </p-card>
   
             <p-card [className]="'card bad'" header="Free Float">
               <div class="flex justify-content-center align-content-center mt-1">
-                <span class="card-info">35,30%</span>
+                <span class="card-info">{{activeInfos.free_float}}</span>
               </div>
             </p-card>
   
             <p-card [className]="'card bad'" header="Tag Along">
               <div class="flex justify-content-center align-content-center mt-1">
-                <span class="card-info">100,00%</span>
+                <span class="card-info">{{activeInfos.tag_along}}</span>
               </div>
             </p-card>
   
             <p-card [className]="'card bad'" header="Liquidez Média Diária">
               <div class="flex justify-content-center align-content-center mt-1">
-                <span class="card-info">R$ 403.236.000</span>
+                <span class="card-info">{{activeInfos.liquidez_media_diaria}}</span>
               </div>
             </p-card>
   
             <p-card [className]="'card bad'" header="Setor">
               <div class="flex justify-content-center align-content-center mt-1">
-                <span class="card-info">Bens Industriais</span>
+                <span class="card-info">{{activeInfos.setor}}</span>
               </div>
             </p-card>
   
             <p-card [className]="'card bad'" header="Segmento">
               <div class="flex justify-content-center align-content-center mt-1">
-                <span class="card-info">Motores, Compressores e Outros</span>
+                <span class="card-info">{{activeInfos.segmento}}</span>
               </div>
             </p-card>
   
@@ -387,129 +387,129 @@
           </div>
   
           <div class="cards-container mt-2">
-            <p-card [className]="'card bad'" header="Título">
+            <p-card [className]="'card'" header="Título">
               <div class="flex justify-content-center align-content-center mt-1">
-                <span class="card-info">XPLG11</span>
+                <span class="card-info">{{activeInfos.titulo}}</span>
               </div>
             </p-card>
             
-            <p-card [className]="'card bad'" header="Cotação">
+            <p-card [className]="'card'" header="Cotação">
               <div class="flex justify-content-center align-content-center mt-1">
-                <span class="card-info">R$ 95,26</span>
+                <span class="card-info">{{activeInfos.cotacao}}</span>
               </div>
             </p-card>
             
             <p-card [className]="'card bad'" header="DY 12M">
               <div class="flex justify-content-center align-content-center mt-1">
-                <span class="card-info">9,87%</span>
+                <span class="card-info">{{activeInfos.dy_12M}}</span>
               </div>
             </p-card>
             
             <p-card [className]="'card bad'" header="P/VP">
               <div class="flex justify-content-center align-content-center mt-1">
-                <span class="card-info">0,89</span>
+                <span class="card-info">{{activeInfos['p/vp']}}</span>
               </div>
             </p-card>
             
             <p-card [className]="'card bad'" header="Liquidez Diária">
               <div class="flex justify-content-center align-content-center mt-1">
-                <span class="card-info">R$ 4,00 M</span>
+                <span class="card-info">{{activeInfos.liquidez_diaria}}</span>
               </div>
             </p-card>
             
             <p-card [className]="'card bad'" header="Variação 12M">
               <div class="flex justify-content-center align-content-center mt-1">
-                <span class="card-info">-4,27%</span>
+                <span class="card-info">{{activeInfos.variacao_12m}}</span>
               </div>
             </p-card>
             
-            <p-card [className]="'card bad'" header="Razão Social">
+            <p-card [className]="'card'" header="Razão Social">
               <div class="flex justify-content-center align-content-center mt-1">
-                <span class="card-info">XP LOG FUNDO DE INVESTIMENTO IMOBILIÁRIO</span>
+                <span class="card-info" [pTooltip]="activeInfos.razao_social" tooltipPosition="top" placeholder="Top">{{activeInfos.razao_social}}</span>
               </div>
             </p-card>
             
-            <p-card [className]="'card bad'" header="CNPJ">
+            <p-card [className]="'card'" header="CNPJ">
               <div class="flex justify-content-center align-content-center mt-1">
-                <span class="card-info">26.502.794/0001-85</span>
+                <span class="card-info">{{activeInfos.cnpj}}</span>
               </div>
             </p-card>
             
             <p-card [className]="'card bad'" header="Público Alvo">
               <div class="flex justify-content-center align-content-center mt-1">
-                <span class="card-info">Geral</span>
+                <span class="card-info">{{activeInfos['publico-alvo']}}</span>
               </div>
             </p-card>
             
             <p-card [className]="'card bad'" header="Mandato">
               <div class="flex justify-content-center align-content-center mt-1">
-                <span class="card-info">Renda</span>
+                <span class="card-info">{{activeInfos.mandato}}</span>
               </div>
             </p-card>
             
             <p-card [className]="'card bad'" header="Segmento">
               <div class="flex justify-content-center align-content-center mt-1">
-                <span class="card-info">Logístico / Indústria / Galpões</span>
+                <span class="card-info">{{activeInfos.segmento}}</span>
               </div>
             </p-card>
             
             <p-card [className]="'card bad'" header="Tipo de Fundo">
               <div class="flex justify-content-center align-content-center mt-1">
-                <span class="card-info">Fundo de Tijolo</span>
+                <span class="card-info">{{activeInfos.tipo_de_fundo}}</span>
               </div>
             </p-card>
             
             <p-card [className]="'card bad'" header="Prazo de Duração">
               <div class="flex justify-content-center align-content-center mt-1">
-                <span class="card-info">Indeterminado</span>
+                <span class="card-info">{{activeInfos.prazo_de_duracao}}</span>
               </div>
             </p-card>
             
             <p-card [className]="'card bad'" header="Tipo de Gestão">
               <div class="flex justify-content-center align-content-center mt-1">
-                <span class="card-info">Ativa</span>
+                <span class="card-info">{{activeInfos.tipo_de_gestao}}</span>
               </div>
             </p-card>
             
             <p-card [className]="'card bad'" header="Taxa de Administração">
               <div class="flex justify-content-center align-content-center mt-1">
-                <span class="card-info">0,95% a.a sobre patrimônio liquido (mínimo R$25.000,00 mensais)</span>
+                <span class="card-info" [pTooltip]="activeInfos.taxa_de_administracao" tooltipPosition="top" placeholder="Top">{{activeInfos.taxa_de_administracao}}</span>
               </div>
             </p-card>
             
             <p-card [className]="'card bad'" header="Vacância">
               <div class="flex justify-content-center align-content-center mt-1">
-                <span class="card-info">3,70%</span>
+                <span class="card-info">{{activeInfos.vacancia}}</span>
               </div>
             </p-card>
             
             <p-card [className]="'card bad'" header="Número de Cotistas">
               <div class="flex justify-content-center align-content-center mt-1">
-                <span class="card-info">342.046</span>
+                <span class="card-info">{{activeInfos.numero_de_cotistas}}</span>
               </div>
             </p-card>
             
             <p-card [className]="'card bad'" header="Cotas Emitidas">
               <div class="flex justify-content-center align-content-center mt-1">
-                <span class="card-info">31.175.920</span>
+                <span class="card-info">{{activeInfos.cotas_emitidas}}</span>
               </div>
             </p-card>
             
             <p-card [className]="'card bad'" header="Valor Patrimonial/Cota">
               <div class="flex justify-content-center align-content-center mt-1">
-                <span class="card-info">R$ 106,92</span>
+                <span class="card-info">{{activeInfos['val_patrimonial_p/cota']}}</span>
               </div>
             </p-card>
             
             <p-card [className]="'card bad'" header="Valor Patrimonial">
               <div class="flex justify-content-center align-content-center mt-1">
-                <span class="card-info">R$ 3,33 Bilhões</span>
+                <span class="card-info">{{activeInfos.valor_patrimonial}}</span>
               </div>
             </p-card>
             
-            <p-card [className]="'card bad'" header="Último Rendimento">
+            <p-card [className]="'card'" header="Último Rendimento">
               <div class="flex justify-content-center align-content-center mt-1">
-                <span class="card-info">R$ 0,82</span>
+                <span class="card-info">{{activeInfos.ultimo_rendimento}}</span>
               </div>
             </p-card>
             

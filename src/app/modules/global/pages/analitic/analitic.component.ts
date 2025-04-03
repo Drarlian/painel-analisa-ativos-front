@@ -5,10 +5,11 @@ import { CardModule } from 'primeng/card';
 import { TagModule } from 'primeng/tag';
 import { ActivesService } from '../../services/actives/actives.service';
 import { LoadingComponent } from '../../components/loading/loading.component';
+import { Tooltip } from 'primeng/tooltip';
 
 @Component({
   selector: 'app-analitic',
-  imports: [CommonModule, CardModule, TagModule, LoadingComponent],
+  imports: [CommonModule, CardModule, TagModule, LoadingComponent, Tooltip],
   templateUrl: './analitic.component.html',
   styleUrl: './analitic.component.scss'
 })
@@ -24,6 +25,9 @@ export class AnaliticComponent implements OnInit{
 
   activeInfos: any = {}
 
+  grahamValue!: string;
+  grahamStatus!: string;
+
   async ngOnInit() {
     this.isLoading = true;
 
@@ -35,11 +39,14 @@ export class AnaliticComponent implements OnInit{
     // Devo fazer a requisição para obter os dados aqui.
     if (this.typeActive == 'acoes' && this.nameActive){
       const response = await this.activesService.getAcoes([this.nameActive]);
-
+      
       if (typeof(response) == 'object'){
         this.activeInfos = response[0];
+
+        this.calculateGrahamValue(this.activeInfos.lpa, this.activeInfos.vpa);
+        this.calculateGrahamStatus(this.activeInfos.cotacao);
       } else {
-        // this.router.navigate(['home']);
+        this.router.navigate(['home']);
       }
     } else if (this.typeActive == 'fiis' && this.nameActive){
       const response = await this.activesService.getFiis([this.nameActive]);
@@ -47,15 +54,48 @@ export class AnaliticComponent implements OnInit{
       if (typeof(response) == 'object'){
         this.activeInfos = response[0];
       } else {
-        // this.router.navigate(['home']);
+        this.router.navigate(['home']);
       }
     } else {
       this.router.navigate(['home']);
     }
 
-    console.log(this.activeInfos);
-
     // Deu tudo certo eu paro o loading.
     this.isLoading = false;
+  }
+
+  calculateGrahamValue(lpa: string, vpa: string) {
+    const tempLPA = Number(lpa.replace(',', '.'));
+    const tempVPA = Number(vpa.replace(',', '.'));
+
+    this.grahamValue = String(Math.sqrt(22.5 * tempLPA * tempVPA).toFixed(2)).replace('.', ',')
+  }
+
+  calculateGrahamStatus(cotacao: string) {
+    const tempGrahamValue = parseFloat(this.grahamValue.replace(',', '.'));
+    const tempCotacao = parseFloat(cotacao.replace('R$ ', '').replace(/\./g, '').replace(',', '.'));
+
+    if (this.activeInfos.cotacao.includes('-')){
+      this.grahamStatus = 'INDEFINIDO';
+    } else if (tempCotacao > tempGrahamValue) {
+      this.grahamStatus = 'CARA';
+    } else if (tempCotacao == tempGrahamValue) {
+      this.grahamStatus = 'JUSTO';
+    } else {
+      this.grahamStatus = 'BARATA';
+    }
+  }
+
+  getSeverity() {
+    switch (this.grahamStatus) {
+      case 'CARA':
+        return 'danger';
+      case 'JUSTO':
+        return 'info';
+      case 'BARATA':
+        return 'success';
+      default:
+        return 'warn'
+    }
   }
 }

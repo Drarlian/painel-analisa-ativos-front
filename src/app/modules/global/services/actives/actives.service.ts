@@ -78,4 +78,36 @@ export class ActivesService {
       }
     })})
   }
+
+  async getTopAcoes(acoesQuantity: number): Promise<Acoes[] | boolean> {
+    return new Promise((resolve, _) => {this.http.get<Acoes[]>(`http://127.0.0.1:8000/get-top-acoes/${acoesQuantity}`).subscribe({
+      next: (data) => {
+        if (data) {
+          resolve(data);
+        } else {
+          resolve(false);
+        }
+      },
+      error: (error: any) => {
+        // this.messageService.add({severity: 'error', summary: 'Erro com o ativo!', detail: 'O ativo procurado não foi encontrado ou não existe.', life: 6000});
+        resolve(false);
+      }
+    })})
+  }
+
+  async getTopFiis(fiisQuantity: number): Promise<Fiis[] | boolean> {
+    return new Promise((resolve, _) => {this.http.get<Fiis[]>(`http://127.0.0.1:8000/get-top-fiis/${fiisQuantity}`).subscribe({
+      next: (data) => {
+        if (data) {
+          resolve(data);
+        } else {
+          resolve(false);
+        }
+      },
+      error: (error: any) => {
+        // this.messageService.add({severity: 'error', summary: 'Erro com o ativo!', detail: 'O ativo procurado não foi encontrado ou não existe.', life: 6000});
+        resolve(false);
+      }
+    })})
+  }
 }
