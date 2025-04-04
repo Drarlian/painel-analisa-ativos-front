@@ -146,6 +146,7 @@ export class ActivesListComponent implements OnInit{
     this.route.paramMap.subscribe(params => {
       // location.reload();
       if (this.typeActive && this.typeActive != params.get('tipo')){
+        this.isLoading = true;
         location.reload();
       }
 

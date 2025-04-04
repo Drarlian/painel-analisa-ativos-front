@@ -24,14 +24,27 @@ export class AnaliticComponent implements OnInit{
   nameActive: string | null = null;
 
   activeInfos: any = {}
+  activeInfosEntries: any = []
 
   grahamValue!: string;
   grahamStatus!: string;
+
+  showAllInformations: boolean = false;
 
   async ngOnInit() {
     this.isLoading = true;
 
     this.route.paramMap.subscribe(params => {
+      if (this.typeActive && this.typeActive != params.get('tipo')){
+        this.isLoading = true;
+        location.reload();
+      }
+
+      if (this.nameActive && this.nameActive != params.get('tipo')){
+        this.isLoading = true;
+        location.reload();
+      }
+
       this.typeActive = params.get('tipo');
       this.nameActive = params.get('nome');
     });
@@ -39,9 +52,10 @@ export class AnaliticComponent implements OnInit{
     // Devo fazer a requisição para obter os dados aqui.
     if (this.typeActive == 'acoes' && this.nameActive){
       const response = await this.activesService.getAcoes([this.nameActive]);
-      
+
       if (typeof(response) == 'object'){
         this.activeInfos = response[0];
+        this.activeInfosEntries = Object.entries({...this.activeInfos});
 
         this.calculateGrahamValue(this.activeInfos.lpa, this.activeInfos.vpa);
         this.calculateGrahamStatus(this.activeInfos.cotacao);
@@ -53,6 +67,7 @@ export class AnaliticComponent implements OnInit{
 
       if (typeof(response) == 'object'){
         this.activeInfos = response[0];
+        this.activeInfosEntries = Object.entries({...this.activeInfos});
       } else {
         this.router.navigate(['home']);
       }
@@ -84,6 +99,22 @@ export class AnaliticComponent implements OnInit{
     } else {
       this.grahamStatus = 'BARATA';
     }
+  }
+
+  normalizeTitle(title: string){
+    const tempTitle = this.titleCase(title.toUpperCase().replaceAll('_', ' '))
+    return tempTitle
+  }
+
+  titleCase(text: string) {
+    return text
+      .split(" ")  // Divide a string em palavras
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()) // Capitaliza a primeira letra
+      .join(" "); // Junta tudo de volta
+  }
+
+  toggleShowAllInformations(){
+    this.showAllInformations = !this.showAllInformations;
   }
 
   getSeverity() {

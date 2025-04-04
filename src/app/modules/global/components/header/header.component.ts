@@ -10,6 +10,7 @@ import { MenubarModule } from 'primeng/menubar';
 import { BadgeModule } from 'primeng/badge';
 import { ThemeService } from '../../../../services/theme/theme.service';
 import { RippleModule } from 'primeng/ripple';
+import { InputSearchService } from '../../services/input-search/input-search.service';
 
 @Component({
   selector: 'app-header',
@@ -21,6 +22,8 @@ import { RippleModule } from 'primeng/ripple';
 export class HeaderComponent {
   themeService = inject(ThemeService);
   private router = inject(Router);
+
+  inputSearchService = inject(InputSearchService);
 
   actualTheme!: string;
 
@@ -131,6 +134,10 @@ export class HeaderComponent {
     } else {
       return 'pi pi-sun'
     }
+  }
+
+  openInputSearchDialog(){
+    this.inputSearchService.openInputSearchDialog();
   }
 
   openNotification(){

@@ -2,17 +2,17 @@
     <div class="main-area">
       <p-card>
         <h2>Aqui você pode ver todas {{typeActive == 'acoes' ? 'as ações' : 'os fiis'}} diponíveis</h2>
-  
+
         <div class="table-container">
             @if (isLoading) {
                 <div class="flex justify-content-center align-items-center" [ngStyle]="{height: '600px'}">
                     <app-loading />
                 </div>
             } @else {
-                <p-table 
+                <p-table
                     #dt1
                     [value]="actives"
-                    [globalFilterFields]="['titulo', 'cotacao']"
+                    [globalFilterFields]="['titulo', 'cotacao', 'p_vp', 'segmento']"
                     selectionMode="single"
                     dataKey="id"
                     [tableStyle]="{ 'min-width': '50rem' }"
@@ -39,102 +39,96 @@
                     <ng-template #header>
                         <tr>
                             <th pSortableColumn="titulo" style="min-width: 12rem;">
-                                <div class="flex justify-content-center align-items-center">
-                                    <span>
-                                    Título <p-sortIcon field="titulo" />
-                                    </span>
-                                    <p-columnFilter type="text" field="titulo" display="menu" matchMode="contains"
-                                    [showMatchModes]="false" [showOperator]="false" [showAddButton]="false"></p-columnFilter>
-                                </div>
+                              <div class="flex justify-content-center align-items-center">
+                                <span>
+                                Título <p-sortIcon field="titulo" />
+                                </span>
+                                <p-columnFilter type="text" field="titulo" display="menu" matchMode="contains"
+                                [showMatchModes]="false" [showOperator]="false" [showAddButton]="false"></p-columnFilter>
+                              </div>
                             </th>
                             <th pSortableColumn="cotacao" style="min-width: 12rem;">
-                                <div class="flex justify-content-center align-items-center">
-                                    <span>
-                                    Cotação <p-sortIcon field="cotacao" />
-                                    </span>
-                                    <p-columnFilter type="text" field="cotacao" display="menu" matchMode="contains"
-                                    [showMatchModes]="false" [showOperator]="false" [showAddButton]="false"></p-columnFilter>
-                                </div>
+                              <div class="flex justify-content-center align-items-center">
+                                <span>
+                                Cotação <p-sortIcon field="cotacao" />
+                                </span>
+                                <p-columnFilter type="text" field="cotacao" display="menu" matchMode="contains"
+                                [showMatchModes]="false" [showOperator]="false" [showAddButton]="false"></p-columnFilter>
+                              </div>
                             </th>
                             <th pSortableColumn="p_vp" style="min-width: 12rem;">
-                                <div class="flex justify-content-center align-items-center">
-                                    <span>
-                                    P/VP <p-sortIcon field="p_vp" />
-                                    </span>
-                                    <p-columnFilter type="text" field="p_vp" display="menu" matchMode="contains"
-                                    [showMatchModes]="false" [showOperator]="false" [showAddButton]="false"></p-columnFilter>
-                                </div>
+                              <div class="flex justify-content-center align-items-center">
+                                <span>
+                                P/VP <p-sortIcon field="p_vp" />
+                                </span>
+                                <p-columnFilter type="text" field="p_vp" display="menu" matchMode="contains"
+                                [showMatchModes]="false" [showOperator]="false" [showAddButton]="false"></p-columnFilter>
+                              </div>
                             </th>
-                            @if (typeActive == 'acoes'){
-                                <th pSortableColumn="setor" style="min-width: 12rem;">
-                                    <div class="flex justify-content-center align-items-center">
-                                        <span>
-                                        Setor <p-sortIcon field="setor" />
-                                        </span>
-                                        <p-columnFilter type="text" field="setor" display="menu" matchMode="contains"
-                                        [showMatchModes]="false" [showOperator]="false" [showAddButton]="false"></p-columnFilter>
-                                    </div>
-                                </th>
+                            @if (typeActive == 'acoes') {
+                              <th pSortableColumn="dy_12m" style="min-width: 12rem;">
+                                <div class="flex justify-content-center align-items-center">
+                                  <span>
+                                  DY <p-sortIcon field="dy_12m" />
+                                  </span>
+                                  <p-columnFilter type="text" field="dy_12m" display="menu" matchMode="contains"
+                                  [showMatchModes]="false" [showOperator]="false" [showAddButton]="false"></p-columnFilter>
+                                </div>
+                              </th>
                             } @else {
-                                <th pSortableColumn="segmento" style="min-width: 12rem;">
-                                    <div class="flex justify-content-center align-items-center">
-                                        <span>
-                                        Segmento <p-sortIcon field="segmento" />
-                                        </span>
-                                        <p-columnFilter type="text" field="segmento" display="menu" matchMode="contains"
-                                        [showMatchModes]="false" [showOperator]="false" [showAddButton]="false"></p-columnFilter>
-                                    </div>
-                                </th>
+                              <th pSortableColumn="dy_12M" style="min-width: 12rem;">
+                                <div class="flex justify-content-center align-items-center">
+                                  <span>
+                                  DY <p-sortIcon field="dy_12M" />
+                                  </span>
+                                  <p-columnFilter type="text" field="dy_12M" display="menu" matchMode="contains"
+                                  [showMatchModes]="false" [showOperator]="false" [showAddButton]="false"></p-columnFilter>
+                                </div>
+                              </th>
                             }
+                            <th pSortableColumn="segmento" style="min-width: 12rem;">
+                              <div class="flex justify-content-center align-items-center">
+                                <span>
+                                Segmento <p-sortIcon field="segmento" />
+                                </span>
+                                <p-columnFilter type="text" field="segmento" display="menu" matchMode="contains"
+                                [showMatchModes]="false" [showOperator]="false" [showAddButton]="false"></p-columnFilter>
+                              </div>
+                          </th>
                             <th pSortableColumn="product.orderProduct" style="min-width: 12rem;">
-                                <div class="flex justify-content-center align-items-center">
-                                    <span>
-                                    Algo <p-sortIcon field="product.orderProduct" />
-                                    </span>
-                                    <p-columnFilter type="text" field="product.orderProduct" display="menu" matchMode="contains"
-                                    [showMatchModes]="false" [showOperator]="false" [showAddButton]="false"></p-columnFilter>
-                                </div>
-                            </th>
-                            <th pSortableColumn="product.orderProduct" style="min-width: 12rem;">
-                                <div class="flex justify-content-center align-items-center">
-                                    <span>
-                                    Ações
-                                    </span>
-                                </div>
+                              <div class="flex justify-content-center align-items-center">
+                                <span>
+                                Ações
+                                </span>
+                              </div>
                             </th>
                         </tr>
                     </ng-template>
                     <ng-template pTemplate="body" let-active>
                         <tr>
                             <td>
-                                {{ active.titulo }}
+                              {{ active.titulo }}
                             </td>
                             <td>
-                                {{ active.cotacao }}
+                              {{ active.cotacao }}
                             </td>
                             <td>
-                                {{ active['p/vp'] }}
+                              {{ active['p/vp'] }}
                             </td>
                             <td>
-                                @if (typeActive == 'acoes'){
-                                    <p-tag [value]="active.setor" [severity]="getSeverity(active.setor)" />
-                                } @else {
-                                    <p-tag [value]="active.segmento" [severity]="getSeverity(active.segmento)" />
-                                }
-                            </td>
-                            <td class="text-center">
-                                <i
-                                    class="pi"
-                                    [ngClass]="{
-                                        'text-green-500 pi-check-circle': active.verified,
-                                        'text-red-500 pi-times-circle': !active.verified
-                                    }"
-                                ></i>
+                              @if (typeActive == 'acoes'){
+                                {{ active.dy_12m }}
+                              } @else {
+                                {{ active.dy_12M }}
+                              }
                             </td>
                             <td>
-                                <div class="flex justify-content-center align-items-center">
-                                    <p-button (click)="navigateToAnalitic(active.titulo)" rounded="true" icon="pi pi-arrow-right"></p-button>
-                                </div>
+                              <p-tag [value]="active.segmento" [severity]="getSeverity(active.segmento)" />
+                            </td>
+                            <td>
+                              <div class="flex justify-content-center align-items-center">
+                                <p-button (click)="navigateToAnalitic(active.titulo)" rounded="true" icon="pi pi-arrow-right"></p-button>
+                              </div>
                             </td>
                         </tr>
                     </ng-template>
@@ -149,3 +143,4 @@
       </p-card>
     </div>
 </div>
+
