@@ -6,6 +6,7 @@ import { ThemeService } from './services/theme/theme.service';
 import { ToastModule } from 'primeng/toast';
 import { PrimeNG } from 'primeng/config';
 import { InputSearchDialogComponent } from './modules/global/components/input-search-dialog/input-search-dialog.component';
+import { InputSearchService } from './modules/global/services/input-search/input-search.service';
 
 @Component({
   selector: 'app-root',
@@ -16,9 +17,15 @@ import { InputSearchDialogComponent } from './modules/global/components/input-se
 export class AppComponent implements OnInit{
   title = 'painel-analisa-ativos';
 
-  constructor (private primeng: PrimeNG, private themeService: ThemeService ) { }
+  visibleInputSearchDialog: boolean = false;
+
+  constructor ( private primeng: PrimeNG, private themeService: ThemeService, private inputSearchService: InputSearchService ) { }
 
   ngOnInit(): void {
     this.primeng.ripple.set(true);
+
+    this.inputSearchService.statusInputSearchDialogInformation.subscribe((status) => {
+      this.visibleInputSearchDialog = status;
+    });
   }
 }

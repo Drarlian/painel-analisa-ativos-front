@@ -1,3 +1,5 @@
 <p-toast></p-toast>
-<app-input-search-dialog></app-input-search-dialog>
+@if (visibleInputSearchDialog) {
+    <app-input-search-dialog></app-input-search-dialog>
+}
 <router-outlet />
