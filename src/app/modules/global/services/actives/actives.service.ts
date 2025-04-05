@@ -111,24 +111,8 @@ export class ActivesService {
     })})
   }
 
-  async getAcoesAutoComplete(): Promise<{'titulo': string, 'cotacao': string}[] | boolean> {
-    return new Promise((resolve, _) => {this.http.get<{'titulo': string, 'cotacao': string}[]>('http://127.0.0.1:8000/get-title-acoes').subscribe({
-      next: (data) => {
-        if (data) {
-          resolve(data);
-        } else {
-          resolve(false);
-        }
-      },
-      error: (error: any) => {
-        // this.messageService.add({severity: 'error', summary: 'Erro com o ativo!', detail: 'O ativo procurado não foi encontrado ou não existe.', life: 6000});
-        resolve(false);
-      }
-    })})
-  }
-
-  async getFiisAutoComplete(): Promise<{'titulo': string, 'cotacao': string}[] | boolean> {
-    return new Promise((resolve, _) => {this.http.get<{'titulo': string, 'cotacao': string}[]>('http://127.0.0.1:8000/get-title-fiis').subscribe({
+  async SearchActives(term: string): Promise<Acoes[] | Fiis[] | boolean> {
+    return new Promise((resolve, _) => {this.http.get<Acoes[] | Fiis[]>(`http://127.0.0.1:8000/search-actives?term=${term}`).subscribe({
       next: (data) => {
         if (data) {
           resolve(data);

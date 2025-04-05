@@ -4,31 +4,44 @@
     <div class="input-area">
       <p-floatlabel>
         <p-iconfield>
-          <input pInputText id="input_ativo" autocomplete="off" />
+          <input [(ngModel)]="inputValue" (ngModelChange)="onInputChange($event)" pInputText id="input_ativo" autocomplete="off" />
           <p-inputicon class="pi pi-search" />
         </p-iconfield>
         <label for="input_ativo" [ngStyle]="{opacity: '0.6'}">Ativo desejado</label>
       </p-floatlabel>
     </div>
 
-    <div class="ativo-item">
-      <h3>Ações</h3>
-      <ul>
-        @for (acao of topAcoes; track acao.titulo) {
-          <li (click)="navigateTo('analitic/acoes/' + acao.titulo)">
-            <span>{{acao.titulo}}</span> <span class="flex justify-content-start" style="min-width:5rem;">{{acao.cotacao}}</span>
-          </li>
-        }
-      </ul>
-
-      <h3>Fiis</h3>
-      <ul>
-        @for (fii of topFiis; track fii.titulo) {
-          <li (click)="navigateTo('analitic/fiis/' + fii.titulo)">
-            <span>{{fii.titulo}}</span> <span class="flex justify-content-start" style="min-width:5rem;">{{fii.cotacao}}</span>
-          </li>
-        }
-      </ul>
-    </div>
+    @if (searchResponseActives && searchResponseActives.length > 0){
+      <div class="ativo-item">
+        <h3>Ativos Encontrados</h3>
+        <ul>
+          @for (active of searchResponseActives; track active.titulo) {
+            <li (click)="navigateTo('analitic/' + active.tipo_ativo + '/' + active.titulo)">
+              <span>{{active.titulo}}</span> <span class="flex justify-content-start" style="min-width:5rem;">{{active.cotacao}}</span>
+            </li>
+          }
+        </ul>
+      </div>  
+    } @else {
+      <div class="ativo-item">
+        <h3>Ações Mais Vistas:</h3>
+        <ul>
+          @for (acao of topAcoes; track acao.titulo) {
+            <li (click)="navigateTo('analitic/acoes/' + acao.titulo)">
+              <span>{{acao.titulo}}</span> <span class="flex justify-content-start" style="min-width:5rem;">{{acao.cotacao}}</span>
+            </li>
+          }
+        </ul>
+  
+        <h3>Fiis Mais Vistos:</h3>
+        <ul>
+          @for (fii of topFiis; track fii.titulo) {
+            <li (click)="navigateTo('analitic/fiis/' + fii.titulo)">
+              <span>{{fii.titulo}}</span> <span class="flex justify-content-start" style="min-width:5rem;">{{fii.cotacao}}</span>
+            </li>
+          }
+        </ul>
+      </div>
+    }
   </p-dialog>
 </div>

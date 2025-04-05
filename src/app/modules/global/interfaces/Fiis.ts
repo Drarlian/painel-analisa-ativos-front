@@ -20,5 +20,6 @@ export interface Fiis {
     val_patrimonial_p_cota: string,
     valor_patrimonial: string,
     ultimo_rendimento: string,
-    ultima_atualizacao: string
+    ultima_atualizacao: string,
+    tipo_ativo?: string
 }

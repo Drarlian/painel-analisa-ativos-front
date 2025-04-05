@@ -49,4 +49,5 @@ export interface Acoes {
     setor: string,
     segmento: string,
     ultima_atualizacao: string,
+    tipo_ativo?: string
 }
