@@ -3,6 +3,7 @@ import { inject, Injectable } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { Fiis } from '../../interfaces/Fiis';
 import { Acoes } from '../../interfaces/Acoes';
+import { ActivesViewed } from '../../interfaces/Viewed';
 
 @Injectable({
   providedIn: 'root'
@@ -129,6 +130,22 @@ export class ActivesService {
 
   async getAllSectors(typeActive: string, quantityActives: number): Promise<{acoes: string[], fiis: string[]} | boolean> {
     return new Promise((resolve, _) => {this.http.get<{acoes: string[], fiis: string[]}>(`http://127.0.0.1:8000/get-all-sectors/${typeActive}/${quantityActives}`).subscribe({
+      next: (data) => {
+        if (data) {
+          resolve(data);
+        } else {
+          resolve(false);
+        }
+      },
+      error: (error: any) => {
+        // this.messageService.add({severity: 'error', summary: 'Erro com o ativo!', detail: 'O ativo procurado não foi encontrado ou não existe.', life: 6000});
+        resolve(false);
+      }
+    })})
+  }
+
+  async getMostViewed(typeActive: string, quantityActives: number): Promise<ActivesViewed | boolean> {
+    return new Promise((resolve, _) => {this.http.get<ActivesViewed>(`http://127.0.0.1:8000/get-most-viewed/${typeActive}/${quantityActives}`).subscribe({
       next: (data) => {
         if (data) {
           resolve(data);

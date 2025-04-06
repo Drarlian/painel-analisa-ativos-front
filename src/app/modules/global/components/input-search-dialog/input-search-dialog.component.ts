@@ -8,7 +8,6 @@ import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
 import { InputTextModule } from 'primeng/inputtext';
 import { RippleModule } from 'primeng/ripple';
-import { AutoComplete } from 'primeng/autocomplete';
 import { FormsModule } from '@angular/forms';
 import { ActivesService } from '../../services/actives/actives.service';
 import { Router } from '@angular/router';
@@ -55,15 +54,11 @@ export class InputSearchDialogComponent implements OnInit {
       });
 
 
-    const responseAcoes = await this.activesService.getTopAcoes(4);
+    const response = await this.activesService.getMostViewed('all', 4);
 
-    if (responseAcoes){
-      this.topAcoes = responseAcoes;
-    }
-    const responseFiis = await this.activesService.getTopFiis(4);
-
-    if (responseFiis){
-      this.topFiis = responseFiis;
+    if (typeof(response) == 'object'){
+      this.topAcoes = [...response.acoes];
+      this.topFiis = [...response.fiis];
     }
   }
 

@@ -30,34 +30,51 @@ export class HeaderComponent {
 
   items: MenuItem[] | undefined;
 
-  acoesSectors: string[] = [''];
-  fiisSectors: string[] = [''];
+  acoesSectorsItems: any = [];
+  fiisSectorsItems: any = [];
 
-  acoesItems: any = [];
-  fiisItems: any = [];
+  acoesViewedItems: any = [];
+  fiisViewedItems: any = [];
 
   async ngOnInit() {
     this.themeService.themeInformation.subscribe(data => this.actualTheme = data);
     
-    const response = await this.activesService.getAllSectors('all', 4);
+    const responseSectors = await this.activesService.getAllSectors('all', 4);
     
-    if (typeof(response) == 'object'){
-      this.acoesSectors = response.acoes;
-      this.fiisSectors = response.fiis;
-
-      this.acoesSectors.map(sector => {
-        this.acoesItems.push({
+    if (typeof(responseSectors) == 'object'){
+      responseSectors.acoes.map(sector => {
+        this.acoesSectorsItems.push({
           label: sector,
           icon: 'pi pi-building',
           command: () => this.navigateToWithQuery('all/acoes', sector)
         })
       });
 
-      this.fiisSectors.map(sector => {
-        this.fiisItems.push({
+      responseSectors.fiis.map(sector => {
+        this.fiisSectorsItems.push({
           label: sector,
           icon: 'pi pi-building',
           command: () => this.navigateToWithQuery('all/fiis', sector)
+        })
+      });
+    }
+
+    const responseViewed = await this.activesService.getMostViewed('all', 4);
+    
+    if (typeof(responseViewed) == 'object'){
+      responseViewed.acoes.map(acao => {
+        this.acoesViewedItems.push({
+          label: acao.titulo,
+          icon: 'pi pi-building',
+          command: () => this.navigateTo('analitic/acoes/' + acao.titulo)
+        })
+      });
+
+      responseViewed.fiis.map(fii => {
+        this.fiisViewedItems.push({
+          label: fii.titulo,
+          icon: 'pi pi-building',
+          command: () => this.navigateTo('analitic/fiis/' + fii.titulo)
         })
       });
     }
@@ -80,11 +97,12 @@ export class HeaderComponent {
           {
             label: 'Setores',
             icon: 'pi pi-server',
-            items: this.acoesItems
+            items: this.acoesSectorsItems
           },
           {
             label: 'Mais Vistas',
             icon: 'pi pi-eye',
+            items: this.acoesViewedItems
           },
           {
             separator: true
@@ -119,11 +137,12 @@ export class HeaderComponent {
           {
             label: 'Setores',
             icon: 'pi pi-server',
-            items: this.fiisItems
+            items: this.fiisSectorsItems
           },
           {
             label: 'Mais Vistos',
             icon: 'pi pi-eye',
+            items: this.fiisViewedItems
           },
         ]
       },
