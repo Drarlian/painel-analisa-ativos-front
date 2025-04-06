@@ -15,9 +15,9 @@
       <div class="ativo-item">
         <h3>Ativos Encontrados</h3>
         <ul>
-          @for (active of searchResponseActives; track active.titulo) {
-            <li (click)="navigateTo('analitic/' + active.tipo_ativo + '/' + active.titulo)">
-              <span>{{active.titulo}}</span> <span class="flex justify-content-start" style="min-width:5rem;">{{active.cotacao}}</span>
+          @for (active of searchResponseActives; track active.ticker) {
+            <li (click)="navigateTo('analitic/' + active.tipo_ativo + '/' + active.ticker)">
+              <span>{{active.ticker}}</span> <span class="flex justify-content-start" style="min-width:5rem;">{{active.cotacao}}</span>
             </li>
           }
         </ul>
@@ -30,18 +30,18 @@
       <div class="ativo-item">
         <h3>Ações Mais Vistas:</h3>
         <ul>
-          @for (acao of topAcoes; track acao.titulo) {
-            <li (click)="navigateTo('analitic/acoes/' + acao.titulo)">
-              <span>{{acao.titulo}}</span> <span class="flex justify-content-start" style="min-width:5rem;">{{acao.cotacao}}</span>
+          @for (acao of topAcoes; track acao.ticker) {
+            <li (click)="navigateTo('analitic/acoes/' + acao.ticker)">
+              <span>{{acao.ticker}}</span> <span class="flex justify-content-start" style="min-width:5rem;">{{acao.cotacao}}</span>
             </li>
           }
         </ul>
   
         <h3>Fiis Mais Vistos:</h3>
         <ul>
-          @for (fii of topFiis; track fii.titulo) {
-            <li (click)="navigateTo('analitic/fiis/' + fii.titulo)">
-              <span>{{fii.titulo}}</span> <span class="flex justify-content-start" style="min-width:5rem;">{{fii.cotacao}}</span>
+          @for (fii of topFiis; track fii.ticker) {
+            <li (click)="navigateTo('analitic/fiis/' + fii.ticker)">
+              <span>{{fii.ticker}}</span> <span class="flex justify-content-start" style="min-width:5rem;">{{fii.cotacao}}</span>
             </li>
           }
         </ul>

@@ -7,7 +7,12 @@
     <div class="title-card">
       <p-card [ngStyle]="{width: '80%'}">
         <div class="flex justify-content-between">
-          <h2>{{activeInfos.titulo}}</h2>
+          <div>
+            <!-- @if (typeActive == 'acoes'){ -->
+              <!-- <img [src]="'data:image/jpeg;base64,' + activeInfos.img" /> -->
+            <!-- } -->
+            <h2>{{activeInfos.ticker}}</h2>
+          </div>
           <h2>{{activeInfos.cotacao}}</h2>
         </div>
       </p-card>
@@ -61,7 +66,7 @@
           <div class="flex justify-content-between flex-column">
             <p>Fórmula de Graham: &radic;(22,5 • LPA • VPA) = <p-tag severity="success" value="Valor Justo" /></p>
             <p>Aplicando a fórmula: &radic;(22,5 • {{activeInfos.lpa}} • {{activeInfos.vpa}}) = <p-tag [severity]="getSeverity()" [value]="'R$ ' + grahamValue" /></p>
-            <p>De acordo com a fórmula de Benjamin Graham a <p-tag severity="info" [value]="activeInfos.titulo" /> esta: <p-tag [severity]="getSeverity()" [value]="grahamStatus" /></p>
+            <p>De acordo com a fórmula de Benjamin Graham a <p-tag severity="info" [value]="activeInfos.ticker" /> esta: <p-tag [severity]="getSeverity()" [value]="grahamStatus" /></p>
           </div>
         </p-card>
       </div>
@@ -95,7 +100,7 @@
 
             <p-card [className]="'card'" header="Título">
               <div class="flex justify-content-center align-content-center mt-1">
-                <span class="card-info">{{activeInfos.titulo}}</span>
+                <span class="card-info">{{activeInfos.ticker}}</span>
               </div>
             </p-card>
 
@@ -416,7 +421,7 @@
           <div class="cards-container mt-2">
             <p-card [className]="'card'" header="Título">
               <div class="flex justify-content-center align-content-center mt-1">
-                <span class="card-info">{{activeInfos.titulo}}</span>
+                <span class="card-info">{{activeInfos.ticker}}</span>
               </div>
             </p-card>
 

@@ -64,17 +64,17 @@ export class HeaderComponent {
     if (typeof(responseViewed) == 'object'){
       responseViewed.acoes.map(acao => {
         this.acoesViewedItems.push({
-          label: acao.titulo,
+          label: acao.ticker,
           icon: 'pi pi-building',
-          command: () => this.navigateTo('analitic/acoes/' + acao.titulo)
+          command: () => this.navigateTo('analitic/acoes/' + acao.ticker)
         })
       });
 
       responseViewed.fiis.map(fii => {
         this.fiisViewedItems.push({
-          label: fii.titulo,
+          label: fii.ticker,
           icon: 'pi pi-building',
-          command: () => this.navigateTo('analitic/fiis/' + fii.titulo)
+          command: () => this.navigateTo('analitic/fiis/' + fii.ticker)
         })
       });
     }

@@ -1,5 +1,6 @@
 export interface Fiis {
-    titulo: string,
+    nome: string,
+    ticker: string,
     cotacao: string,
     dy_12M: string,
     p_vp: string,
@@ -20,6 +21,9 @@ export interface Fiis {
     val_patrimonial_p_cota: string,
     valor_patrimonial: string,
     ultimo_rendimento: string,
-    ultima_atualizacao: string,
-    tipo_ativo?: string
+    tipo_ativo?: string,
+    views: number,
+    nota: string | number,
+    indicadores_positivos: string[],
+    ultima_atualizacao: string
 }

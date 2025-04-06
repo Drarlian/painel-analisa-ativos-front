@@ -1,5 +1,6 @@
 export interface Acoes {
-    titulo: string,
+    nome: string,
+    ticker: string,
     cotacao: string,
     variacao_12m: string,
     p_l: string,
@@ -48,6 +49,10 @@ export interface Acoes {
     liquidez_media_diaria: string,
     setor: string,
     segmento: string,
+    tipo_ativo?: string,
+    views: number,
+    nota: string | number,
+    indicadores_positivos: string[],
     ultima_atualizacao: string,
-    tipo_ativo?: string
+    img?: string
 }

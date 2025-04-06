@@ -12,7 +12,7 @@
                 <p-table
                     #dt1
                     [value]="actives"
-                    [globalFilterFields]="['titulo', 'cotacao', 'p_vp', 'segmento']"
+                    [globalFilterFields]="['ticker', 'cotacao', 'p_vp', 'segmento']"
                     [filters]="tableFilters"
                     selectionMode="single"
                     dataKey="id"
@@ -108,7 +108,7 @@
                     <ng-template pTemplate="body" let-active>
                         <tr>
                             <td>
-                              {{ active.titulo }}
+                              {{ active.ticker }}
                             </td>
                             <td>
                               {{ active.cotacao }}
@@ -128,7 +128,7 @@
                             </td>
                             <td>
                               <div class="flex justify-content-center align-items-center">
-                                <p-button (click)="navigateToAnalitic(active.titulo)" rounded="true" icon="pi pi-arrow-right"></p-button>
+                                <p-button (click)="navigateToAnalitic(active.ticker)" rounded="true" icon="pi pi-arrow-right"></p-button>
                               </div>
                             </td>
                         </tr>
