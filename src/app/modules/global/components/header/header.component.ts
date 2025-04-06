@@ -11,6 +11,7 @@ import { BadgeModule } from 'primeng/badge';
 import { ThemeService } from '../../../../services/theme/theme.service';
 import { RippleModule } from 'primeng/ripple';
 import { InputSearchService } from '../../services/input-search/input-search.service';
+import { ActivesService } from '../../services/actives/actives.service';
 
 @Component({
   selector: 'app-header',
@@ -22,43 +23,68 @@ import { InputSearchService } from '../../services/input-search/input-search.ser
 export class HeaderComponent {
   themeService = inject(ThemeService);
   private router = inject(Router);
-
   inputSearchService = inject(InputSearchService);
+  activesService = inject(ActivesService);
 
   actualTheme!: string;
 
   items: MenuItem[] | undefined;
 
-  ngOnInit() {
+  acoesSectors: string[] = [''];
+  fiisSectors: string[] = [''];
+
+  acoesItems: any = [];
+  fiisItems: any = [];
+
+  async ngOnInit() {
+    this.themeService.themeInformation.subscribe(data => this.actualTheme = data);
+    
+    const response = await this.activesService.getAllSectors('all', 4);
+    
+    if (typeof(response) == 'object'){
+      this.acoesSectors = response.acoes;
+      this.fiisSectors = response.fiis;
+
+      this.acoesSectors.map(sector => {
+        this.acoesItems.push({
+          label: sector,
+          icon: 'pi pi-building',
+          command: () => this.navigateToWithQuery('all/acoes', sector)
+        })
+      });
+
+      this.fiisSectors.map(sector => {
+        this.fiisItems.push({
+          label: sector,
+          icon: 'pi pi-building',
+          command: () => this.navigateToWithQuery('all/fiis', sector)
+        })
+      });
+    }
+
     this.items = [
       {
         label: 'Home',
         icon: 'pi pi-home',
         command: () => this.navigateTo('home')
       },
-      // {
-      //   label: 'Features',
-      //   icon: 'pi pi-star'
-      // },
       {
         label: 'Ações',
         icon: 'pi pi-chart-line',
         items: [
           {
             label: 'Todas',
-            icon: 'pi pi-bolt',
-            shortcut: '⌘+S',
+            icon: 'pi pi-asterisk',
             command: () => this.navigateTo('all/acoes')
           },
           {
             label: 'Setores',
             icon: 'pi pi-server',
-            shortcut: '⌘+B'
+            items: this.acoesItems
           },
           {
             label: 'Mais Vistas',
-            icon: 'pi pi-pencil',
-            shortcut: '⌘+U'
+            icon: 'pi pi-eye',
           },
           {
             separator: true
@@ -87,19 +113,17 @@ export class HeaderComponent {
         items: [
           {
             label: 'Todos',
-            icon: 'pi pi-bolt',
-            shortcut: '⌘+S',
+            icon: 'pi pi-asterisk',
             command: () => this.navigateTo('all/fiis')
           },
           {
             label: 'Setores',
             icon: 'pi pi-server',
-            shortcut: '⌘+B'
+            items: this.fiisItems
           },
           {
             label: 'Mais Vistos',
-            icon: 'pi pi-pencil',
-            shortcut: '⌘+U'
+            icon: 'pi pi-eye',
           },
         ]
       },
@@ -120,8 +144,6 @@ export class HeaderComponent {
         ]
       }
     ];
-
-    this.themeService.themeInformation.subscribe(data => this.actualTheme = data);
   }
 
   toggleTheme(){
@@ -149,8 +171,8 @@ export class HeaderComponent {
     this.router.navigate([route]);
   }
 
-  navigateToWithQuery(route: string, target: string){
+  navigateToWithQuery(route: string, filter: string){
     // this.sidebarVisible = false;
-    this.router.navigate([route], { queryParams: { target } });
+    this.router.navigate([route], { queryParams: { filter } });
   }
 }

@@ -1,11 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CardModule } from 'primeng/card';
 import { TagModule } from 'primeng/tag';
 import { ActivesService } from '../../services/actives/actives.service';
 import { LoadingComponent } from '../../components/loading/loading.component';
 import { Tooltip } from 'primeng/tooltip';
+import { distinctUntilChanged } from 'rxjs';
 
 @Component({
   selector: 'app-analitic',
@@ -13,7 +14,7 @@ import { Tooltip } from 'primeng/tooltip';
   templateUrl: './analitic.component.html',
   styleUrl: './analitic.component.scss'
 })
-export class AnaliticComponent implements OnInit{
+export class AnaliticComponent implements OnInit, OnDestroy{
   private router = inject(Router);
   private route = inject(ActivatedRoute);
   private activesService = inject(ActivesService);
@@ -24,7 +25,7 @@ export class AnaliticComponent implements OnInit{
   nameActive: string | null = null;
 
   activeInfos: any = {}
-  activeInfosEntries: any = []
+  // activeInfosEntries: any = []
 
   grahamValue!: string;
   grahamStatus!: string;
@@ -34,40 +35,37 @@ export class AnaliticComponent implements OnInit{
   async ngOnInit() {
     this.isLoading = true;
 
-    this.route.paramMap.subscribe(params => {
-      if (this.typeActive && this.typeActive != params.get('tipo')){
-        this.isLoading = true;
-        location.reload();
-      }
+    this.route.paramMap.pipe(distinctUntilChanged((prev, curr) => (prev.get('tipo') === curr.get('tipo')) && (prev.get('nome') === curr.get('nome')))).subscribe(params => {
+      const tempTypeActive = params.get('tipo');
+      const tempNameActive = params.get('nome');
 
-      if (this.nameActive && this.nameActive != params.get('tipo')){
-        this.isLoading = true;
-        location.reload();
+      // Verifica se existem valores na URL e se houve alteração real em pelo menos um dos valores antes de fazer a requisição.
+      if ((tempTypeActive && tempNameActive) && (this.typeActive !== tempTypeActive || this.nameActive !== tempNameActive)) {
+        this.handleTipoNomeChangeAsync(tempTypeActive, tempNameActive);
       }
-
-      this.typeActive = params.get('tipo');
-      this.nameActive = params.get('nome');
     });
+  }
 
-    // Devo fazer a requisição para obter os dados aqui.
-    if (this.typeActive == 'acoes' && this.nameActive){
-      const response = await this.activesService.getAcoes([this.nameActive]);
+  async handleTipoNomeChangeAsync(newType: string, newName: string) {
+    // Fazendo a requisição para obter os dados:
+    if (newType == 'acoes' && newName){
+      const response = await this.activesService.getAcoes([newName]);
 
       if (typeof(response) == 'object'){
         this.activeInfos = response[0];
-        this.activeInfosEntries = Object.entries({...this.activeInfos});
+        // this.activeInfosEntries = Object.entries({...this.activeInfos});
 
         this.calculateGrahamValue(this.activeInfos.lpa, this.activeInfos.vpa);
         this.calculateGrahamStatus(this.activeInfos.cotacao);
       } else {
         this.router.navigate(['home']);
       }
-    } else if (this.typeActive == 'fiis' && this.nameActive){
-      const response = await this.activesService.getFiis([this.nameActive]);
+    } else if (newType == 'fiis' && newName){
+      const response = await this.activesService.getFiis([newName]);
 
       if (typeof(response) == 'object'){
         this.activeInfos = response[0];
-        this.activeInfosEntries = Object.entries({...this.activeInfos});
+        // this.activeInfosEntries = Object.entries({...this.activeInfos});
       } else {
         this.router.navigate(['home']);
       }
@@ -75,8 +73,14 @@ export class AnaliticComponent implements OnInit{
       this.router.navigate(['home']);
     }
 
-    // Deu tudo certo eu paro o loading.
+    // Deu tudo certo eu paro o loading e atribuo as variaveis.
+    this.typeActive = newType;
+    this.nameActive = newName;
     this.isLoading = false;
+  }
+
+  ngOnDestroy(){
+    console.log('teste destruindo')
   }
 
   calculateGrahamValue(lpa: string, vpa: string) {

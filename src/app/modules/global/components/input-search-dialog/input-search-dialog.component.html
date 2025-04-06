@@ -22,6 +22,10 @@
           }
         </ul>
       </div>  
+    } @else if(searchResponseActives && searchResponseActives.length == 0 && inputValue != '') {
+      <div class="ativo-item">
+        <h3>Nenhum Ativo Encontrado</h3>
+      </div>
     } @else {
       <div class="ativo-item">
         <h3>Ações Mais Vistas:</h3>

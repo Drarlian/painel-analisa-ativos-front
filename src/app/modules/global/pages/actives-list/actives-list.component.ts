@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
+import { AfterViewInit, Component, inject, OnInit, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
@@ -13,6 +13,9 @@ import { Table, TableModule } from 'primeng/table';
 import { TagModule } from 'primeng/tag';
 import { ActivesService } from '../../services/actives/actives.service';
 import { LoadingComponent } from '../../components/loading/loading.component';
+import { FilterMetadata } from 'primeng/api';
+import { filter as rxFilter, distinctUntilChanged } from 'rxjs/operators';
+
 
 const mockData: any[] = [
   {
@@ -137,39 +140,129 @@ export class ActivesListComponent implements OnInit{
   isLoading: boolean = true;
 
   typeActive!: any;
+  filterValue!: any;
+  
+  tableFilters: { [s: string]: FilterMetadata[] } = {};
+
+  @ViewChild('dt1') dt1!: Table;
 
   searchValue: string | undefined;
 
   async ngOnInit() {
     this.isLoading = true;
 
-    this.route.paramMap.subscribe(params => {
-      // location.reload();
-      if (this.typeActive && this.typeActive != params.get('tipo')){
-        this.isLoading = true;
-        location.reload();
-      }
+    this.route.paramMap
+    .pipe(distinctUntilChanged((prev, curr) => prev.get('tipo') === curr.get('tipo')))
+    .subscribe(params => {
+      const newType = params.get('tipo');
 
-      this.typeActive = params.get('tipo');
+      if (newType && this.typeActive !== newType) {
+        this.handleTipoChangeAsync(newType);
+      }
     });
 
-    if (this.typeActive == 'acoes') {
-      const response = await this.activesService.getAllAcoes();
+    this.route.queryParams
+    .pipe(distinctUntilChanged((a, b) => a['filter'] === b['filter']))
+    .subscribe(params => {
+      const queryFilter = params['filter'] || '';
+      this.filterValue = queryFilter;
 
-      if (typeof(response) == 'object') {
-        this.actives = [...response];
-
-        this.isLoading = false;
+      if (queryFilter) {
+        this.tableFilters = {
+          titulo: [{
+            value: '',
+            matchMode: 'contains'
+          }],
+          cotacao: [{
+            value: '',
+            matchMode: 'contains'
+          }],
+          p_vp: [{
+            value: '',
+            matchMode: 'contains'
+          }],
+          dy_12m: [{
+            value: '',
+            matchMode: 'contains'
+          }],
+          dy_12M: [{
+            value: '',
+            matchMode: 'contains'
+          }],
+          segmento: [{
+            value: queryFilter,
+            matchMode: 'contains'
+          }]
+        };
+      } else {
+        this.tableFilters = {
+          titulo: [{
+            value: '',
+            matchMode: 'contains'
+          }],
+          cotacao: [{
+            value: '',
+            matchMode: 'contains'
+          }],
+          p_vp: [{
+            value: '',
+            matchMode: 'contains'
+          }],
+          dy_12m: [{
+            value: '',
+            matchMode: 'contains'
+          }],
+          dy_12M: [{
+            value: '',
+            matchMode: 'contains'
+          }],
+          segmento: [{
+            value: '',
+            matchMode: 'contains'
+          }]
+        }; // Limpa todos os 
       }
-    } else if (this.typeActive == 'fiis') {
-      const response = await this.activesService.getAllFiis();
 
-      if (typeof(response) == 'object') {
-        this.actives = [...response];
+      // Garante que o filtro é aplicado na tabela
+      setTimeout(() => {
+        if (this.dt1) {
+          this.dt1.filterGlobal(queryFilter, 'contains');
+        }
+      });
+    });
 
-        this.isLoading = false;
+    // await this.handleTipoChangeAsync();
+  }
+
+  async handleTipoChangeAsync(newType: string | null) {
+    this.isLoading = true;
+
+    let response: any;
+
+    if (newType === 'acoes') {
+      response = await this.activesService.getAllAcoes();
+    } else if (newType === 'fiis') {
+      response = await this.activesService.getAllFiis();
+    }
+
+    if (typeof response === 'object') {
+      this.actives = [...response];
+      this.typeActive = newType;
+      this.isLoading = false;
+    }
+  }
+
+  hasActiveFilter(table: Table, columnKey: string): string {
+    if (Object.hasOwn(table.filters, columnKey)) {
+      let filter = table.filters[columnKey]
+      if (!Array.isArray(filter)) {
+        filter = [filter]
+      }
+      if (filter[0].value && filter[0].value !== 0) {
+        return 'active-filter'
       }
     }
+    return ''
   }
 
   clear(table: Table) {
@@ -178,9 +271,14 @@ export class ActivesListComponent implements OnInit{
   }
 
   // Método de filtro:
-  filterGlobal(event: Event, table: Table): void {
-    const inputElement = event.target as HTMLInputElement; // Fazendo a verificação de tipo
-    const value = inputElement?.value || ''; // Obtendo o valor do input
+  filterGlobal(event: Event | string, table: Table): void {
+    let value;
+    if (typeof(event) != 'string'){
+      const inputElement = event.target as HTMLInputElement; // Fazendo a verificação de tipo
+      value = inputElement?.value || ''; // Obtendo o valor do input
+    } else {
+      value = event;
+    }
 
     // Chama o método de filtro
     table.filterGlobal(value, 'contains');

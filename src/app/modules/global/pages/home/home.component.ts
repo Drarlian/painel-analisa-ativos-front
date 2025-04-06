@@ -12,6 +12,7 @@ import { ActivesService } from '../../services/actives/actives.service';
 import { Acoes } from '../../interfaces/Acoes';
 import { Fiis } from '../../interfaces/Fiis';
 import { LoadingComponent } from '../../components/loading/loading.component';
+import { InputSearchService } from '../../services/input-search/input-search.service';
 
 @Component({
   selector: 'app-home',
@@ -22,6 +23,7 @@ import { LoadingComponent } from '../../components/loading/loading.component';
 export class HomeComponent implements OnInit {
   private router = inject(Router);
   private activesService = inject(ActivesService);
+  inputSearchService = inject(InputSearchService);
 
   topAcoes!: Acoes[];
   topFiis!: Fiis[];
@@ -46,6 +48,10 @@ export class HomeComponent implements OnInit {
       this.topFiis = responseFiis;
       this.isLoadingTopFiis = false;
     }
+  }
+
+  openInputSearchDialog(){
+    this.inputSearchService.openInputSearchDialog();
   }
 
   navigateTo(route: string){

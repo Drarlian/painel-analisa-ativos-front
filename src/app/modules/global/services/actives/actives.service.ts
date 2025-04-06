@@ -126,4 +126,20 @@ export class ActivesService {
       }
     })})
   }
+
+  async getAllSectors(typeActive: string, quantityActives: number): Promise<{acoes: string[], fiis: string[]} | boolean> {
+    return new Promise((resolve, _) => {this.http.get<{acoes: string[], fiis: string[]}>(`http://127.0.0.1:8000/get-all-sectors/${typeActive}/${quantityActives}`).subscribe({
+      next: (data) => {
+        if (data) {
+          resolve(data);
+        } else {
+          resolve(false);
+        }
+      },
+      error: (error: any) => {
+        // this.messageService.add({severity: 'error', summary: 'Erro com o ativo!', detail: 'O ativo procurado não foi encontrado ou não existe.', life: 6000});
+        resolve(false);
+      }
+    })})
+  }
 }

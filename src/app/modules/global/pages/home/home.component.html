@@ -7,13 +7,10 @@
       <div class="input-area">
         <!-- <input type="text" pInputText placeholder="Digite um ativo..." /> -->
 
-        <p-floatlabel>
-          <p-iconfield>
-            <input pInputText id="input_ativo" autocomplete="off" />
-            <p-inputicon class="pi pi-search" />
-          </p-iconfield>
-          <label for="input_ativo" [ngStyle]="{opacity: '0.6'}">Ativo desejado</label>
-        </p-floatlabel>
+        <p-iconfield (click)="openInputSearchDialog()">
+          <input pInputText id="input_ativo" placeholder="Ativo desejado" autocomplete="off" />
+          <p-inputicon class="pi pi-search" />
+        </p-iconfield>
       </div>
 
       <div class="more-info">
