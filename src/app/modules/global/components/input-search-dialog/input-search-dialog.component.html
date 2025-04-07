@@ -1,10 +1,10 @@
 <div class="shadow-div" [ngStyle]="{'display': visible ? 'inline': 'none', 'opacity': visible ? '1': '0'}" (click)="closeDiaog()"></div>
 <div class="card flex justify-center">
-  <p-dialog header="Procure algum ativo" [(visible)]="visible" [modal]="true" [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" [style]="{ width: '50vw' }" [draggable]="false" [resizable]="false" [modal]="false">
+  <p-dialog header="Procure algum ativo" (onShow)="handleFocus($event, inputAtivo)" [(visible)]="visible" [modal]="true" [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" [style]="{ width: '50vw' }" [draggable]="false" [resizable]="false" [modal]="false">
     <div class="input-area">
       <p-floatlabel>
         <p-iconfield>
-          <input [(ngModel)]="inputValue" (ngModelChange)="onInputChange($event)" pInputText id="input_ativo" />
+          <input #inputAtivo [(ngModel)]="inputValue" (ngModelChange)="onInputChange($event)" pInputText id="input_ativo" />
           <p-inputicon class="pi pi-search" />
         </p-iconfield>
         <label for="input_ativo" [ngStyle]="{opacity: '0.6'}">Ativo desejado</label>

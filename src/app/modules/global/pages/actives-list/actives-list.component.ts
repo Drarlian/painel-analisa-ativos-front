@@ -15,6 +15,7 @@ import { ActivesService } from '../../services/actives/actives.service';
 import { LoadingComponent } from '../../components/loading/loading.component';
 import { FilterMetadata } from 'primeng/api';
 import { filter as rxFilter, distinctUntilChanged } from 'rxjs/operators';
+import { TooltipModule } from 'primeng/tooltip';
 
 
 const mockData: any[] = [
@@ -126,7 +127,7 @@ const mockData: any[] = [
 
 @Component({
   selector: 'app-actives-list',
-  imports: [CommonModule, CardModule, TableModule, InputTextModule, TagModule, SelectModule, MultiSelectModule, ButtonModule, IconFieldModule, InputIconModule, FormsModule, LoadingComponent],
+  imports: [CommonModule, CardModule, TableModule, InputTextModule, TagModule, SelectModule, MultiSelectModule, ButtonModule, IconFieldModule, InputIconModule, FormsModule, LoadingComponent, TooltipModule],
   templateUrl: './actives-list.component.html',
   styleUrl: './actives-list.component.scss'
 })
@@ -169,7 +170,11 @@ export class ActivesListComponent implements OnInit{
 
       if (queryFilter) {
         this.tableFilters = {
-          titulo: [{
+          ticker: [{
+            value: '',
+            matchMode: 'contains'
+          }],
+          nome: [{
             value: '',
             matchMode: 'contains'
           }],
@@ -196,7 +201,11 @@ export class ActivesListComponent implements OnInit{
         };
       } else {
         this.tableFilters = {
-          titulo: [{
+          ticker: [{
+            value: '',
+            matchMode: 'contains'
+          }],
+          nome: [{
             value: '',
             matchMode: 'contains'
           }],

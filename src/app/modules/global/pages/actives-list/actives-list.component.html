@@ -48,6 +48,15 @@
                                 [showMatchModes]="false" [showOperator]="false" [showAddButton]="false"></p-columnFilter>
                               </div>
                             </th>
+                            <th pSortableColumn="nome" style="min-width: 12rem;">
+                              <div class="flex justify-content-center align-items-center gap-1">
+                                <span>
+                                Empresa <p-sortIcon field="nome" />
+                                </span>
+                                <p-columnFilter [ngClass]="hasActiveFilter(dt1, 'nome')" type="text" field="nome" display="menu" matchMode="contains"
+                                [showMatchModes]="false" [showOperator]="false" [showAddButton]="false"></p-columnFilter>
+                              </div>
+                            </th>
                             <th pSortableColumn="cotacao" style="min-width: 12rem;">
                               <div class="flex justify-content-center align-items-center gap-1">
                                 <span>
@@ -120,6 +129,9 @@
                                     {{ active.ticker }}
                                   </div>
                                 }
+                            </td>
+                            <td class="big-column">
+                              <span [pTooltip]="active.nome" tooltipPosition="top">{{ active.nome }}</span>
                             </td>
                             <td>
                               {{ active.cotacao }}

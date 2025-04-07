@@ -14,7 +14,7 @@ import { distinctUntilChanged } from 'rxjs';
   templateUrl: './analitic.component.html',
   styleUrl: './analitic.component.scss'
 })
-export class AnaliticComponent implements OnInit, OnDestroy{
+export class AnaliticComponent implements OnInit{
   private router = inject(Router);
   private route = inject(ActivatedRoute);
   private activesService = inject(ActivesService);
@@ -47,6 +47,8 @@ export class AnaliticComponent implements OnInit, OnDestroy{
   }
 
   async handleTipoNomeChangeAsync(newType: string, newName: string) {
+    this.isLoading = true;
+    
     // Fazendo a requisição para obter os dados:
     if (newType == 'acoes' && newName){
       const response = await this.activesService.getAcoes([newName]);
@@ -77,10 +79,6 @@ export class AnaliticComponent implements OnInit, OnDestroy{
     this.typeActive = newType;
     this.nameActive = newName;
     this.isLoading = false;
-  }
-
-  ngOnDestroy(){
-    console.log('teste destruindo')
   }
 
   calculateGrahamValue(lpa: string, vpa: string) {

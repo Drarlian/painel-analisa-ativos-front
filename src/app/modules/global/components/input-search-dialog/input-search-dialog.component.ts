@@ -18,9 +18,7 @@ import { LoadingComponent } from '../loading/loading.component';
 
 @Component({
   selector: 'app-input-search-dialog',
-  imports: [CommonModule, Dialog, ButtonModule, InputTextModule, FloatLabelModule, IconFieldModule, InputIconModule, RippleModule, FormsModule, AutoFocus,
-    LoadingComponent
-  ],
+  imports: [CommonModule, Dialog, ButtonModule, InputTextModule, FloatLabelModule, IconFieldModule, InputIconModule, RippleModule, FormsModule, LoadingComponent],
   templateUrl: './input-search-dialog.component.html',
   styleUrl: './input-search-dialog.component.scss'
 })
@@ -72,6 +70,10 @@ export class InputSearchDialogComponent implements OnInit {
 
       this.isLoadingTopActives = false;
     }
+  }
+
+  handleFocus(event: any, inputAtivo: any) {
+    inputAtivo.focus();
   }
 
   onInputChange(searchTerm: string): void {
