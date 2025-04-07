@@ -14,10 +14,13 @@ import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { AutoFocus } from 'primeng/autofocus';
+import { LoadingComponent } from '../loading/loading.component';
 
 @Component({
   selector: 'app-input-search-dialog',
-  imports: [CommonModule, Dialog, ButtonModule, InputTextModule, FloatLabelModule, IconFieldModule, InputIconModule, RippleModule, FormsModule, AutoFocus],
+  imports: [CommonModule, Dialog, ButtonModule, InputTextModule, FloatLabelModule, IconFieldModule, InputIconModule, RippleModule, FormsModule, AutoFocus,
+    LoadingComponent
+  ],
   templateUrl: './input-search-dialog.component.html',
   styleUrl: './input-search-dialog.component.scss'
 })
@@ -32,6 +35,9 @@ export class InputSearchDialogComponent implements OnInit {
 
   inputValue: string = '';
   searchResponseActives: any;
+
+  isLoadingSearching: boolean = false;
+  isLoadingTopActives: boolean = true;
 
   topAcoes: any;
   topFiis: any;
@@ -50,16 +56,21 @@ export class InputSearchDialogComponent implements OnInit {
         if (searchTerm.trim() === '') {
           this.searchResponseActives = []
         } else {
+          this.isLoadingSearching = true;
           this.realizarBusca(searchTerm);
+          this.isLoadingSearching = false;
         }
       });
 
 
+    this.isLoadingTopActives = true;
     const response = await this.activesService.getMostViewed('all', 4);
 
     if (typeof(response) == 'object'){
       this.topAcoes = [...response.acoes];
       this.topFiis = [...response.fiis];
+
+      this.isLoadingTopActives = false;
     }
   }
 
