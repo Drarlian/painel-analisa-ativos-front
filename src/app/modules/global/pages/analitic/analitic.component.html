@@ -11,6 +11,9 @@
             @if (typeActive == 'acoes'){
               <img class="img-logo" [src]="'data:image/jpeg;base64,' + activeInfos.img" />
             }
+            @if (typeActive == 'fiis'){
+              <img class="img-logo" src="../../../../../assets/images/fiis-logo.png" />
+            }
             <h2>{{activeInfos.ticker}}</h2>
           </div>
           <h2>{{activeInfos.cotacao}}</h2>

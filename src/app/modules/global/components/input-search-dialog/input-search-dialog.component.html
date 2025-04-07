@@ -4,7 +4,7 @@
     <div class="input-area">
       <p-floatlabel>
         <p-iconfield>
-          <input [(ngModel)]="inputValue" (ngModelChange)="onInputChange($event)" pInputText id="input_ativo" autocomplete="off" />
+          <input [(ngModel)]="inputValue" (ngModelChange)="onInputChange($event)" pInputText id="input_ativo" />
           <p-inputicon class="pi pi-search" />
         </p-iconfield>
         <label for="input_ativo" [ngStyle]="{opacity: '0.6'}">Ativo desejado</label>
@@ -21,7 +21,7 @@
             </li>
           }
         </ul>
-      </div>  
+      </div>
     } @else if(searchResponseActives && searchResponseActives.length == 0 && inputValue != '') {
       <div class="ativo-item">
         <h3>Nenhum Ativo Encontrado</h3>
@@ -32,16 +32,26 @@
         <ul>
           @for (acao of topAcoes; track acao.ticker) {
             <li (click)="navigateTo('analitic/acoes/' + acao.ticker)">
-              <span>{{acao.ticker}}</span> <span class="flex justify-content-start" style="min-width:5rem;">{{acao.cotacao}}</span>
+              <div class="flex justify-content-start align-items-center gap-3">
+                <img class="img-logo" [src]="'data:image/jpeg;base64,' + acao.img" />
+                {{ acao.ticker }}
+              </div>
+
+              <span class="flex justify-content-start" style="min-width:5rem;">{{acao.cotacao}}</span>
             </li>
           }
         </ul>
-  
+
         <h3>Fiis Mais Vistos:</h3>
         <ul>
           @for (fii of topFiis; track fii.ticker) {
             <li (click)="navigateTo('analitic/fiis/' + fii.ticker)">
-              <span>{{fii.ticker}}</span> <span class="flex justify-content-start" style="min-width:5rem;">{{fii.cotacao}}</span>
+              <div class="flex justify-content-start align-items-center gap-3">
+                <img class="img-logo" src="../../../../../assets/images/fiis-logo.png" />
+                {{ fii.ticker }}
+              </div>
+
+              <span class="flex justify-content-start" style="min-width:5rem;">{{fii.cotacao}}</span>
             </li>
           }
         </ul>

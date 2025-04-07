@@ -39,12 +39,12 @@
                     </ng-template>
                     <ng-template #header>
                         <tr>
-                            <th pSortableColumn="titulo" style="min-width: 12rem;">
+                            <th pSortableColumn="ticker" style="min-width: 12rem;">
                               <div class="flex justify-content-center align-items-center gap-1">
                                 <span>
-                                Título <p-sortIcon field="titulo" />
+                                Ticker <p-sortIcon field="ticker" />
                                 </span>
-                                <p-columnFilter [ngClass]="hasActiveFilter(dt1, 'titulo')" type="text" field="titulo" display="menu" matchMode="contains"
+                                <p-columnFilter [ngClass]="hasActiveFilter(dt1, 'ticker')" type="text" field="ticker" display="menu" matchMode="contains"
                                 [showMatchModes]="false" [showOperator]="false" [showAddButton]="false"></p-columnFilter>
                               </div>
                             </th>
@@ -108,7 +108,18 @@
                     <ng-template pTemplate="body" let-active>
                         <tr>
                             <td>
-                              {{ active.ticker }}
+                                @if (typeActive == 'acoes'){
+                                  <div class="flex justify-content-start align-items-center gap-3">
+                                    <img class="img-logo" [src]="'data:image/jpeg;base64,' + active.img" />
+                                    {{ active.ticker }}
+                                  </div>
+                                }
+                                @if (typeActive == 'fiis'){
+                                  <div class="flex justify-content-start align-items-center gap-3">
+                                    <img class="img-logo" src="../../../../../assets/images/fiis-logo.png" />
+                                    {{ active.ticker }}
+                                  </div>
+                                }
                             </td>
                             <td>
                               {{ active.cotacao }}
