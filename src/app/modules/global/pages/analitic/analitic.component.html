@@ -7,10 +7,10 @@
     <div class="title-card">
       <p-card [ngStyle]="{width: '80%'}">
         <div class="flex justify-content-between">
-          <div>
-            <!-- @if (typeActive == 'acoes'){ -->
-              <!-- <img [src]="'data:image/jpeg;base64,' + activeInfos.img" /> -->
-            <!-- } -->
+          <div class="flex flex-row justify-content-center align-items-center gap-2">
+            @if (typeActive == 'acoes'){
+              <img class="img-logo" [src]="'data:image/jpeg;base64,' + activeInfos.img" />
+            }
             <h2>{{activeInfos.ticker}}</h2>
           </div>
           <h2>{{activeInfos.cotacao}}</h2>
