@@ -15,10 +15,12 @@ import { Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { AutoFocus } from 'primeng/autofocus';
 import { LoadingComponent } from '../loading/loading.component';
+import { TagModule } from 'primeng/tag';
+import { InitialConfigurationsService } from '../../services/initial-configurations/initial-configurations.service';
 
 @Component({
   selector: 'app-input-search-dialog',
-  imports: [CommonModule, Dialog, ButtonModule, InputTextModule, FloatLabelModule, IconFieldModule, InputIconModule, RippleModule, FormsModule, LoadingComponent],
+  imports: [CommonModule, Dialog, ButtonModule, InputTextModule, FloatLabelModule, IconFieldModule, InputIconModule, RippleModule, FormsModule, LoadingComponent, TagModule],
   templateUrl: './input-search-dialog.component.html',
   styleUrl: './input-search-dialog.component.scss'
 })
@@ -26,10 +28,11 @@ export class InputSearchDialogComponent implements OnInit {
   inputSearchService = inject(InputSearchService);
   activesService = inject(ActivesService);
   private router = inject(Router);
+  initialConfigurationsService = inject(InitialConfigurationsService);
 
   private searchSubject: Subject<string> = new Subject<string>();
 
-  visible!: boolean;
+  visible: boolean = false;
 
   inputValue: string = '';
   searchResponseActives: any;
@@ -62,14 +65,15 @@ export class InputSearchDialogComponent implements OnInit {
 
 
     this.isLoadingTopActives = true;
-    const response = await this.activesService.getMostViewed('all', 4);
-
-    if (typeof(response) == 'object'){
-      this.topAcoes = [...response.acoes];
-      this.topFiis = [...response.fiis];
-
-      this.isLoadingTopActives = false;
-    }
+    // const response = await this.activesService.getMostViewed('all', 4);
+    this.initialConfigurationsService.mostViewedInformations.subscribe(data => {
+      if (typeof(data) == 'object' && data.acoes && data.fiis){
+        this.topAcoes = [...data.acoes];
+        this.topFiis = [...data.fiis];
+  
+        this.isLoadingTopActives = false;
+      }
+    })
   }
 
   handleFocus(event: any, inputAtivo: any) {

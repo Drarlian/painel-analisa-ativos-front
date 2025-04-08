@@ -34,7 +34,11 @@
               @for (acao of topAcoes; track acao.ticker) {
                 <li (click)="navigateTo('analitic/acoes/' + acao.ticker)">
                   <div class="flex justify-content-start align-items-center gap-3">
-                    <img class="img-logo" [src]="'data:image/jpeg;base64,' + acao.img" />
+                    @if (acao.img.length > 0){
+                      <img class="img-logo" [src]="'data:image/jpeg;base64,' + acao.img" />
+                    } @else {
+                      <img class="img-logo" src="../../../../../assets/images/acoes-logo2.png" />
+                    }
                     {{ acao.ticker }}
                   </div>
 

@@ -7,10 +7,12 @@ import { ActivesService } from '../../services/actives/actives.service';
 import { LoadingComponent } from '../../components/loading/loading.component';
 import { Tooltip } from 'primeng/tooltip';
 import { distinctUntilChanged } from 'rxjs';
+import { ButtonModule } from 'primeng/button';
+import { InputSearchService } from '../../services/input-search/input-search.service';
 
 @Component({
   selector: 'app-analitic',
-  imports: [CommonModule, CardModule, TagModule, LoadingComponent, Tooltip],
+  imports: [CommonModule, CardModule, TagModule, LoadingComponent, Tooltip, ButtonModule],
   templateUrl: './analitic.component.html',
   styleUrl: './analitic.component.scss'
 })
@@ -18,8 +20,10 @@ export class AnaliticComponent implements OnInit{
   private router = inject(Router);
   private route = inject(ActivatedRoute);
   private activesService = inject(ActivesService);
+  private inputSearchService = inject(InputSearchService);
 
   isLoading: boolean = true;
+  isError: boolean = false;
 
   typeActive: string | null = null;
   nameActive: string | null = null;
@@ -59,8 +63,15 @@ export class AnaliticComponent implements OnInit{
 
         this.calculateGrahamValue(this.activeInfos.lpa, this.activeInfos.vpa);
         this.calculateGrahamStatus(this.activeInfos.cotacao);
+
+        // Deu tudo certo eu paro o loading e atribuo as variaveis.
+        this.typeActive = newType;
+        this.nameActive = newName;
+        this.isLoading = false;
+        this.isError = false;
       } else {
-        this.router.navigate(['home']);
+        this.isLoading = false;
+        this.isError = true;
       }
     } else if (newType == 'fiis' && newName){
       const response = await this.activesService.getFiis([newName]);
@@ -68,17 +79,24 @@ export class AnaliticComponent implements OnInit{
       if (typeof(response) == 'object'){
         this.activeInfos = response[0];
         // this.activeInfosEntries = Object.entries({...this.activeInfos});
+
+        // Deu tudo certo eu paro o loading e atribuo as variaveis.
+        this.typeActive = newType;
+        this.nameActive = newName;
+        this.isLoading = false;
+        this.isError = false;
       } else {
-        this.router.navigate(['home']);
+        this.isLoading = false;
+        this.isError = true;
       }
     } else {
       this.router.navigate(['home']);
     }
 
     // Deu tudo certo eu paro o loading e atribuo as variaveis.
-    this.typeActive = newType;
-    this.nameActive = newName;
-    this.isLoading = false;
+    // this.typeActive = newType;
+    // this.nameActive = newName;
+    // this.isLoading = false;
   }
 
   calculateGrahamValue(lpa: string, vpa: string) {
@@ -119,6 +137,10 @@ export class AnaliticComponent implements OnInit{
     this.showAllInformations = !this.showAllInformations;
   }
 
+  openInputSearchDialog(){
+    this.inputSearchService.openInputSearchDialog();
+  }
+
   getSeverity() {
     switch (this.grahamStatus) {
       case 'CARA':
@@ -130,5 +152,10 @@ export class AnaliticComponent implements OnInit{
       default:
         return 'warn'
     }
+  }
+
+  navigateTo(route: string){
+    // this.sidebarVisible = false;
+    this.router.navigate([route]);
   }
 }

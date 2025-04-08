@@ -54,5 +54,5 @@ export interface Acoes {
     nota: string | number,
     indicadores_positivos: string[],
     ultima_atualizacao: string,
-    img?: string
+    img: string
 }

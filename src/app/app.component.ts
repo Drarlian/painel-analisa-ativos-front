@@ -7,6 +7,7 @@ import { ToastModule } from 'primeng/toast';
 import { PrimeNG } from 'primeng/config';
 import { InputSearchDialogComponent } from './modules/global/components/input-search-dialog/input-search-dialog.component';
 import { InputSearchService } from './modules/global/services/input-search/input-search.service';
+import { InitialConfigurationsService } from './modules/global/services/initial-configurations/initial-configurations.service';
 
 @Component({
   selector: 'app-root',

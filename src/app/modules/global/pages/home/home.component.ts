@@ -13,6 +13,7 @@ import { Acoes } from '../../interfaces/Acoes';
 import { Fiis } from '../../interfaces/Fiis';
 import { LoadingComponent } from '../../components/loading/loading.component';
 import { InputSearchService } from '../../services/input-search/input-search.service';
+import { InitialConfigurationsService } from '../../services/initial-configurations/initial-configurations.service';
 
 @Component({
   selector: 'app-home',
@@ -24,6 +25,7 @@ export class HomeComponent implements OnInit {
   private router = inject(Router);
   private activesService = inject(ActivesService);
   inputSearchService = inject(InputSearchService);
+  initialConfigurations = inject(InitialConfigurationsService);
 
   topAcoes!: Acoes[];
   topFiis!: Fiis[];
@@ -35,19 +37,20 @@ export class HomeComponent implements OnInit {
     this.isLoadingTopAcoes = true;
     this.isLoadingTopFiis = true;
 
-    const responseAcoes = await this.activesService.getTopAcoes(4);
+    // const responseAcoes = await this.activesService.getTopAcoes(4);
+    // const responseFiis = await this.activesService.getTopFiis(4);
 
-    if (typeof(responseAcoes) == 'object') {
-      this.topAcoes = responseAcoes;
-      this.isLoadingTopAcoes = false;
-    }
+    this.initialConfigurations.topActivesInformations.subscribe(data => {
+      if (typeof(data) == 'object' && data.acoes && data.fiis){
+        this.topAcoes = data.acoes;
+        this.isLoadingTopAcoes = false;
 
-    const responseFiis = await this.activesService.getTopFiis(4);
-
-    if (typeof(responseFiis) == 'object') {
-      this.topFiis = responseFiis;
-      this.isLoadingTopFiis = false;
-    }
+        this.topFiis = data.fiis;
+        this.isLoadingTopFiis = false;
+      } else {
+        this.initialConfigurations.getTopActives();
+      }
+    });
   }
 
   openInputSearchDialog(){

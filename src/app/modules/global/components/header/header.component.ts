@@ -12,6 +12,7 @@ import { ThemeService } from '../../../../services/theme/theme.service';
 import { RippleModule } from 'primeng/ripple';
 import { InputSearchService } from '../../services/input-search/input-search.service';
 import { ActivesService } from '../../services/actives/actives.service';
+import { InitialConfigurationsService } from '../../services/initial-configurations/initial-configurations.service';
 
 @Component({
   selector: 'app-header',
@@ -25,6 +26,7 @@ export class HeaderComponent {
   private router = inject(Router);
   inputSearchService = inject(InputSearchService);
   activesService = inject(ActivesService);
+  initialConfigurationsService = inject(InitialConfigurationsService);
 
   actualTheme!: string;
 
@@ -39,46 +41,56 @@ export class HeaderComponent {
   async ngOnInit() {
     this.themeService.themeInformation.subscribe(data => this.actualTheme = data);
     
-    const responseSectors = await this.activesService.getAllSectors('all', 4);
+    // const responseSectors = await this.activesService.getAllSectors('all', 4);
+    this.initialConfigurationsService.sectorsInformations.subscribe(data => {
+      if (typeof(data) == 'object' && data.acoes && data.fiis){
+        data.acoes.map((sector: any) => {
+          this.acoesSectorsItems.push({
+            label: sector,
+            icon: 'pi pi-building',
+            command: () => this.navigateToWithQuery('all/acoes', sector)
+          })
+        });
+  
+        data.fiis.map((sector: any) => {
+          this.fiisSectorsItems.push({
+            label: sector,
+            icon: 'pi pi-building',
+            command: () => this.navigateToWithQuery('all/fiis', sector)
+          })
+        });
+      } else {
+        this.initialConfigurationsService.getSectors();
+      }
+    })
     
-    if (typeof(responseSectors) == 'object'){
-      responseSectors.acoes.map(sector => {
-        this.acoesSectorsItems.push({
-          label: sector,
-          icon: 'pi pi-building',
-          command: () => this.navigateToWithQuery('all/acoes', sector)
-        })
-      });
+    // const responseViewed = await this.activesService.getMostViewed('all', 4);
+    this.initialConfigurationsService.mostViewedInformations.subscribe(data => {
+      if (typeof(data) == 'object' && data.acoes && data.fiis){
+        data.acoes.map((acao: any) => {
+          this.acoesViewedItems.push({
+            label: acao.ticker,
+            icon: 'pi pi-eye',
+            command: () => this.navigateTo('analitic/acoes/' + acao.ticker)
+          })
+        });
+  
+        data.fiis.map((fii: any) => {
+          this.fiisViewedItems.push({
+            label: fii.ticker,
+            icon: 'pi pi-eye',
+            command: () => this.navigateTo('analitic/fiis/' + fii.ticker)
+          })
+        });
 
-      responseSectors.fiis.map(sector => {
-        this.fiisSectorsItems.push({
-          label: sector,
-          icon: 'pi pi-building',
-          command: () => this.navigateToWithQuery('all/fiis', sector)
-        })
-      });
-    }
+        this.createItems();
+      } else {
+        this.initialConfigurationsService.getMostViewed();
+      }
+    })
+  }
 
-    const responseViewed = await this.activesService.getMostViewed('all', 4);
-    
-    if (typeof(responseViewed) == 'object'){
-      responseViewed.acoes.map(acao => {
-        this.acoesViewedItems.push({
-          label: acao.ticker,
-          icon: 'pi pi-building',
-          command: () => this.navigateTo('analitic/acoes/' + acao.ticker)
-        })
-      });
-
-      responseViewed.fiis.map(fii => {
-        this.fiisViewedItems.push({
-          label: fii.ticker,
-          icon: 'pi pi-building',
-          command: () => this.navigateTo('analitic/fiis/' + fii.ticker)
-        })
-      });
-    }
-
+  createItems(){
     this.items = [
       {
         label: 'Home',

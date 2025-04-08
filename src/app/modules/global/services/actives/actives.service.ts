@@ -159,4 +159,20 @@ export class ActivesService {
       }
     })})
   }
+
+  async getTopActives(typeActive: string, activesQuantity: number): Promise<{acoes: Acoes[], fiis: Fiis[]} | boolean> {
+    return new Promise((resolve, _) => {this.http.get<{acoes: Acoes[], fiis: Fiis[]}>(`http://127.0.0.1:8000/get-top-actives/${typeActive}/${activesQuantity}`).subscribe({
+      next: (data) => {
+        if (data) {
+          resolve(data);
+        } else {
+          resolve(false);
+        }
+      },
+      error: (error: any) => {
+        // this.messageService.add({severity: 'error', summary: 'Erro com o ativo!', detail: 'O ativo procurado não foi encontrado ou não existe.', life: 6000});
+        resolve(false);
+      }
+    })})
+  }
 }
