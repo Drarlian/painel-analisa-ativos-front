@@ -37,22 +37,24 @@
                 <span class="flex justify-content-start" style="min-width:5rem;">{{active.cotacao}}</span>
               </li>
             }
-            <li (click)="navigateTo('analitic/acoes/' + inputValue)">
-              <div class="flex justify-content-start align-items-center gap-3">
-                <img class="img-logo" src="../../../../../assets/images/acoes-logo1.png" />
-                {{ inputValue.toUpperCase() }}
-              </div>
-  
-              <span class="flex justify-content-start" style="min-width:5rem;"><p-tag value="Ação" severity="success" /></span>
-            </li>
-            <li (click)="navigateTo('analitic/fiis/' + inputValue)">
-              <div class="flex justify-content-start align-items-center gap-3">
-                <img class="img-logo" src="../../../../../assets/images/acoes-logo1.png" />
-                {{ inputValue.toUpperCase() }}
-              </div>
-  
-              <span class="flex justify-content-start" style="min-width:5rem;"><p-tag value="Fii" severity="warn" /></span>
-            </li>
+            @if (searchResponseActives[0].ticker != inputValue.toUpperCase()){
+              <li (click)="navigateTo('analitic/acoes/' + inputValue)">
+                <div class="flex justify-content-start align-items-center gap-3">
+                  <img class="img-logo" src="../../../../../assets/images/acoes-logo1.png" />
+                  {{ inputValue.toUpperCase() }}
+                </div>
+    
+                <span class="flex justify-content-start" style="min-width:5rem;"><p-tag value="Ação" severity="success" /></span>
+              </li>
+              <li (click)="navigateTo('analitic/fiis/' + inputValue)">
+                <div class="flex justify-content-start align-items-center gap-3">
+                  <img class="img-logo" src="../../../../../assets/images/acoes-logo1.png" />
+                  {{ inputValue.toUpperCase() }}
+                </div>
+    
+                <span class="flex justify-content-start" style="min-width:5rem;"><p-tag value="Fii" severity="warn" /></span>
+              </li>
+            }
           </ul>
         }
       </div>
