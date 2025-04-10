@@ -40,7 +40,7 @@ export class HeaderComponent {
 
   async ngOnInit() {
     this.themeService.themeInformation.subscribe(data => this.actualTheme = data);
-    
+
     // const responseSectors = await this.activesService.getAllSectors('all', 4);
     this.initialConfigurationsService.sectorsInformations.subscribe(data => {
       if (typeof(data) == 'object' && data.acoes && data.fiis){
@@ -51,7 +51,7 @@ export class HeaderComponent {
             command: () => this.navigateToWithQuery('all/acoes', sector)
           })
         });
-  
+
         data.fiis.map((sector: any) => {
           this.fiisSectorsItems.push({
             label: sector,
@@ -63,7 +63,7 @@ export class HeaderComponent {
         this.initialConfigurationsService.getSectors();
       }
     })
-    
+
     // const responseViewed = await this.activesService.getMostViewed('all', 4);
     this.initialConfigurationsService.mostViewedInformations.subscribe(data => {
       if (typeof(data) == 'object' && data.acoes && data.fiis){
@@ -74,7 +74,7 @@ export class HeaderComponent {
             command: () => this.navigateTo('analitic/acoes/' + acao.ticker)
           })
         });
-  
+
         data.fiis.map((fii: any) => {
           this.fiisViewedItems.push({
             label: fii.ticker,

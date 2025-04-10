@@ -4,8 +4,6 @@ import { InputSearchService } from '../../services/input-search/input-search.ser
 import { Dialog } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
 import { FloatLabelModule } from 'primeng/floatlabel';
-import { IconFieldModule } from 'primeng/iconfield';
-import { InputIconModule } from 'primeng/inputicon';
 import { InputTextModule } from 'primeng/inputtext';
 import { RippleModule } from 'primeng/ripple';
 import { FormsModule } from '@angular/forms';
@@ -20,7 +18,7 @@ import { InitialConfigurationsService } from '../../services/initial-configurati
 
 @Component({
   selector: 'app-input-search-dialog',
-  imports: [CommonModule, Dialog, ButtonModule, InputTextModule, FloatLabelModule, IconFieldModule, InputIconModule, RippleModule, FormsModule, LoadingComponent, TagModule],
+  imports: [CommonModule, Dialog, ButtonModule, InputTextModule, FloatLabelModule, RippleModule, FormsModule, LoadingComponent, TagModule],
   templateUrl: './input-search-dialog.component.html',
   styleUrl: './input-search-dialog.component.scss'
 })
@@ -70,7 +68,7 @@ export class InputSearchDialogComponent implements OnInit {
       if (typeof(data) == 'object' && data.acoes && data.fiis){
         this.topAcoes = [...data.acoes];
         this.topFiis = [...data.fiis];
-  
+
         this.isLoadingTopActives = false;
       }
     })

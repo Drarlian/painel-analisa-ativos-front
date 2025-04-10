@@ -32,7 +32,7 @@
               @if (typeActive == 'fiis'){
                 <img class="img-logo" src="../../../../../assets/images/fiis-logo.png" />
               }
-  
+
               <div class="flex flex-column justify-content-center align-content-center">
                 <h2>{{activeInfos.ticker}}</h2>
                 <h4>{{activeInfos.nome}}</h4>
@@ -44,41 +44,41 @@
           </div>
         </p-card>
       </div>
-  
+
       <div class="sub-title-card">
         <p-card header="Cotação" [ngStyle]="{flex: '1'}">
           <div class="flex justify-content-center align-content-center">
             <h3>{{activeInfos.cotacao}}</h3>
           </div>
         </p-card>
-  
+
         <p-card header="P/VP" [ngStyle]="{flex: '1'}">
           <div class="flex justify-content-center align-content-center">
             <h3>{{activeInfos['p/vp']}}</h3>
           </div>
         </p-card>
-  
+
         @if (typeActive == 'acoes') {
           <p-card header="P/L" [ngStyle]="{flex: '1'}">
             <div class="flex justify-content-center align-content-center">
               <h3>{{activeInfos['p/l']}}</h3>
             </div>
           </p-card>
-  
+
           <p-card header="DY" [ngStyle]="{flex: '1'}">
             <div class="flex justify-content-center align-content-center">
               <h3>{{activeInfos.dy_12m}}</h3>
             </div>
           </p-card>
         }
-  
+
         @if (typeActive == 'fiis') {
           <p-card header="Liquidez Diária" [ngStyle]="{flex: '1'}">
             <div class="flex justify-content-center align-content-center">
               <h3>{{activeInfos.liquidez_diaria}}</h3>
             </div>
           </p-card>
-  
+
           <p-card header="DY" [ngStyle]="{flex: '1'}">
             <div class="flex justify-content-center align-content-center">
               <h3>{{activeInfos.dy_12M}}</h3>
@@ -86,7 +86,7 @@
           </p-card>
         }
       </div>
-  
+
       @if (typeActive == 'acoes') {
         <div class="avaliation-card">
           <p-card header="Cálculo Fundamentalista" [ngStyle]="{width: '80%'}">
@@ -98,7 +98,7 @@
           </p-card>
         </div>
       }
-  
+
       @if (typeActive == 'acoes') {
         <div class="informations-card">
           <p-card header="Analisando os Indicadores da Ação" [ngStyle]="{width: '100%'}">
@@ -109,12 +109,12 @@
                 <span (click)="toggleShowAllInformations()" [ngStyle]="{fontSize: '1.5rem'}" class="pi pi-eye-slash cursor-pointer"></span>
               }
             </div>
-  
+
             <div class="information-note mb-4">
-              <h3>Nota do Ativo: 8<i class="pi pi-verified" style="color: green"></i></h3>
+              <h3>Nota do Ativo: {{activeInfos.nota}}<i [class]="defineActiveNoteStamp()" [style]="{color: defineActiveColorStamp()}"></i></h3>
               <!-- <h3>Nota do Ativo: 5<i class="pi pi-times-circle" style="color: red"></i></h3> -->
             </div>
-  
+
             <div class="cards-container mt-2">
               <!-- @for (active of activeInfosEntries; track active[0]) {
                 <p-card [className]="'card'" [header]="normalizeTitle(active[0])">
@@ -123,14 +123,14 @@
                   </div>
                 </p-card>
               } -->
-  
-  
+
+
               <p-card [className]="'card'" header="Ticker">
                 <div class="flex justify-content-center align-content-center mt-1">
                   <span class="card-info">{{activeInfos.ticker}}</span>
                 </div>
               </p-card>
-  
+
               <p-card [className]="'card'" header="Cotação">
                 <div class="flex justify-content-center align-content-center mt-1">
                   <span class="card-info">{{activeInfos.cotacao}}</span>
@@ -142,291 +142,291 @@
                   <span class="card-info" [pTooltip]="activeInfos.nome" tooltipPosition="top" placeholder="Top">{{activeInfos.nome}}</span>
                 </div>
               </p-card>
-  
-              <p-card [className]="'card good'" header="Variação 12M">
+
+              <p-card [className]="'card ' + defineCardColor('variacao_12m')" header="Variação 12M">
                 <div class="flex justify-content-center align-content-center mt-1">
                   <span class="card-info">{{activeInfos.variacao_12m}}</span>
                 </div>
               </p-card>
-  
-              <p-card [className]="'card good'" header="P/L">
+
+              <p-card [className]="'card ' + defineCardColor('p/l')" header="P/L">
                 <div class="flex justify-content-center align-content-center mt-1">
                   <span class="card-info">{{activeInfos['p/l']}}</span>
                 </div>
               </p-card>
-  
-              <p-card [className]="'card good'" header="P/VP">
+
+              <p-card [className]="'card ' + defineCardColor('p/vp')" header="P/VP">
                 <div class="flex justify-content-center align-content-center mt-1">
                   <span class="card-info">{{activeInfos['p/vp']}}</span>
                 </div>
               </p-card>
-  
-              <p-card [className]="'card bad'" header="DY 12M">
+
+              <p-card [className]="'card ' + defineCardColor('dy_12m')" header="DY 12M">
                 <div class="flex justify-content-center align-content-center mt-1">
                   <span class="card-info">{{activeInfos.dy_12m}}</span>
                 </div>
               </p-card>
-  
-              <p-card [className]="'card bad'" header="P/Receita PSR">
+
+              <p-card [className]="'card ' + defineCardColor('p/receita_psr')" header="P/Receita PSR">
                 <div class="flex justify-content-center align-content-center mt-1">
                   <span class="card-info">{{activeInfos['p/receita_psr']}}</span>
                 </div>
               </p-card>
-  
-              <p-card [className]="'card good'" header="Margem Líquida">
+
+              <p-card [className]="'card ' + defineCardColor('margem_liquida')" header="Margem Líquida">
                 <div class="flex justify-content-center align-content-center mt-1">
                   <span class="card-info">{{activeInfos.margem_liquida}}</span>
                 </div>
               </p-card>
-  
-              <p-card [className]="'card good'" header="Margem EBIT">
+
+              <p-card [className]="'card ' + defineCardColor('margem_ebit')" header="Margem EBIT">
                 <div class="flex justify-content-center align-content-center mt-1">
                   <span class="card-info">{{activeInfos.margem_ebit}}</span>
                 </div>
               </p-card>
-  
-              <p-card [className]="'card bad'" header="ROE">
+
+              <p-card [className]="'card ' + defineCardColor('roe')" header="ROE">
                 <div class="flex justify-content-center align-content-center mt-1">
                   <span class="card-info">{{activeInfos.roe}}</span>
                 </div>
               </p-card>
-  
-              <p-card [className]="'card bad'" header="ROIC">
+
+              <p-card [className]="'card ' + defineCardColor('roic')" header="ROIC">
                 <div class="flex justify-content-center align-content-center mt-1">
                   <span class="card-info">{{activeInfos.roic}}</span>
                 </div>
               </p-card>
-  
-              <p-card [className]="'card good'" header="CAGR Lucros 5 Anos">
+
+              <p-card [className]="'card ' + defineCardColor('cagr_lucros_5_anos')" header="CAGR Lucros 5 Anos">
                 <div class="flex justify-content-center align-content-center mt-1">
                   <span class="card-info">{{activeInfos.cagr_lucros_5_anos}}</span>
                 </div>
               </p-card>
-  
-              <p-card [className]="'card good'" header="Valor de Mercado">
+
+              <p-card [className]="'card ' + defineCardColor('valor_de_mercado')" header="Valor de Mercado">
                 <div class="flex justify-content-center align-content-center mt-1">
                   <span class="card-info">{{activeInfos.valor_de_mercado}}</span>
                 </div>
               </p-card>
-  
-              <p-card [className]="'card good'" header="Patrimônio Líquido">
+
+              <p-card [className]="'card ' + defineCardColor('patrimonio_liquido')" header="Patrimônio Líquido">
                 <div class="flex justify-content-center align-content-center mt-1">
                   <span class="card-info">{{activeInfos.patrimonio_liquido}}</span>
                 </div>
               </p-card>
-  
-              <p-card [className]="'card good'" header="Nº Total de Papéis">
+
+              <p-card [className]="'card ' + defineCardColor('n_total_de_papeis')" header="Nº Total de Papéis">
                 <div class="flex justify-content-center align-content-center mt-1">
                   <span class="card-info">{{activeInfos.n_total_de_papeis}}</span>
                 </div>
               </p-card>
-  
-              <p-card [className]="'card bad'" header="Tag Along">
+
+              <p-card [className]="'card ' + defineCardColor('tag_along')" header="Tag Along">
                 <div class="flex justify-content-center align-content-center mt-1">
                   <span class="card-info">{{activeInfos.tag_along}}</span>
                 </div>
               </p-card>
-  
-              <p-card [className]="'card bad'" header="Liquidez Média Diária">
+
+              <p-card [className]="'card ' + defineCardColor('liquidez_media_diaria')" header="Liquidez Média Diária">
                 <div class="flex justify-content-center align-content-center mt-1">
                   <span class="card-info">{{activeInfos.liquidez_media_diaria}}</span>
                 </div>
               </p-card>
-              <p-card [className]="'card bad'" header="Setor">
+              <p-card [className]="'card ' + defineCardColor('setor')" header="Setor">
                 <div class="flex justify-content-center align-content-center mt-1">
                   <span class="card-info">{{activeInfos.setor}}</span>
                 </div>
               </p-card>
-  
-              <p-card [className]="'card good'" header="Segmento de Listagem">
+
+              <p-card [className]="'card ' + defineCardColor('segmento_de_listagem')" header="Segmento de Listagem">
                 <div class="flex justify-content-center align-content-center mt-1">
                   <span class="card-info">{{activeInfos.segmento_de_listagem}}</span>
                 </div>
               </p-card>
-  
-              <p-card [className]="'card bad'" header="Segmento">
+
+              <p-card [className]="'card ' + defineCardColor('segmento')" header="Segmento">
                 <div class="flex justify-content-center align-content-center mt-1">
                   <span class="card-info">{{activeInfos.segmento}}</span>
                 </div>
               </p-card>
-  
-  
+
+
               @if (showAllInformations){
-                <p-card [className]="'card good'" header="Payout">
+                <p-card [className]="'card ' + defineCardColor('payout')" header="Payout">
                   <div class="flex justify-content-center align-content-center mt-1">
                     <span class="card-info">{{activeInfos.payout}}</span>
                   </div>
                 </p-card>
-  
-                <p-card [className]="'card good'" header="Margem Bruta">
+
+                <p-card [className]="'card ' + defineCardColor('margem_bruta')" header="Margem Bruta">
                   <div class="flex justify-content-center align-content-center mt-1">
                     <span class="card-info">{{activeInfos.margem_bruta}}</span>
                   </div>
                 </p-card>
-  
-                <p-card [className]="'card good'" header="Margem EBITDA">
+
+                <p-card [className]="'card ' + defineCardColor('margem_ebitda')" header="Margem EBITDA">
                   <div class="flex justify-content-center align-content-center mt-1">
                     <span class="card-info">{{activeInfos.margem_ebitda}}</span>
                   </div>
                 </p-card>
-  
-                <p-card [className]="'card bad'" header="EV/EBITDA">
+
+                <p-card [className]="'card ' + defineCardColor('ev/ebitda')" header="EV/EBITDA">
                   <div class="flex justify-content-center align-content-center mt-1">
                     <span class="card-info">{{activeInfos['ev/ebitda']}}</span>
                   </div>
                 </p-card>
-  
-                <p-card [className]="'card bad'" header="EV/EBIT">
+
+                <p-card [className]="'card ' + defineCardColor('ev/ebit')" header="EV/EBIT">
                   <div class="flex justify-content-center align-content-center mt-1">
                     <span class="card-info">{{activeInfos['ev/ebit']}}</span>
                   </div>
                 </p-card>
-  
-                <p-card [className]="'card bad'" header="P/EBITDA">
+
+                <p-card [className]="'card ' + defineCardColor('p/ebitda')" header="P/EBITDA">
                   <div class="flex justify-content-center align-content-center mt-1">
                     <span class="card-info">{{activeInfos['p/ebitda']}}</span>
                   </div>
                 </p-card>
-  
-                <p-card [className]="'card good'" header="P/EBIT">
+
+                <p-card [className]="'card ' + defineCardColor('p/ebitda')" header="P/EBIT">
                   <div class="flex justify-content-center align-content-center mt-1">
                     <span class="card-info">{{activeInfos['p/ebitda']}}</span>
                   </div>
                 </p-card>
-  
-                <p-card [className]="'card good'" header="P/Ativo">
+
+                <p-card [className]="'card ' + defineCardColor('p/ativo')" header="P/Ativo">
                   <div class="flex justify-content-center align-content-center mt-1">
                     <span class="card-info">{{activeInfos['p/ativo']}}</span>
                   </div>
                 </p-card>
-  
-                <p-card [className]="'card good'" header="P/Capgiro">
+
+                <p-card [className]="'card ' + defineCardColor('p/capgiro')" header="P/Capgiro">
                   <div class="flex justify-content-center align-content-center mt-1">
                     <span class="card-info">{{activeInfos['p/capgiro']}}</span>
                   </div>
                 </p-card>
-  
-                <p-card [className]="'card good'" header="P/Ativo Circ Liq">
+
+                <p-card [className]="'card ' + defineCardColor('p/ativo_circ_liq')" header="P/Ativo Circ Liq">
                   <div class="flex justify-content-center align-content-center mt-1">
                     <span class="card-info">{{activeInfos['p/ativo_circ_liq']}}</span>
                   </div>
                 </p-card>
-  
-                <p-card [className]="'card good'" header="VPA">
+
+                <p-card [className]="'card ' + defineCardColor('vpa')" header="VPA">
                   <div class="flex justify-content-center align-content-center mt-1">
                     <span class="card-info">{{activeInfos.vpa}}</span>
                   </div>
                 </p-card>
-  
-                <p-card [className]="'card good'" header="LPA">
+
+                <p-card [className]="'card ' + defineCardColor('lpa')" header="LPA">
                   <div class="flex justify-content-center align-content-center mt-1">
                     <span class="card-info">{{activeInfos.lpa}}</span>
                   </div>
                 </p-card>
-  
-                <p-card [className]="'card bad'" header="Giro Ativos">
+
+                <p-card [className]="'card ' + defineCardColor('giro_ativos')" header="Giro Ativos">
                   <div class="flex justify-content-center align-content-center mt-1">
                     <span class="card-info">{{activeInfos.giro_ativos}}</span>
                   </div>
                 </p-card>
-  
-                <p-card [className]="'card bad'" header="ROA">
+
+                <p-card [className]="'card ' + defineCardColor('roa')" header="ROA">
                   <div class="flex justify-content-center align-content-center mt-1">
                     <span class="card-info">{{activeInfos.roa}}</span>
                   </div>
                 </p-card>
-  
-                <p-card [className]="'card bad'" header="Dívida Líquida / Patrimônio">
+
+                <p-card [className]="'card ' + defineCardColor('divida_liquida/patrimonio')" header="Dívida Líquida / Patrimônio">
                   <div class="flex justify-content-center align-content-center mt-1">
                     <span class="card-info">{{activeInfos['divida_liquida/patrimonio']}}</span>
                   </div>
                 </p-card>
-  
-                <p-card [className]="'card bad'" header="Dívida Líquida / EBITDA">
+
+                <p-card [className]="'card ' + defineCardColor('divida_liquida/ebitda')" header="Dívida Líquida / EBITDA">
                   <div class="flex justify-content-center align-content-center mt-1">
                     <span class="card-info">{{activeInfos['divida_liquida/ebitda']}}</span>
                   </div>
                 </p-card>
-  
-                <p-card [className]="'card bad'" header="Dívida Líquida / EBIT">
+
+                <p-card [className]="'card ' + defineCardColor('divida_liquida/ebit')" header="Dívida Líquida / EBIT">
                   <div class="flex justify-content-center align-content-center mt-1">
                     <span class="card-info">{{activeInfos['divida_liquida/ebit']}}</span>
                   </div>
                 </p-card>
-  
-                <p-card [className]="'card bad'" header="Dívida Bruta / Patrimônio">
+
+                <p-card [className]="'card ' + defineCardColor('divida_bruta/patrimonio')" header="Dívida Bruta / Patrimônio">
                   <div class="flex justify-content-center align-content-center mt-1">
                     <span class="card-info">{{activeInfos['divida_bruta/patrimonio']}}</span>
                   </div>
                 </p-card>
-  
-                <p-card [className]="'card bad'" header="Patrimônio / Ativos">
+
+                <p-card [className]="'card ' + defineCardColor('patrimonio/ativos')" header="Patrimônio / Ativos">
                   <div class="flex justify-content-center align-content-center mt-1">
                     <span class="card-info">{{activeInfos['patrimonio/ativos']}}</span>
                   </div>
                 </p-card>
-  
-                <p-card [className]="'card bad'" header="Passivos / Ativos">
+
+                <p-card [className]="'card ' + defineCardColor('passivos/ativos')" header="Passivos / Ativos">
                   <div class="flex justify-content-center align-content-center mt-1">
                     <span class="card-info">{{activeInfos['passivos/ativos']}}</span>
                   </div>
                 </p-card>
-  
-                <p-card [className]="'card bad'" header="Liquidez Corrente">
+
+                <p-card [className]="'card ' + defineCardColor('liquidez_corrente')" header="Liquidez Corrente">
                   <div class="flex justify-content-center align-content-center mt-1">
                     <span class="card-info">{{activeInfos.liquidez_corrente}}</span>
                   </div>
                 </p-card>
-  
-                <p-card [className]="'card bad'" header="CAGR Receitas 5 Anos">
+
+                <p-card [className]="'card ' + defineCardColor('cagr_receitas_5_anos')" header="CAGR Receitas 5 Anos">
                   <div class="flex justify-content-center align-content-center mt-1">
                     <span class="card-info">{{activeInfos.cagr_receitas_5_anos}}</span>
                   </div>
                 </p-card>
-  
-                <p-card [className]="'card good'" header="Valor de Firma">
+
+                <p-card [className]="'card ' + defineCardColor('valor_de_firma')" header="Valor de Firma">
                   <div class="flex justify-content-center align-content-center mt-1">
                     <span class="card-info">{{activeInfos.valor_de_firma}}</span>
                   </div>
                 </p-card>
-  
-                <p-card [className]="'card good'" header="Ativos">
+
+                <p-card [className]="'card ' + defineCardColor('ativos')" header="Ativos">
                   <div class="flex justify-content-center align-content-center mt-1">
                     <span class="card-info">{{activeInfos.ativos}}</span>
                   </div>
                 </p-card>
-  
-                <p-card [className]="'card good'" header="Ativo Circulante">
+
+                <p-card [className]="'card ' + defineCardColor('ativo_circulante')" header="Ativo Circulante">
                   <div class="flex justify-content-center align-content-center mt-1">
                     <span class="card-info">{{activeInfos.ativo_circulante}}</span>
                   </div>
                 </p-card>
-  
-                <p-card [className]="'card bad'" header="Dívida Bruta">
+
+                <p-card [className]="'card ' + defineCardColor('divida_bruta')" header="Dívida Bruta">
                   <div class="flex justify-content-center align-content-center mt-1">
                     <span class="card-info">{{activeInfos.divida_bruta}}</span>
                   </div>
                 </p-card>
-  
-                <p-card [className]="'card bad'" header="Dívida Líquida">
+
+                <p-card [className]="'card ' + defineCardColor('divida_liquida')" header="Dívida Líquida">
                   <div class="flex justify-content-center align-content-center mt-1">
                     <span class="card-info">{{activeInfos.divida_liquida}}</span>
                   </div>
                 </p-card>
-  
-                <p-card [className]="'card bad'" header="Disponibilidade">
+
+                <p-card [className]="'card ' + defineCardColor('disponibilidade')" header="Disponibilidade">
                   <div class="flex justify-content-center align-content-center mt-1">
                     <span class="card-info">{{activeInfos.disponibilidade}}</span>
                   </div>
                 </p-card>
-  
-                <p-card [className]="'card bad'" header="Free Float">
+
+                <p-card [className]="'card ' + defineCardColor('free_float')" header="Free Float">
                   <div class="flex justify-content-center align-content-center mt-1">
                     <span class="card-info">{{activeInfos.free_float}}</span>
                   </div>
                 </p-card>
               }
-  
+
               <div class="card"></div>
               <div class="card"></div>
               <div class="card"></div>
@@ -434,7 +434,7 @@
           </p-card>
         </div>
       }
-  
+
       @if (typeActive == 'fiis'){
         <div class="informations-card">
           <p-card header="Analisando os Indicadores do Fii" [ngStyle]="{width: '100%'}">
@@ -445,19 +445,19 @@
                 <span (click)="toggleShowAllInformations()" [ngStyle]="{fontSize: '1.5rem'}" class="pi pi-eye-slash cursor-pointer"></span>
               }
             </div>
-  
+
             <div class="information-note mb-4">
-              <h3>Nota do Ativo: 8<i class="pi pi-verified" style="color: green"></i></h3>
+              <h3>Nota do Ativo: {{activeInfos.nota}}<i [class]="defineActiveNoteStamp()" [style]="{color: defineActiveColorStamp()}"></i></h3>
               <!-- <h3>Nota do Ativo: 5<i class="pi pi-times-circle" style="color: red"></i></h3> -->
             </div>
-  
+
             <div class="cards-container mt-2">
               <p-card [className]="'card'" header="Ticker">
                 <div class="flex justify-content-center align-content-center mt-1">
                   <span class="card-info">{{activeInfos.ticker}}</span>
                 </div>
               </p-card>
-  
+
               <p-card [className]="'card'" header="Cotação">
                 <div class="flex justify-content-center align-content-center mt-1">
                   <span class="card-info">{{activeInfos.cotacao}}</span>
@@ -469,123 +469,123 @@
                   <span class="card-info" [pTooltip]="activeInfos.nome" tooltipPosition="top" placeholder="Top">{{activeInfos.nome}}</span>
                 </div>
               </p-card>
-  
-              <p-card [className]="'card bad'" header="DY 12M">
+
+              <p-card [className]="'card ' + defineCardColor('dy_12M')" header="DY 12M">
                 <div class="flex justify-content-center align-content-center mt-1">
                   <span class="card-info">{{activeInfos.dy_12M}}</span>
                 </div>
               </p-card>
-  
-              <p-card [className]="'card bad'" header="P/VP">
+
+              <p-card [className]="'card ' + defineCardColor('p/vp')" header="P/VP">
                 <div class="flex justify-content-center align-content-center mt-1">
                   <span class="card-info">{{activeInfos['p/vp']}}</span>
                 </div>
               </p-card>
-  
-              <p-card [className]="'card bad'" header="Liquidez Diária">
+
+              <p-card [className]="'card ' + defineCardColor('liquidez_diaria')" header="Liquidez Diária">
                 <div class="flex justify-content-center align-content-center mt-1">
                   <span class="card-info">{{activeInfos.liquidez_diaria}}</span>
                 </div>
               </p-card>
-  
-              <p-card [className]="'card bad'" header="Variação 12M">
+
+              <p-card [className]="'card ' + defineCardColor('variacao_12m')" header="Variação 12M">
                 <div class="flex justify-content-center align-content-center mt-1">
                   <span class="card-info">{{activeInfos.variacao_12m}}</span>
                 </div>
               </p-card>
-  
-              <p-card [className]="'card bad'" header="Segmento">
+
+              <p-card [className]="'card ' + defineCardColor('segmento')" header="Segmento">
                 <div class="flex justify-content-center align-content-center mt-1">
                   <span class="card-info">{{activeInfos.segmento}}</span>
                 </div>
               </p-card>
-  
-              <p-card [className]="'card bad'" header="Tipo de Fundo">
+
+              <p-card [className]="'card ' + defineCardColor('tipo_de_fundo')" header="Tipo de Fundo">
                 <div class="flex justify-content-center align-content-center mt-1">
                   <span class="card-info">{{activeInfos.tipo_de_fundo}}</span>
                 </div>
               </p-card>
-  
-              <p-card [className]="'card bad'" header="Taxa de Administração">
+
+              <p-card [className]="'card ' + defineCardColor('taxa_de_administracao')" header="Taxa de Administração">
                 <div class="flex justify-content-center align-content-center mt-1">
                   <span class="card-info" [pTooltip]="activeInfos.taxa_de_administracao" tooltipPosition="top" placeholder="Top">{{activeInfos.taxa_de_administracao}}</span>
                 </div>
               </p-card>
-  
-              <p-card [className]="'card bad'" header="Vacância">
+
+              <p-card [className]="'card ' + defineCardColor('vacancia')" header="Vacância">
                 <div class="flex justify-content-center align-content-center mt-1">
                   <span class="card-info">{{activeInfos.vacancia}}</span>
                 </div>
               </p-card>
-  
-              <p-card [className]="'card bad'" header="Número de Cotistas">
+
+              <p-card [className]="'card ' + defineCardColor('numero_de_cotistas')" header="Número de Cotistas">
                 <div class="flex justify-content-center align-content-center mt-1">
                   <span class="card-info">{{activeInfos.numero_de_cotistas}}</span>
                 </div>
               </p-card>
-  
-              <p-card [className]="'card bad'" header="Cotas Emitidas">
+
+              <p-card [className]="'card ' + defineCardColor('cotas_emitidas')" header="Cotas Emitidas">
                 <div class="flex justify-content-center align-content-center mt-1">
                   <span class="card-info">{{activeInfos.cotas_emitidas}}</span>
                 </div>
               </p-card>
-  
-              <p-card [className]="'card bad'" header="Valor Patrimonial/Cota">
+
+              <p-card [className]="'card ' + defineCardColor('val_patrimonial_p/cota')" header="Valor Patrimonial/Cota">
                 <div class="flex justify-content-center align-content-center mt-1">
                   <span class="card-info">{{activeInfos['val_patrimonial_p/cota']}}</span>
                 </div>
               </p-card>
-  
-              <p-card [className]="'card bad'" header="Valor Patrimonial">
+
+              <p-card [className]="'card ' + defineCardColor('valor_patrimonial')" header="Valor Patrimonial">
                 <div class="flex justify-content-center align-content-center mt-1">
                   <span class="card-info">{{activeInfos.valor_patrimonial}}</span>
                 </div>
               </p-card>
-  
+
               <p-card [className]="'card'" header="Último Rendimento">
                 <div class="flex justify-content-center align-content-center mt-1">
                   <span class="card-info">{{activeInfos.ultimo_rendimento}}</span>
                 </div>
               </p-card>
-  
+
               @if(showAllInformations){
                 <p-card [className]="'card'" header="Razão Social">
                   <div class="flex justify-content-center align-content-center mt-1">
                     <span class="card-info" [pTooltip]="activeInfos.razao_social" tooltipPosition="top" placeholder="Top">{{activeInfos.razao_social}}</span>
                   </div>
                 </p-card>
-  
+
                 <p-card [className]="'card'" header="CNPJ">
                   <div class="flex justify-content-center align-content-center mt-1">
                     <span class="card-info">{{activeInfos.cnpj}}</span>
                   </div>
                 </p-card>
-  
-                <p-card [className]="'card bad'" header="Público Alvo">
+
+                <p-card [className]="'card ' + defineCardColor('p/vp')" header="Público Alvo">
                   <div class="flex justify-content-center align-content-center mt-1">
                     <span class="card-info">{{activeInfos['publico-alvo']}}</span>
                   </div>
                 </p-card>
-  
-                <p-card [className]="'card bad'" header="Mandato">
+
+                <p-card [className]="'card ' + defineCardColor('p/vp')" header="Mandato">
                   <div class="flex justify-content-center align-content-center mt-1">
                     <span class="card-info">{{activeInfos.mandato}}</span>
                   </div>
                 </p-card>
-  
-                <p-card [className]="'card bad'" header="Prazo de Duração">
+
+                <p-card [className]="'card ' + defineCardColor('p/vp')" header="Prazo de Duração">
                   <div class="flex justify-content-center align-content-center mt-1">
                     <span class="card-info">{{activeInfos.prazo_de_duracao}}</span>
                   </div>
                 </p-card>
-  
-                <p-card [className]="'card bad'" header="Tipo de Gestão">
+
+                <p-card [className]="'card ' + defineCardColor('p/vp')" header="Tipo de Gestão">
                   <div class="flex justify-content-center align-content-center mt-1">
                     <span class="card-info">{{activeInfos.tipo_de_gestao}}</span>
                   </div>
                 </p-card>
               }
-  
+
               <div class="card"></div>
               <div class="card"></div>
               <div class="card"></div>

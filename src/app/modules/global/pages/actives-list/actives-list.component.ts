@@ -142,7 +142,7 @@ export class ActivesListComponent implements OnInit{
 
   typeActive!: any;
   filterValue!: any;
-  
+
   tableFilters: { [s: string]: FilterMetadata[] } = {};
 
   @ViewChild('dt1') dt1!: Table;
@@ -229,7 +229,7 @@ export class ActivesListComponent implements OnInit{
             value: '',
             matchMode: 'contains'
           }]
-        }; // Limpa todos os 
+        }; // Limpa todos os
       }
 
       // Garante que o filtro é aplicado na tabela

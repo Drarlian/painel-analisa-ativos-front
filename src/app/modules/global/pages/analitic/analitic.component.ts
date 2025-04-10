@@ -52,7 +52,7 @@ export class AnaliticComponent implements OnInit{
 
   async handleTipoNomeChangeAsync(newType: string, newName: string) {
     this.isLoading = true;
-    
+
     // Fazendo a requisição para obter os dados:
     if (newType == 'acoes' && newName){
       const response = await this.activesService.getAcoes([newName]);
@@ -102,8 +102,14 @@ export class AnaliticComponent implements OnInit{
   calculateGrahamValue(lpa: string, vpa: string) {
     const tempLPA = Number(lpa.replace(',', '.'));
     const tempVPA = Number(vpa.replace(',', '.'));
+    const tempResult = Math.sqrt(22.5 * tempLPA * tempVPA).toFixed(2)
 
-    this.grahamValue = String(Math.sqrt(22.5 * tempLPA * tempVPA).toFixed(2)).replace('.', ',')
+    if (typeof(tempResult) == 'string') {
+      this.grahamValue = 'Indefinido'
+    } else {
+      this.grahamValue = String(tempResult).replace('.', ',')
+    }
+
   }
 
   calculateGrahamStatus(cotacao: string) {
@@ -151,6 +157,34 @@ export class AnaliticComponent implements OnInit{
         return 'success';
       default:
         return 'warn'
+    }
+  }
+
+  defineActiveNoteStamp() {
+    if (Number(this.activeInfos.nota) > 6) {
+      return 'pi pi-verified'
+    } else {
+      return 'pi pi-times-circle'
+    }
+  }
+
+  defineActiveColorStamp() {
+    if (Number(this.activeInfos.nota) > 6) {
+      return 'green'
+    } else {
+      return 'red'
+    }
+  }
+
+  defineCardColor(titleCard: string) {
+    if (this.activeInfos.indicadores_positivos?.filter((title: string) => title == titleCard).length > 0){
+      return 'good'
+    } else if (this.activeInfos.indicadores_medianos?.filter((title: string) => title == titleCard).length > 0) {
+      return 'warn'
+    } else if (this.activeInfos.indicadores_negativos?.filter((title: string) => title == titleCard).length > 0) {
+      return 'bad'
+    } else {
+      return ''
     }
   }
 
