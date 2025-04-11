@@ -92,7 +92,13 @@
           <p-card header="Cálculo Fundamentalista" [ngStyle]="{width: '80%'}">
             <div class="flex justify-content-between flex-column">
               <p>Fórmula de Graham: &radic;(22,5 • LPA • VPA) = <p-tag severity="success" value="Valor Justo" /></p>
-              <p>Aplicando a fórmula: &radic;(22,5 • {{activeInfos.lpa}} • {{activeInfos.vpa}}) = <p-tag [severity]="getSeverity()" [value]="'R$ ' + grahamValue" /></p>
+              <p>Aplicando a fórmula: &radic;(22,5 • {{activeInfos.lpa}} • {{activeInfos.vpa}}) = 
+                @if (isNotPossibleGraham) {
+                  <p-tag [severity]="getSeverity()" value="Impossível Calcular" />
+                } @else {
+                  <p-tag [severity]="getSeverity()" [value]="'R$ ' + grahamValue" />
+                }
+              </p>
               <p>De acordo com a fórmula de Benjamin Graham a <p-tag severity="info" [value]="activeInfos.ticker" /> esta: <p-tag [severity]="getSeverity()" [value]="grahamStatus" /></p>
             </div>
           </p-card>

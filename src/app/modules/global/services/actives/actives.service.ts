@@ -4,6 +4,7 @@ import { MessageService } from 'primeng/api';
 import { Fiis } from '../../interfaces/Fiis';
 import { Acoes } from '../../interfaces/Acoes';
 import { ActivesViewed } from '../../interfaces/Viewed';
+import { Filters } from '../../interfaces/Filter';
 
 @Injectable({
   providedIn: 'root'
@@ -128,8 +129,8 @@ export class ActivesService {
     })})
   }
 
-  async getAllSectors(typeActive: string, quantityActives: number): Promise<{acoes: string[], fiis: string[]} | boolean> {
-    return new Promise((resolve, _) => {this.http.get<{acoes: string[], fiis: string[]}>(`http://127.0.0.1:8000/get-all-sectors/${typeActive}/${quantityActives}`).subscribe({
+  async getAllFilters(typeActive: string, quantityActives: number): Promise<Filters | boolean> {
+    return new Promise((resolve, _) => {this.http.get<Filters>(`http://127.0.0.1:8000/get-all-filters/${typeActive}/${quantityActives}`).subscribe({
       next: (data) => {
         if (data) {
           resolve(data);

@@ -32,8 +32,10 @@ export class HeaderComponent {
 
   items: MenuItem[] | undefined;
 
+  acoesSegmentsItems: any = [];
+  fiisSegmentsItems: any = [];
   acoesSectorsItems: any = [];
-  fiisSectorsItems: any = [];
+  fiisTipoDeFundoItems: any = [];
 
   acoesViewedItems: any = [];
   fiisViewedItems: any = [];
@@ -42,31 +44,76 @@ export class HeaderComponent {
     this.themeService.themeInformation.subscribe(data => this.actualTheme = data);
 
     // const responseSectors = await this.activesService.getAllSectors('all', 4);
-    this.initialConfigurationsService.sectorsInformations.subscribe(data => {
-      if (typeof(data) == 'object' && data.acoes && data.fiis){
-        data.acoes.map((sector: any) => {
-          this.acoesSectorsItems.push({
-            label: sector,
+    this.initialConfigurationsService.filtersInformations.subscribe(data => {
+      // SEGMENTO:
+      if (typeof(data) == 'object' && data?.acoes.segmento && data?.fiis.segmento){
+        // Segmento das Ações:
+        data.acoes.segmento.map((segmento: any) => {
+          this.acoesSegmentsItems.push({
+            label: segmento,
             icon: 'pi pi-building',
-            command: () => this.navigateToWithQuery('all/acoes', sector)
+            command: () => this.navigateToWithQuery('all/acoes', 'segmento', segmento)
           })
         });
+        this.acoesSegmentsItems.push({
+          label: 'Ver Mais',
+          icon: 'pi pi-building',
+          command: () => this.navigateTo('all/acoes')
+        })
 
-        data.fiis.map((sector: any) => {
-          this.fiisSectorsItems.push({
-            label: sector,
+        // Segmento dos Fiis:
+        data.fiis.segmento.map((segmento: any) => {
+          this.fiisSegmentsItems.push({
+            label: segmento,
             icon: 'pi pi-building',
-            command: () => this.navigateToWithQuery('all/fiis', sector)
+            command: () => this.navigateToWithQuery('all/fiis', 'segmento', segmento)
           })
         });
+        this.fiisSegmentsItems.push({
+          label: 'Ver Mais',
+          icon: 'pi pi-building',
+          command: () => this.navigateTo('all/fiis')
+        })
       } else {
-        this.initialConfigurationsService.getSectors();
+        this.initialConfigurationsService.getFilters();
       }
-    })
+
+      // SETOR/TIPO DE FUNDO:
+      if (typeof(data) == 'object' && data?.acoes.setor && data?.fiis.tipo_de_fundo){
+        // Setor das Ações:
+        data.acoes.setor.map((setor: any) => {
+          this.acoesSectorsItems.push({
+            label: setor,
+            icon: 'pi pi-building',
+            command: () => this.navigateToWithQuery('all/acoes', 'setor', setor)
+          })
+        });
+        this.acoesSectorsItems.push({
+          label: 'Ver Mais',
+          icon: 'pi pi-building',
+          command: () => this.navigateTo('all/acoes')
+        })
+
+        // Tipo de Fundo dos Fiis:
+        data.fiis.tipo_de_fundo.map((tipo_de_fundo: any) => {
+          this.fiisTipoDeFundoItems.push({
+            label: tipo_de_fundo,
+            icon: 'pi pi-building',
+            command: () => this.navigateToWithQuery('all/fiis', 'tipo_de_fundo', tipo_de_fundo)
+          })
+        });
+        this.fiisTipoDeFundoItems.push({
+          label: 'Ver Mais',
+          icon: 'pi pi-building',
+          command: () => this.navigateTo('all/fiis')
+        })
+      }
+    });
 
     // const responseViewed = await this.activesService.getMostViewed('all', 4);
     this.initialConfigurationsService.mostViewedInformations.subscribe(data => {
       if (typeof(data) == 'object' && data.acoes && data.fiis){
+        // Ações Mais Vistas:
         data.acoes.map((acao: any) => {
           this.acoesViewedItems.push({
             label: acao.ticker,
@@ -74,7 +121,13 @@ export class HeaderComponent {
             command: () => this.navigateTo('analitic/acoes/' + acao.ticker)
           })
         });
+        this.acoesViewedItems.push({
+            label: 'Ver Mais',
+            icon: 'pi pi-eye',
+            command: () => this.navigateTo('all/acoes')
+          })
 
+        // Fiis Mais Vistos:
         data.fiis.map((fii: any) => {
           this.fiisViewedItems.push({
             label: fii.ticker,
@@ -82,12 +135,21 @@ export class HeaderComponent {
             command: () => this.navigateTo('analitic/fiis/' + fii.ticker)
           })
         });
+        this.fiisViewedItems.push({
+          label: 'Ver Mais',
+          icon: 'pi pi-eye',
+          command: () => this.navigateTo('all/fiis')
+        })
 
         this.createItems();
       } else {
         this.initialConfigurationsService.getMostViewed();
       }
-    })
+    });
+
+    // if (this.acoesSegmentsItems && this.fiisSegmentsItems && this.acoesSectorsItems && this.fiisTipoDeFundoItems && this.acoesViewedItems && this.fiisViewedItems){
+      // this.createItems();
+    // }
   }
 
   createItems(){
@@ -112,6 +174,11 @@ export class HeaderComponent {
             items: this.acoesSectorsItems
           },
           {
+            label: 'Segmentos',
+            icon: 'pi pi-server',
+            items: this.acoesSegmentsItems
+          },
+          {
             label: 'Mais Vistas',
             icon: 'pi pi-eye',
             items: this.acoesViewedItems
@@ -119,22 +186,22 @@ export class HeaderComponent {
           {
             separator: true
           },
-          {
-            label: 'Templates',
-            icon: 'pi pi-palette',
-            items: [
-                {
-                  label: 'Apollo',
-                  icon: 'pi pi-palette',
-                  badge: '2'
-                },
-                {
-                  label: 'Ultima',
-                  icon: 'pi pi-palette',
-                  badge: '3'
-                }
-            ]
-          }
+          // {
+          //   label: 'Templates',
+          //   icon: 'pi pi-palette',
+          //   items: [
+          //       {
+          //         label: 'Apollo',
+          //         icon: 'pi pi-palette',
+          //         badge: '2'
+          //       },
+          //       {
+          //         label: 'Ultima',
+          //         icon: 'pi pi-palette',
+          //         badge: '3'
+          //       }
+          //   ]
+          // }
         ]
       },
       {
@@ -147,9 +214,14 @@ export class HeaderComponent {
             command: () => this.navigateTo('all/fiis')
           },
           {
-            label: 'Setores',
+            label: 'Tipos',
             icon: 'pi pi-server',
-            items: this.fiisSectorsItems
+            items: this.fiisTipoDeFundoItems
+          },
+          {
+            label: 'Segmentos',
+            icon: 'pi pi-server',
+            items: this.fiisSegmentsItems
           },
           {
             label: 'Mais Vistos',
@@ -202,8 +274,8 @@ export class HeaderComponent {
     this.router.navigate([route]);
   }
 
-  navigateToWithQuery(route: string, filter: string){
+  navigateToWithQuery(route: string, filterName: string, filter: string){
     // this.sidebarVisible = false;
-    this.router.navigate([route], { queryParams: { filter } });
+    this.router.navigate([route], { queryParams: { [`${filterName}`]: filter } });
   }
 }

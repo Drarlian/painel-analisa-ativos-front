@@ -141,7 +141,7 @@ export class ActivesListComponent implements OnInit{
   isLoading: boolean = true;
 
   typeActive!: any;
-  filterValue!: any;
+  segmentoFilterValue!: any;
 
   tableFilters: { [s: string]: FilterMetadata[] } = {};
 
@@ -163,79 +163,47 @@ export class ActivesListComponent implements OnInit{
     });
 
     this.route.queryParams
-    .pipe(distinctUntilChanged((a, b) => a['filter'] === b['filter']))
+    .pipe(distinctUntilChanged((a, b) => JSON.stringify(a) === JSON.stringify(b)))
     .subscribe(params => {
-      const queryFilter = params['filter'] || '';
-      this.filterValue = queryFilter;
+      this.segmentoFilterValue = params['segmento'] || '';
 
-      if (queryFilter) {
-        this.tableFilters = {
-          ticker: [{
-            value: '',
+      // Filtros padrão
+      const defaultFilters: any = {
+        ticker: [{ value: '', matchMode: 'contains' }],
+        nome: [{ value: '', matchMode: 'contains' }],
+        cotacao: [{ value: '', matchMode: 'contains' }],
+        ['p/vp']: [{ value: '', matchMode: 'contains' }],
+        ['p/l']: [{ value: '', matchMode: 'contains' }],
+        dy_12m: [{ value: '', matchMode: 'contains' }],
+        dy_12M: [{ value: '', matchMode: 'contains' }],
+        nota: [{ value: '', matchMode: 'contains' }],
+        setor: [{ value: '', matchMode: 'contains' }],
+        tipo_de_fundo: [{ value: '', matchMode: 'contains' }],
+        segmento: [{ value: '', matchMode: 'contains' }]
+      };
+
+      // Aplica filtros vindos dos query params
+      for (const key in params) {
+        if (params[key]) {
+          defaultFilters[key] = [{
+            value: params[key],
             matchMode: 'contains'
-          }],
-          nome: [{
-            value: '',
-            matchMode: 'contains'
-          }],
-          cotacao: [{
-            value: '',
-            matchMode: 'contains'
-          }],
-          p_vp: [{
-            value: '',
-            matchMode: 'contains'
-          }],
-          dy_12m: [{
-            value: '',
-            matchMode: 'contains'
-          }],
-          dy_12M: [{
-            value: '',
-            matchMode: 'contains'
-          }],
-          segmento: [{
-            value: queryFilter,
-            matchMode: 'contains'
-          }]
-        };
-      } else {
-        this.tableFilters = {
-          ticker: [{
-            value: '',
-            matchMode: 'contains'
-          }],
-          nome: [{
-            value: '',
-            matchMode: 'contains'
-          }],
-          cotacao: [{
-            value: '',
-            matchMode: 'contains'
-          }],
-          p_vp: [{
-            value: '',
-            matchMode: 'contains'
-          }],
-          dy_12m: [{
-            value: '',
-            matchMode: 'contains'
-          }],
-          dy_12M: [{
-            value: '',
-            matchMode: 'contains'
-          }],
-          segmento: [{
-            value: '',
-            matchMode: 'contains'
-          }]
-        }; // Limpa todos os
+          }];
+        }
       }
 
-      // Garante que o filtro é aplicado na tabela
+      if (this.dt1 && Object.keys(params).length == 0) {
+        console.log(params);
+        console.log('teste');
+        this.clear(this.dt1);
+      }
+
+      this.tableFilters = defaultFilters;
+
+      // Aplica o filtro global com base em "segmento" (ou qualquer outro critério, se quiser adaptar)
       setTimeout(() => {
-        if (this.dt1) {
-          this.dt1.filterGlobal(queryFilter, 'contains');
+        if (this.dt1 && this.segmentoFilterValue) {
+          this.dt1.filterGlobal('', 'contains');
         }
       });
     });
@@ -255,10 +223,40 @@ export class ActivesListComponent implements OnInit{
     }
 
     if (typeof response === 'object') {
+      response.map((active: any) => {
+        if (active.nota && active.nota != 'N/A'){
+          active.nota = Number(active.nota);
+        }
+        active.cotacao = Number(active.cotacao.replace('R$', '').replace('.', '').replace(',', '.').trim());
+        active['p/vp'] = Number(active['p/vp'].replace(',', '.'));
+        
+        if (newType == 'acoes'){
+          active['p/l'] = Number(active['p/l'].replace('.', '').replace(',', '.'));
+          active.dy_12m = Number(active.dy_12m.replace('%', '').replace('.', '').replace(',', '.'));
+        } else {
+          active.dy_12M = Number(active.dy_12M.replace('%', '').replace('.', '').replace(',', '.'));
+        }
+      });
+
       this.actives = [...response];
       this.typeActive = newType;
       this.isLoading = false;
     }
+  }
+
+  changeTypeFiiName(typeFii: string) {
+    if (typeFii != 'Fundo de fundos') {
+      let tempType: string[] | string = typeFii.split(' ');
+      tempType = tempType[tempType.length-1];
+      
+      return tempType[0].toUpperCase() + tempType.slice(1)
+    } else {
+      return 'Fundo de Fundos'
+    }
+  }
+
+  changeVisualToBrFormat(value: number) {
+    return String(value).replace('.', ',')
   }
 
   hasActiveFilter(table: Table, columnKey: string): string {
@@ -318,6 +316,28 @@ export class ActivesListComponent implements OnInit{
 
       default:
         return 'info'
+    }
+  }
+
+  getSeverityNote(nota: string) {
+    if (Number(nota) > 6) {
+      return 'success'
+    } else if (Number(nota) > 3 && Number(nota) <= 6){
+      return 'warn'
+    } else {
+      return 'danger'
+    }
+  }
+
+  especialSeverityColor(active: any, especialTitle: string) {
+    if (active.indicadores_positivos?.filter((title: string) => title == especialTitle).length > 0){
+      return 'success'
+    } else if (active.indicadores_medianos?.filter((title: string) => title == especialTitle).length > 0) {
+      return 'warn'
+    } else if (active.indicadores_negativos?.filter((title: string) => title == especialTitle).length > 0) {
+      return 'danger'
+    } else {
+      return 'info'
     }
   }
 }

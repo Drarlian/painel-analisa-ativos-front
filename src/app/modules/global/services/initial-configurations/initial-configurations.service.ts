@@ -1,6 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { ActivesService } from '../actives/actives.service';
+import { Filters } from '../../interfaces/Filter';
 
 @Injectable({
   providedIn: 'root'
@@ -9,8 +10,8 @@ export class InitialConfigurationsService {
   private activesService = inject(ActivesService);
 
   // Aqui vou fazer as requisições necessárias para: Header, Home e Input Search.
-  private sectors = new BehaviorSubject<any>([]);
-  sectorsInformations = this.sectors.asObservable();
+  private filters = new BehaviorSubject<Filters | null>(null);
+  filtersInformations = this.filters.asObservable();
 
   private mostViewed = new BehaviorSubject<any>([]);
   mostViewedInformations = this.mostViewed.asObservable();
@@ -20,13 +21,13 @@ export class InitialConfigurationsService {
 
   constructor() { }
 
-  async getSectors(){
-    const response = await this.activesService.getAllSectors('all', 4);
+  async getFilters(){
+    const response = await this.activesService.getAllFilters('all', 4);
 
     if (typeof(response) == 'object'){
-      this.sectors.next(response);
+      this.filters.next(response);
     } else {
-      this.sectors.next([]);
+      this.filters.next(null);
     }
   }
 

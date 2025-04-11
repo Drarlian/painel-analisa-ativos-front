@@ -33,6 +33,7 @@ export class AnaliticComponent implements OnInit{
 
   grahamValue!: string;
   grahamStatus!: string;
+  isNotPossibleGraham: boolean = false;
 
   showAllInformations: boolean = false;
 
@@ -102,14 +103,14 @@ export class AnaliticComponent implements OnInit{
   calculateGrahamValue(lpa: string, vpa: string) {
     const tempLPA = Number(lpa.replace(',', '.'));
     const tempVPA = Number(vpa.replace(',', '.'));
-    const tempResult = Math.sqrt(22.5 * tempLPA * tempVPA).toFixed(2)
 
-    if (typeof(tempResult) == 'string') {
-      this.grahamValue = 'Indefinido'
-    } else {
-      this.grahamValue = String(tempResult).replace('.', ',')
+    if (tempLPA < 0 || tempVPA < 0){
+      this.isNotPossibleGraham = true;
     }
 
+    const tempResult = Math.sqrt(22.5 * tempLPA * tempVPA)
+
+    this.grahamValue = String(tempResult.toFixed(2)).replace('.', ',')
   }
 
   calculateGrahamStatus(cotacao: string) {
@@ -118,6 +119,8 @@ export class AnaliticComponent implements OnInit{
 
     if (this.activeInfos.cotacao.includes('-')){
       this.grahamStatus = 'INDEFINIDO';
+    } else if (this.isNotPossibleGraham) {
+      this.grahamStatus = 'INDEFINIDO'
     } else if (tempCotacao > tempGrahamValue) {
       this.grahamStatus = 'CARA';
     } else if (tempCotacao == tempGrahamValue) {
@@ -163,6 +166,8 @@ export class AnaliticComponent implements OnInit{
   defineActiveNoteStamp() {
     if (Number(this.activeInfos.nota) > 6) {
       return 'pi pi-verified'
+    } else if (Number(this.activeInfos.nota) > 3 && Number(this.activeInfos.nota) <= 6) {
+      return 'pi pi-question-circle'
     } else {
       return 'pi pi-times-circle'
     }
@@ -171,6 +176,8 @@ export class AnaliticComponent implements OnInit{
   defineActiveColorStamp() {
     if (Number(this.activeInfos.nota) > 6) {
       return 'green'
+    } else if (Number(this.activeInfos.nota) > 3 && Number(this.activeInfos.nota) <= 6) {
+      return 'orange'
     } else {
       return 'red'
     }
