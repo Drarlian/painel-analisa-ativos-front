@@ -195,6 +195,10 @@ export class AnaliticComponent implements OnInit{
     }
   }
 
+  changeNoteFormat(note: string){
+    return Number(note).toFixed(1).replace('.', ',');
+  }
+
   navigateTo(route: string){
     // this.sidebarVisible = false;
     this.router.navigate([route]);
