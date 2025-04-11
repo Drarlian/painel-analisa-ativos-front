@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
 import { HomeComponent } from '../../pages/home/home.component';
-import { HeaderComponent } from '../header/header.component';
 
 @Component({
   selector: 'app-basic-layout',
-  imports: [HomeComponent, HeaderComponent],
+  imports: [HomeComponent],
   templateUrl: './basic-layout.component.html',
   styleUrl: './basic-layout.component.scss'
 })

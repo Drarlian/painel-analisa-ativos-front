@@ -1,0 +1,29 @@
+.about-us-page{
+  // background-color: yellow;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  margin-bottom: 2rem;
+
+  .about-us-content{
+    // background-color: red;
+
+    display: flex;
+    flex-direction: column;
+    // justify-content: center;
+    // align-items: center;
+
+    width: 90%;
+
+    h2{
+      margin-top: 20px;
+      margin-bottom: 10px;
+
+      text-transform: uppercase;
+      font-style: italic;
+
+      color: var(--title-color);
+    }
+  }
+}

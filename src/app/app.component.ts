@@ -1,3 +1,4 @@
+import { HeaderComponent } from './modules/global/components/header/header.component';
 import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
@@ -7,11 +8,11 @@ import { ToastModule } from 'primeng/toast';
 import { PrimeNG } from 'primeng/config';
 import { InputSearchDialogComponent } from './modules/global/components/input-search-dialog/input-search-dialog.component';
 import { InputSearchService } from './modules/global/services/input-search/input-search.service';
-import { InitialConfigurationsService } from './modules/global/services/initial-configurations/initial-configurations.service';
+import { FooterComponent } from './modules/global/components/footer/footer.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, ButtonModule, CardModule, ToastModule, InputSearchDialogComponent],
+  imports: [RouterOutlet, ButtonModule, CardModule, ToastModule, InputSearchDialogComponent, HeaderComponent, FooterComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })

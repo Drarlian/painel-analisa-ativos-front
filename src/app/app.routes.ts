@@ -19,6 +19,10 @@ export const routes: Routes = [
     loadComponent: () => import('../app/modules/global/components/all-actives-layout/all-actives-layout.component').then((m) => m.AllActivesLayoutComponent)
   },
   {
+    path: 'about-us',
+    loadComponent: () => import('../app/modules/global/components/about-us-layout/about-us-layout.component').then((m) => m.AboutUsLayoutComponent)
+  },
+  {
     path: '**',
     redirectTo: 'home',
   },

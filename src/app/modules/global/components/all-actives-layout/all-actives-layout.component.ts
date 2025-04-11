@@ -4,7 +4,7 @@ import { ActivesListComponent } from '../../pages/actives-list/actives-list.comp
 
 @Component({
   selector: 'app-all-actives-layout',
-  imports: [HeaderComponent, ActivesListComponent],
+  imports: [ActivesListComponent],
   templateUrl: './all-actives-layout.component.html',
   styleUrl: './all-actives-layout.component.scss'
 })
