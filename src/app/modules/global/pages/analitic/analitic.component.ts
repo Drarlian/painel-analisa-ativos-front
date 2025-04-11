@@ -196,6 +196,9 @@ export class AnaliticComponent implements OnInit{
   }
 
   changeNoteFormat(note: string){
+    if (note == 'N/A'){
+      return note
+    }
     return Number(note).toFixed(1).replace('.', ',');
   }
 

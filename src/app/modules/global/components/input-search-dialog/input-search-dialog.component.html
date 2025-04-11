@@ -4,39 +4,37 @@
     <div class="input-area">
       <p-floatlabel>
         <p-iconfield>
-          <input #inputAtivo [(ngModel)]="inputValue" (ngModelChange)="onInputChange($event)" pInputText id="input_ativo" class="uppercase" />
+          <input #inputAtivo [(ngModel)]="inputValue" (ngModelChange)="onInputChange($event)" pInputText id="input_ativo" class="uppercase" [disabled]="isBlockedInput" />
           <p-inputicon class="pi pi-search" />
         </p-iconfield>
         <label for="input_ativo" [ngStyle]="{opacity: '0.6'}">Ativo desejado</label>
       </p-floatlabel>
     </div>
 
-    @if (searchResponseActives && searchResponseActives.length > 0){
+    @if (isLoadingSearching) {
+      <div class="flex justify-content-center align-items-center" [ngStyle]="{height: '100px'}">
+        <app-loading />
+      </div>
+    } @else if (searchResponseActives && searchResponseActives.length > 0){
       <div class="ativo-item">
         <h3>Ativos Encontrados</h3>
-        @if (isLoadingSearching) {
-          <div class="flex justify-content-center align-items-center" [ngStyle]="{height: '100px'}">
-            <app-loading />
-          </div>
-        } @else {
-          <ul>
-            @for (active of searchResponseActives; track active.ticker) {
-              <li (click)="navigateTo('analitic/' + active.tipo_ativo + '/' + active.ticker)">
-                <div class="flex justify-content-start align-items-center gap-3">
-                  @if (active.tipo_ativo == "acoes"){
-                    @if (active.img.length > 0){
-                      <img class="img-logo" [src]="'data:image/jpeg;base64,' + active.img" />
-                    } @else {
-                      <img class="img-logo" src="../../../../../assets/images/acoes-logo2.png" />
-                    }
+        <ul>
+          @for (active of searchResponseActives; track active.ticker) {
+            <li (click)="navigateTo('analitic/' + active.tipo_ativo + '/' + active.ticker)">
+              <div class="flex justify-content-start align-items-center gap-3">
+                @if (active.tipo_ativo == "acoes"){
+                  @if (active.img.length > 0){
+                    <img class="img-logo" [src]="'data:image/jpeg;base64,' + active.img" />
                   } @else {
-                    <img class="img-logo" src="../../../../../assets/images/fiis-logo.png" />
+                    <img class="img-logo" src="../../../../../assets/images/acoes-logo2.png" />
                   }
-                  {{ active.ticker }}
-                </div>
-                <span class="flex justify-content-start" style="min-width:5rem;">{{active.cotacao}}</span>
-              </li>
-            }
+                } @else {
+                  <img class="img-logo" src="../../../../../assets/images/fiis-logo.png" />
+                }
+                {{ active.ticker }}
+              </div>
+              <span class="flex justify-content-start" style="min-width:5rem;">{{active.cotacao}}</span>
+            </li>
             @if (searchResponseActives[0].ticker != inputValue.toUpperCase()){
               <li (click)="navigateTo('analitic/acoes/' + inputValue)">
                 <div class="flex justify-content-start align-items-center gap-3">
@@ -55,10 +53,10 @@
                 <span class="flex justify-content-start" style="min-width:5rem;"><p-tag value="Fii" severity="warn" /></span>
               </li>
             }
-          </ul>
-        }
+          }
+        </ul>
       </div>
-    } @else if(searchResponseActives && searchResponseActives.length == 0 && inputValue != '') {
+    } @else if(searchResponseActives && searchResponseActives.length == 0 && inputValue != '' && !isTyping) {
       <div class="ativo-item">
         <h3>Nenhum Ativo Encontrado</h3>
         <h4>Investigar Detalhadamente?</h4>

@@ -13,7 +13,6 @@ import { ActivesService } from '../../services/actives/actives.service';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
-import { AutoFocus } from 'primeng/autofocus';
 import { LoadingComponent } from '../loading/loading.component';
 import { TagModule } from 'primeng/tag';
 import { InitialConfigurationsService } from '../../services/initial-configurations/initial-configurations.service';
@@ -43,9 +42,28 @@ export class InputSearchDialogComponent implements OnInit {
   topAcoes: any;
   topFiis: any;
 
+  // Verificando se o usuário ainda esta digitando para poder mostrar a mensagem de ativos não encontrados:
+  debounceTimeout: any;
+  isTyping: boolean = false;
+
+  // Verificando se a busca esta sendo feita para impedir que o usuário digite durante a busta: (Talvez cancelar a pesquisa possa ser mais interessante no futuro)
+  isBlockedInput: boolean = false;
+
   async ngOnInit() {
     this.inputSearchService.statusInputSearchDialogInformation.subscribe((status) => {
       this.visible = status;
+    });
+
+    this.searchSubject.subscribe(() => {
+      this.isTyping = true; // <-- Usuário começou a digitar
+
+      // Sempre que um novo valor chegar, limpa o timeout anterior
+      clearTimeout(this.debounceTimeout);
+
+      // Marca o final da digitação (fim do debounce)
+      this.debounceTimeout = setTimeout(() => {
+        this.isTyping = false;
+      }, 500);
     });
 
     this.searchSubject
@@ -59,7 +77,6 @@ export class InputSearchDialogComponent implements OnInit {
         } else {
           this.isLoadingSearching = true;
           this.realizarBusca(searchTerm);
-          this.isLoadingSearching = false;
         }
       });
 
@@ -85,6 +102,8 @@ export class InputSearchDialogComponent implements OnInit {
   }
 
   async realizarBusca(searchTerm: string){
+    this.isBlockedInput = true;
+
     // Lógica para realizar a requisição com o termo de busca
     const response = await this.activesService.SearchActives(searchTerm);
 
@@ -92,6 +111,9 @@ export class InputSearchDialogComponent implements OnInit {
       this.searchResponseActives = response;
     }
     // Exemplo: this.meuServico.buscarDados(searchTerm).subscribe(...)
+
+    this.isLoadingSearching = false;
+    this.isBlockedInput = false;
   }
 
   toggleDialog() {
