@@ -92,7 +92,7 @@
           <p-card header="Cálculo Fundamentalista" [ngStyle]="{width: '80%'}">
             <div class="flex justify-content-between flex-column">
               <p>Fórmula de Graham: &radic;(22,5 • LPA • VPA) = <p-tag severity="success" value="Valor Justo" /></p>
-              <p>Aplicando a fórmula: &radic;(22,5 • {{activeInfos.lpa}} • {{activeInfos.vpa}}) = 
+              <p>Aplicando a fórmula: &radic;(22,5 • {{activeInfos.lpa}} • {{activeInfos.vpa}}) =
                 @if (isNotPossibleGraham) {
                   <p-tag [severity]="getSeverity()" value="Impossível Calcular" />
                 } @else {
@@ -173,9 +173,9 @@
                 </div>
               </p-card>
 
-              <p-card [className]="'card ' + defineCardColor('p/receita_psr')" header="P/Receita PSR">
+              <p-card [className]="'card ' + (activeInfos['p/receita_psr'] ? defineCardColor('p/receita_psr') : '')" header="P/Receita PSR">
                 <div class="flex justify-content-center align-content-center mt-1">
-                  <span class="card-info">{{activeInfos['p/receita_psr']}}</span>
+                  <span class="card-info">{{activeInfos['p/receita_psr'] ? activeInfos['p/receita_psr'] : 'NÃO ENCONTRADO'}}</span>
                 </div>
               </p-card>
 
@@ -276,9 +276,9 @@
                   </div>
                 </p-card>
 
-                <p-card [className]="'card ' + defineCardColor('ev/ebitda')" header="EV/EBITDA">
+                <p-card [className]="'card ' + (activeInfos['ev/ebitda'] ? defineCardColor('ev/ebitda') : '')" header="EV/EBITDA">
                   <div class="flex justify-content-center align-content-center mt-1">
-                    <span class="card-info">{{activeInfos['ev/ebitda']}}</span>
+                    <span class="card-info">{{activeInfos['ev/ebitda'] ? activeInfos['ev/ebitda'] : 'NÃO ENCONTRADO'}}</span>
                   </div>
                 </p-card>
 
@@ -288,15 +288,15 @@
                   </div>
                 </p-card>
 
-                <p-card [className]="'card ' + defineCardColor('p/ebitda')" header="P/EBITDA">
+                <p-card [className]="'card ' + (activeInfos['p/ebitda'] ? defineCardColor('p/ebitda') : '')" header="P/EBITDA">
                   <div class="flex justify-content-center align-content-center mt-1">
-                    <span class="card-info">{{activeInfos['p/ebitda']}}</span>
+                    <span class="card-info">{{activeInfos['p/ebitda'] ? activeInfos['p/ebitda'] : 'NÃO ENCONTRADO'}}</span>
                   </div>
                 </p-card>
 
-                <p-card [className]="'card ' + defineCardColor('p/ebitda')" header="P/EBIT">
+                <p-card [className]="'card ' + defineCardColor('p/ebit')" header="P/EBIT">
                   <div class="flex justify-content-center align-content-center mt-1">
-                    <span class="card-info">{{activeInfos['p/ebitda']}}</span>
+                    <span class="card-info">{{activeInfos['p/ebit']}}</span>
                   </div>
                 </p-card>
 
@@ -348,9 +348,9 @@
                   </div>
                 </p-card>
 
-                <p-card [className]="'card ' + defineCardColor('divida_liquida/ebitda')" header="Dívida Líquida / EBITDA">
+                <p-card [className]="'card ' + (activeInfos['divida_liquida/ebitda'] ? defineCardColor('divida_liquida/ebitda') : '')" header="Dívida Líquida / EBITDA">
                   <div class="flex justify-content-center align-content-center mt-1">
-                    <span class="card-info">{{activeInfos['divida_liquida/ebitda']}}</span>
+                    <span class="card-info">{{activeInfos['divida_liquida/ebitda'] ? activeInfos['divida_liquida/ebitda'] : 'NÃO ENCONTRADO'}}</span>
                   </div>
                 </p-card>
 

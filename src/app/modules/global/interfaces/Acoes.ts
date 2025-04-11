@@ -53,6 +53,8 @@ export interface Acoes {
     views: number,
     nota: string | number,
     indicadores_positivos: string[],
+    indicadores_negativos: string[],
+    indicadores_medianos: string[],
     ultima_atualizacao: string,
     img: string
 }

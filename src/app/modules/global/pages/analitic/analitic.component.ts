@@ -184,11 +184,11 @@ export class AnaliticComponent implements OnInit{
   }
 
   defineCardColor(titleCard: string) {
-    if (this.activeInfos.indicadores_positivos?.filter((title: string) => title == titleCard).length > 0){
+    if (this.activeInfos.indicadores_positivos?.find((title: string) => title == titleCard)){
       return 'good'
-    } else if (this.activeInfos.indicadores_medianos?.filter((title: string) => title == titleCard).length > 0) {
+    } else if (this.activeInfos.indicadores_medianos?.find((title: string) => title == titleCard)) {
       return 'warn'
-    } else if (this.activeInfos.indicadores_negativos?.filter((title: string) => title == titleCard).length > 0) {
+    } else if (this.activeInfos.indicadores_negativos?.find((title: string) => title == titleCard)) {
       return 'bad'
     } else {
       return ''
