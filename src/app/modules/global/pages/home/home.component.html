@@ -1,5 +1,7 @@
 <div class="home-page">
   <div class="main-area">
+    <h2 class="text-center uppercase font-italic mt-0" [ngStyle]="{marginBottom: '10px'}"><span>INVESIGHT</span></h2>
+
     <p-card>
       <h2>Experimente a revolução na gestão de ativos e veja como é fácil investir com confiança!</h2>
       <!-- <h2>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut vestibulum  mollis nisl, e!</h2> -->
@@ -21,12 +23,12 @@
   </div>
   <div class="ativos-cards">
     <div class="ativo">
-      <p-card>
+      <p-card styleClass="active">
         <h2>Ações</h2>
 
         <div class="ativo-item">
           @if (isLoadingTopAcoes) {
-            <div class="flex justify-content-center align-items-center" [ngStyle]="{height: '278px'}">
+            <div class="flex justify-content-center align-items-center" [ngStyle]="{height: '360px'}">
               <app-loading />
             </div>
           } @else {
@@ -56,12 +58,12 @@
     </div>
 
     <div class="ativo">
-      <p-card>
+      <p-card styleClass="active">
         <h2>Fiis</h2>
 
         <div class="ativo-item">
           @if (isLoadingTopFiis) {
-            <div class="flex justify-content-center align-items-center" [ngStyle]="{height: '278px'}">
+            <div class="flex justify-content-center align-items-center" [ngStyle]="{height: '360px'}">
               <app-loading />
             </div>
           } @else {
@@ -86,12 +88,15 @@
       </p-card>
     </div>
 
-
     <div class="ativo">
-      <p-card>
-        <h2>Tesouro</h2>
+      <p-card styleClass="active">
+        <h2>Tesouro Direto</h2>
 
-        <div class="ativo-item">
+        <div class="construcao-img-area">
+          <img class="construcao-img" src="../../../../../assets/images/area_construcao2.png" />
+        </div>
+
+        <!-- <div class="ativo-item">
           <ul>
             <li>
               <span>SELIC</span> <span>R$30</span>
@@ -110,7 +115,7 @@
           <div class="button-area">
             <p-button label="Ver todos" icon="pi pi-arrow-right" iconPos="right" [raised]="true"></p-button>
           </div>
-        </div>
+        </div> -->
       </p-card>
     </div>
   </div>

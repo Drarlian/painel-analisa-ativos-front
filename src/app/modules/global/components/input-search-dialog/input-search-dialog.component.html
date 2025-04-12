@@ -1,6 +1,6 @@
 <div class="shadow-div" [ngStyle]="{'display': visible ? 'inline': 'none', 'opacity': visible ? '1': '0'}" (click)="closeDiaog()"></div>
 <div class="card flex justify-center">
-  <p-dialog header="Procure algum ativo" (onShow)="handleFocus($event, inputAtivo)" [(visible)]="visible" [modal]="true" [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" [style]="{ width: '50vw' }" [draggable]="false" [resizable]="false" [modal]="false">
+  <p-dialog header="Procure algum ativo" (onShow)="handleFocus($event, inputAtivo)" [(visible)]="visible" [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" [style]="{ width: '50vw' }" [draggable]="false" [resizable]="false" [modal]="false">
     <div class="input-area">
       <p-floatlabel>
         <p-iconfield>

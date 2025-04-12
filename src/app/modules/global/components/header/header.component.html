@@ -1,3 +1,10 @@
+<div class="shadow-div" [ngStyle]="{'display': visible ? 'inline': 'none', 'opacity': visible ? '1': '0'}" (click)="closeDiaog()"></div>
+<p-dialog header="Área de Login" [(visible)]="visible" [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" [style]="{ width: '50vw' }" [draggable]="false" [resizable]="false" [modal]="false">
+  <div class="flex flex-column justify-content-center align-items-center">
+    <img class="construcao-img" src="../../../../../assets/images/area_construcao2.png" />
+  </div>
+</p-dialog>
+
 <div class="card sticky-header">
   <p-menubar [model]="items">
     <ng-template pTemplate="start">
@@ -68,7 +75,7 @@
       <div class="flex justify-content-end align-items-center gap-2 search-container">
         <p-button (click)="openInputSearchDialog()" icon="pi pi-search"></p-button>
         <p-button [icon]="checkTheme()" (click)="toggleTheme()"></p-button>
-        <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png"  shape="circle" />
+        <p-avatar (click)="openDialog()" class="cursor-pointer" image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png"  shape="circle" />
       </div>
     </ng-template>
   </p-menubar>

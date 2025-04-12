@@ -22,6 +22,11 @@ h3 {
   background-color: white; /* importante para não ficar transparente quando sobreposto */
 }
 
+.construcao-img {
+  width: 300px;
+  height: auto;
+}
+
 :host ::ng-deep .p-menubar {
   height: 70px;
   top: 0;
@@ -87,4 +92,10 @@ h3 {
   @media (min-width: 600px){
     max-width: 220px;
   }
+}
+
+
+:host ::ng-deep .p-dialog-close-button {
+  background-color: transparent !important; /* Cor de fundo */
+  border: none !important;
 }

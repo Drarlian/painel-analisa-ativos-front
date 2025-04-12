@@ -13,11 +13,12 @@ import { RippleModule } from 'primeng/ripple';
 import { InputSearchService } from '../../services/input-search/input-search.service';
 import { ActivesService } from '../../services/actives/actives.service';
 import { InitialConfigurationsService } from '../../services/initial-configurations/initial-configurations.service';
+import { DialogModule } from 'primeng/dialog';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [MenubarModule, BadgeModule, AvatarModule, InputTextModule, RippleModule, CommonModule, ButtonModule],
+  imports: [MenubarModule, BadgeModule, AvatarModule, InputTextModule, RippleModule, CommonModule, ButtonModule, DialogModule],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
 })
@@ -39,6 +40,8 @@ export class HeaderComponent {
 
   acoesViewedItems: any = [];
   fiisViewedItems: any = [];
+
+  visible: boolean = false;
 
   async ngOnInit() {
     this.themeService.themeInformation.subscribe(data => this.actualTheme = data);
@@ -245,7 +248,12 @@ export class HeaderComponent {
             shortcut: '⌘+B'
           },
         ]
-      }
+      },
+      {
+        label: 'Sobre Nós',
+        icon: 'pi pi-users',
+        command: () => this.navigateTo('about-us')
+      },
     ];
   }
 
@@ -267,6 +275,14 @@ export class HeaderComponent {
 
   openNotification(){
     // this.notificationsService.toggleVisibility();
+  }
+
+  openDialog() {
+    this.visible = true;
+  }
+
+  closeDiaog(){
+    this.visible = false;
   }
 
   navigateTo(route: string){
