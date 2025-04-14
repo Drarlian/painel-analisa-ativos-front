@@ -1,59 +1,107 @@
-# PainelAnalisaAtivos
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.4.
+# 📊 Invesight — Painel de Análise de Ativos da Bolsa de Valores (Frontend)
 
-## Development server
+Bem-vindo ao repositório **frontend** do projeto **Invesight**, uma plataforma moderna e responsiva para análise de ativos da bolsa de valores brasileira. Com um foco especial em investidores iniciantes, o sistema oferece uma visualização clara e inteligente de indicadores financeiros, aliando design fluido com informações relevantes para facilitar a tomada de decisão.
 
-To start a local development server, run:
+## 🚀 Tecnologias Principais
+
+- **Angular** 19.2.0
+- **PrimeNG** 19.0.10
+- **PrimeIcons** 7.0.0
+- **SCSS Modularizado**
+- **TypeScript Estruturado**
+
+---
+
+## 🧠 Objetivo do Projeto
+
+O **Invesight** visa entregar uma experiência simplificada, porém poderosa, para quem deseja entender e analisar ativos da bolsa de forma clara, mesmo sem domínio técnico avançado. A aplicação destaca:
+
+- Indicadores financeiros essenciais de ações e FIIs.
+- Uma nota de resistência para cada ativo, baseada em fundamentos buy and hold e cenário global.
+- Um sistema visual por cores para facilitar a leitura e avaliação de cada indicador.
+
+---
+
+## 🖼️ Funcionalidades
+
+- 🔍 **Pesquisa Inteligente** com input rápido e responsivo.
+- 🧮 **Análise de Indicadores** com foco em buy and hold.
+- 💹 **Nota de Resistência** automatizada para cada ativo.
+- 🎨 **Sistema de Temas Dinâmicos** (alteráveis em tempo real).
+- 📱 **Totalmente Responsivo** — ideal para desktop, tablets e celulares.
+- 🔀 **Sistema Completo de Rotas** com navegação fluida.
+- 🧩 **Arquitetura Modularizada** (pages, components, services, interfaces).
+- 🔗 Integração com **API própria** para alimentação dos dados em tempo real.
+
+---
+
+## 🏗️ Estrutura Atual
+
+Atualmente o painel cobre:
+
+- 📈 **Ações (B3)**
+- 🏢 **Fundos Imobiliários (FIIs)**
+
+🔜 Futuras versões incluirão:
+- 🏦 Tesouro Direto
+- 💰 Produtos de Renda Fixa em geral
+
+---
+
+## 📂 Estrutura do Projeto
+
+Organização modular baseada em escalabilidade e boas práticas Angular:
+
+```
+src/
+└── app/
+    ├── modules/global/
+    │   ├── components/
+    │   ├── interfaces/
+    │   ├── pages/
+    │   └── services/
+    ├── services/
+    ├── app.routes.ts
+    └── app.config.ts
+```
+
+---
+
+## 🔧 Como rodar o projeto
 
 ```bash
+# Clone o repositório
+git clone https://github.com/Drarlian/invesight-front.git
+
+# Acesse o diretório
+cd invesight-front
+
+# Instale as dependências
+npm install
+
+# Rode a aplicação
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+---
 
-## Code scaffolding
+## 📌 Requisitos
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+- Node.js 18+
+- Angular CLI
+- Navegador
 
-```bash
-ng generate component component-name
-```
+---
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## 📬 Contato
 
-```bash
-ng generate --help
-```
+Criado por **Witor Oliveira**  
+🔗 [LinkedIn](https://www.linkedin.com/in/witoroliveira/)  
+📫 [Contato por e-mail](mailto:witoredson@gmail.com)
 
-## Building
+---
 
-To build the project run:
+## 📄 Licença
 
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Este projeto está licenciado sob os termos da **MIT License**.
