@@ -14,11 +14,12 @@ import { InputSearchService } from '../../services/input-search/input-search.ser
 import { ActivesService } from '../../services/actives/actives.service';
 import { InitialConfigurationsService } from '../../services/initial-configurations/initial-configurations.service';
 import { DialogModule } from 'primeng/dialog';
+import { LoadingComponent } from '../loading/loading.component';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [MenubarModule, BadgeModule, AvatarModule, InputTextModule, RippleModule, CommonModule, ButtonModule, DialogModule],
+  imports: [MenubarModule, BadgeModule, AvatarModule, InputTextModule, RippleModule, CommonModule, ButtonModule, DialogModule, LoadingComponent],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
 })
@@ -42,6 +43,11 @@ export class HeaderComponent {
   fiisViewedItems: any = [];
 
   visible: boolean = false;
+
+  isLoading: boolean = true;
+  isLoadingSegmento: boolean = true;
+  isLoadingSector: boolean = true;
+  isLoadingMostViewed: boolean = true;
 
   async ngOnInit() {
     this.themeService.themeInformation.subscribe(data => this.actualTheme = data);
@@ -77,8 +83,10 @@ export class HeaderComponent {
           icon: 'pi pi-building',
           command: () => this.navigateTo('all/fiis')
         })
+
+        this.isLoadingSegmento = false;
       } else {
-        this.initialConfigurationsService.getFilters();
+        // this.initialConfigurationsService.getFilters();
       }
 
       // SETOR/TIPO DE FUNDO:
@@ -110,11 +118,14 @@ export class HeaderComponent {
           icon: 'pi pi-building',
           command: () => this.navigateTo('all/fiis')
         })
+
+        this.isLoadingSector = false;
       }
     });
 
     // const responseViewed = await this.activesService.getMostViewed('all', 4);
     this.initialConfigurationsService.mostViewedInformations.subscribe(data => {
+      // MAIS VISTOS:
       if (typeof(data) == 'object' && data.acoes && data.fiis){
         // Ações Mais Vistas:
         data.acoes.map((acao: any) => {
@@ -145,8 +156,9 @@ export class HeaderComponent {
         })
 
         this.createItems();
+        this.isLoadingMostViewed = false;
       } else {
-        this.initialConfigurationsService.getMostViewed();
+        // this.initialConfigurationsService.getMostViewed();
       }
     });
 
@@ -186,25 +198,6 @@ export class HeaderComponent {
             icon: 'pi pi-eye',
             items: this.acoesViewedItems
           },
-          {
-            separator: true
-          },
-          // {
-          //   label: 'Templates',
-          //   icon: 'pi pi-palette',
-          //   items: [
-          //       {
-          //         label: 'Apollo',
-          //         icon: 'pi pi-palette',
-          //         badge: '2'
-          //       },
-          //       {
-          //         label: 'Ultima',
-          //         icon: 'pi pi-palette',
-          //         badge: '3'
-          //       }
-          //   ]
-          // }
         ]
       },
       {

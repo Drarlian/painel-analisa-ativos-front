@@ -1,3 +1,4 @@
+import { InitialConfigurationsService } from './modules/global/services/initial-configurations/initial-configurations.service';
 import { HeaderComponent } from './modules/global/components/header/header.component';
 import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
@@ -21,7 +22,7 @@ export class AppComponent implements OnInit{
 
   visibleInputSearchDialog: boolean = false;
 
-  constructor ( private primeng: PrimeNG, private themeService: ThemeService, private inputSearchService: InputSearchService ) { }
+  constructor ( private primeng: PrimeNG, private themeService: ThemeService, private inputSearchService: InputSearchService, private initialConfigurationsService: InitialConfigurationsService ) { }
 
   ngOnInit(): void {
     this.primeng.ripple.set(true);
@@ -29,5 +30,13 @@ export class AppComponent implements OnInit{
     this.inputSearchService.statusInputSearchDialogInformation.subscribe((status) => {
       this.visibleInputSearchDialog = status;
     });
+
+    this.initializationServices();
+  }
+
+  async initializationServices() {
+    await this.initialConfigurationsService.getFilters();
+    await this.initialConfigurationsService.getMostViewed();
+    await this.initialConfigurationsService.getTopActives();
   }
 }

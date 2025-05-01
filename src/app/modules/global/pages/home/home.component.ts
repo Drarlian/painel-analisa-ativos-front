@@ -48,7 +48,7 @@ export class HomeComponent implements OnInit {
         this.topFiis = data.fiis;
         this.isLoadingTopFiis = false;
       } else {
-        this.initialConfigurations.getTopActives();
+        // this.initialConfigurations.getTopActives();
       }
     });
   }

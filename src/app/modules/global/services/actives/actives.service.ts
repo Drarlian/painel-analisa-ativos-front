@@ -5,6 +5,7 @@ import { Fiis } from '../../interfaces/Fiis';
 import { Acoes } from '../../interfaces/Acoes';
 import { ActivesViewed } from '../../interfaces/Viewed';
 import { Filters } from '../../interfaces/Filter';
+import { environment } from '../../../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -13,10 +14,16 @@ export class ActivesService {
   private http = inject(HttpClient);
   private messageService = inject(MessageService);
 
+  baseUrl = environment.apiBaseUrl;
+
+  constructor() {
+    console.log(this.baseUrl);
+  }
+
   async getAcoes(acoes: string[]): Promise<Acoes[] | boolean> {
     const acoesString = acoes.join(',');
 
-    return new Promise((resolve, _) => {this.http.get<Acoes[]>(`http://127.0.0.1:8000/acoes?ativos=${acoesString}`).subscribe({
+    return new Promise((resolve, _) => {this.http.get<Acoes[]>(`${this.baseUrl}/acoes?ativos=${acoesString}`).subscribe({
       next: (data) => {
         if (data) {
           resolve(data);
@@ -34,7 +41,7 @@ export class ActivesService {
   async getFiis(fiis: string[]): Promise<Fiis[] | boolean> {
     const fiisString = fiis.join(',');
 
-    return new Promise((resolve, _) => {this.http.get<Fiis[]>(`http://127.0.0.1:8000/fiis?ativos=${fiisString}`).subscribe({
+    return new Promise((resolve, _) => {this.http.get<Fiis[]>(`${this.baseUrl}/fiis?ativos=${fiisString}`).subscribe({
       next: (data) => {
         if (data) {
           resolve(data);
@@ -50,7 +57,7 @@ export class ActivesService {
   }
 
   async getAllAcoes(): Promise<Acoes[] | boolean> {
-    return new Promise((resolve, _) => {this.http.get<Acoes[]>('http://127.0.0.1:8000/get-all-acoes').subscribe({
+    return new Promise((resolve, _) => {this.http.get<Acoes[]>(`${this.baseUrl}/get-all-acoes`).subscribe({
       next: (data) => {
         if (data) {
           resolve(data);
@@ -66,7 +73,7 @@ export class ActivesService {
   }
 
   async getAllFiis(): Promise<Fiis[] | boolean> {
-    return new Promise((resolve, _) => {this.http.get<Fiis[]>('http://127.0.0.1:8000/get-all-fiis').subscribe({
+    return new Promise((resolve, _) => {this.http.get<Fiis[]>(`${this.baseUrl}/get-all-fiis`).subscribe({
       next: (data) => {
         if (data) {
           resolve(data);
@@ -82,7 +89,7 @@ export class ActivesService {
   }
 
   async getTopAcoes(acoesQuantity: number): Promise<Acoes[] | boolean> {
-    return new Promise((resolve, _) => {this.http.get<Acoes[]>(`http://127.0.0.1:8000/get-top-acoes/${acoesQuantity}`).subscribe({
+    return new Promise((resolve, _) => {this.http.get<Acoes[]>(`${this.baseUrl}/get-top-acoes/${acoesQuantity}`).subscribe({
       next: (data) => {
         if (data) {
           resolve(data);
@@ -98,7 +105,7 @@ export class ActivesService {
   }
 
   async getTopFiis(fiisQuantity: number): Promise<Fiis[] | boolean> {
-    return new Promise((resolve, _) => {this.http.get<Fiis[]>(`http://127.0.0.1:8000/get-top-fiis/${fiisQuantity}`).subscribe({
+    return new Promise((resolve, _) => {this.http.get<Fiis[]>(`${this.baseUrl}/get-top-fiis/${fiisQuantity}`).subscribe({
       next: (data) => {
         if (data) {
           resolve(data);
@@ -114,7 +121,7 @@ export class ActivesService {
   }
 
   async SearchActives(term: string): Promise<Acoes[] | Fiis[] | boolean> {
-    return new Promise((resolve, _) => {this.http.get<Acoes[] | Fiis[]>(`http://127.0.0.1:8000/search-actives?term=${term}`).subscribe({
+    return new Promise((resolve, _) => {this.http.get<Acoes[] | Fiis[]>(`${this.baseUrl}/search-actives?term=${term}`).subscribe({
       next: (data) => {
         if (data) {
           resolve(data);
@@ -130,7 +137,7 @@ export class ActivesService {
   }
 
   async getAllFilters(typeActive: string, quantityActives: number): Promise<Filters | boolean> {
-    return new Promise((resolve, _) => {this.http.get<Filters>(`http://127.0.0.1:8000/get-all-filters/${typeActive}/${quantityActives}`).subscribe({
+    return new Promise((resolve, _) => {this.http.get<Filters>(`${this.baseUrl}/get-all-filters/${typeActive}/${quantityActives}`).subscribe({
       next: (data) => {
         if (data) {
           resolve(data);
@@ -146,7 +153,7 @@ export class ActivesService {
   }
 
   async getMostViewed(typeActive: string, quantityActives: number): Promise<ActivesViewed | boolean> {
-    return new Promise((resolve, _) => {this.http.get<ActivesViewed>(`http://127.0.0.1:8000/get-most-viewed/${typeActive}/${quantityActives}`).subscribe({
+    return new Promise((resolve, _) => {this.http.get<ActivesViewed>(`${this.baseUrl}/get-most-viewed/${typeActive}/${quantityActives}`).subscribe({
       next: (data) => {
         if (data) {
           resolve(data);
@@ -162,7 +169,7 @@ export class ActivesService {
   }
 
   async getTopActives(typeActive: string, activesQuantity: number): Promise<{acoes: Acoes[], fiis: Fiis[]} | boolean> {
-    return new Promise((resolve, _) => {this.http.get<{acoes: Acoes[], fiis: Fiis[]}>(`http://127.0.0.1:8000/get-top-actives/${typeActive}/${activesQuantity}`).subscribe({
+    return new Promise((resolve, _) => {this.http.get<{acoes: Acoes[], fiis: Fiis[]}>(`${this.baseUrl}/get-top-actives/${typeActive}/${activesQuantity}`).subscribe({
       next: (data) => {
         if (data) {
           resolve(data);
