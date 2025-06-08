@@ -17,7 +17,7 @@ export class ActivesService {
   baseUrl = environment.apiBaseUrl;
 
   constructor() {
-    console.log(this.baseUrl);
+    // console.log(this.baseUrl);
   }
 
   async getAcoes(acoes: string[]): Promise<Acoes[] | boolean> {

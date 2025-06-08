@@ -1,5 +1,6 @@
+import { acoesInfos, fiisInfos } from './../../utils/AtivosInfos';
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CardModule } from 'primeng/card';
 import { TagModule } from 'primeng/tag';
@@ -29,7 +30,8 @@ export class AnaliticComponent implements OnInit{
   nameActive: string | null = null;
 
   activeInfos: any = {}
-  // activeInfosEntries: any = []
+  acoesInfos = acoesInfos;
+  fiisInfos = fiisInfos;
 
   grahamValue!: string;
   grahamStatus!: string;
@@ -143,6 +145,19 @@ export class AnaliticComponent implements OnInit{
   }
 
   toggleShowAllInformations(){
+    if (this.typeActive == 'acoes') {
+      this.acoesInfos.map((acao) => {
+        if (!acao.alwaysShow) {
+          acao.show = !acao.show;
+        }
+      });
+    } else if (this.typeActive == 'fiis') {
+      this.fiisInfos.map((fii) => {
+        if (!fii.alwaysShow) {
+          fii.show = !fii.show;
+        }
+      });
+    }
     this.showAllInformations = !this.showAllInformations;
   }
 
@@ -200,6 +215,11 @@ export class AnaliticComponent implements OnInit{
       return note
     }
     return Number(note).toFixed(1).replace('.', ',');
+  }
+
+  getCardClass(active: any): string {
+    const color = active.color ? (this.activeInfos[active.reference] ? this.defineCardColor(active.reference) : '') : '';
+    return `card ${color}`;
   }
 
   navigateTo(route: string){
